@@ -1,0 +1,1550 @@
+% v2-acmsmall-sample.tex, dated March 6 2012
+% This is a sample file for ACM small trim journals
+%
+% Compilation using 'acmsmall.cls' - version 1.3 (March 2012), Aptara Inc.
+% (c) 2010 Association for Computing Machinery (ACM)
+%
+% Questions/Suggestions/Feedback should be addressed to => "acmtexsupport@aptaracorp.com".
+% Users can also go through the FAQs available on the journal's submission webpage.
+%
+% Steps to compile: latex, bibtex, latex latex
+%
+% For tracking purposes => this is v1.3 - March 2012
+
+\documentclass[prodmode,acmtecs]{acmsmall} % Aptara syntax
+
+% Package to generate and customize Algorithm as per ACM style
+\usepackage[ruled]{algorithm2e}
+\usepackage{cite}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{tikz}
+\usetikzlibrary{mindmap,trees}
+\renewcommand{\algorithmcfname}{ALGORITHM}
+\SetAlFnt{\small}
+\SetAlCapFnt{\small}
+\SetAlCapNameFnt{\small}
+\SetAlCapHSkip{0pt}
+\IncMargin{-\parindent}
+
+% Metadata Information
+\acmVolume{9}
+\acmNumber{4}
+\acmArticle{39}
+\acmYear{2010}
+\acmMonth{3}
+
+% Document starts
+\begin{document}
+
+% Page heads
+\markboth{K. Maheshwari et al.}{A Survey of Scientific Workflow Management Systems}
+
+% Title portion
+\title{A Survey of Scientific Workflow Management Systems}
+\author{KETAN MAHESHWARI
+\affil{University of Nice, Sophia Antipolis}
+JOHAN MONTAGNAT
+\affil{CNRS}
+}
+% NOTE! Affiliations placed here should be for the institution where the
+%       BULK of the research was done. If the author has gone to a new
+%       institution, before publication, the (above) affiliation should NOT be changed.
+%       The authors 'current' address may be given in the "Author's addresses:" block (below).
+%       So for example, Mr. Abdelzaher, the bulk of the research was done at UIUC, and he is
+%       currently affiliated with NASA.
+
+\begin{abstract}
+
+In this work we conduct a literature study of the key features of the
+contemporary scientific workflow environments. The criteria for study are
+defined. An overview of studied scientific workflow environments is given
+followed by the identification and description of the features offered by each
+of the environment. A tabulated summary for each feature gives a high-level
+view of the offered features. Finally, a taxonomy is proposed placing these
+features into respective places in a hierarchy.  
+
+\end{abstract}
+
+%\category{C.2.2}{Computer-Communication Networks}{Network Protocols}
+
+%\terms{Design, Algorithms, Performance}
+
+%\keywords{Wireless sensor networks, media access control, multi-channel, radio interference, time synchronization}
+
+\acmformat{Ketan Maheshwari, Johan Montagnat
+, 2014. A survey of scientific workflow management systems.}
+% At a minimum you need to supply the author names, year and a title.
+% IMPORTANT:
+% Full first names whenever they are known, surname last, followed by a period.
+% In the case of two authors, 'and' is placed between them.
+% In the case of three or more authors, the serial comma is used, that is, all author names
+% except the last one but including the penultimate author's name are followed by a comma,
+% and then 'and' is placed before the final author's name.
+% If only first and middle initials are known, then each initial
+% is followed by a period and they are separated by a space.
+% The remaining information (journal title, volume, article number, date, etc.) is 'auto-generated'.
+
+\begin{bottomstuff}
+This work is supported by the ANR-CNRS, under
+grant contract CNRS-0435060.
+
+Author's addresses: Ketan Maheshwari, Argonne National Laboratory; Johan Montagnat, I3S, Sophia Antipolis
+\end{bottomstuff}
+
+\maketitle
+
+%Workflows considered:
+% MOTEUR2
+% Taverna
+% Swift
+% Pegasus
+% Triana
+% Galaxy
+% Makeflow
+% Dryad
+% Science pipes
+% GWES
+% Spark
+% Linda
+% DaGue
+
+\section{Introduction}
+
+\vspace*{0.5cm}\hspace{1cm} Scientific Workflow Environments (SWE from here on)
+are, in principle similar to the traditional programming environments
+(programming language, interpreter or compiler, and runtime) albeit with a
+larger scale of data and a higher abstraction of computation. The similarity is
+such that scripting languages are sometimes advocated for programming at this
+level. However, traditional scripts do not deal with parallelism and dataflow
+aspects of workflow paradigm that makes them a limited contenders. 
+%
+%Add more content here to beef up the context.
+%
+The goals of a workflow management system for scientific computing are as
+follows:
+
+\begin{enumerate}
+\item \textbf{User Interaction.} Adaptation to new methods of computing is not
+easy for domain science users. Such users often need special assistance in
+order to translate their computation requirements into concrete computing
+entities.  SWEs are an ideal platform enabling users to perform many tasks
+conveniently.  These tasks include composing and marshalling of execution,
+browsing and selecting data, visualizing results. Furthermore, dissemination of
+methods and results to communities and collaborators are some of the activities
+that SWEs make convenient for end-users.
+
+\item \textbf{Resource Access and Utilization.} Computational platforms and
+ access modalities change rapidly with upgradation of existing technologies and
+adaptation of new techniques. Clouds are the latest examples of new techniques
+of computational platform access while GPGPUs examples in upgradation of
+existing processing environments. Additionally, with the advent of fast and
+dedicated networks such as ESNet and federated visualization resources, remote
+visualization is gaining prominence among scientific users. SWEs play important
+role as platforms to give transparent and hassle free access to such novel and
+multiple environments to users by hiding the technicalities of access methods.
+
+\item \textbf{Repeatable Execution.} Scientific users often require a
+repeatable execution of same workflow for reproduction of results and
+demonstration of methods. SWEs can record and save workflows, associated
+parameters, source data and historical results to aid in such activities.
+Additionally, SWEs facilitate an incremental development of such methods
+leading to augmentation of past efforts to current and future developments.
+
+\item \textbf{Provenance and MetaData.} Historical data and metadata has been
+crucial entities in many research fields. They help connecting results from
+a multitude of research aspects. A provenance trace of computation can help
+checkpoint methods and reproduce and modify partial computation. Automated
+observations of deviations in scientific phenomena from provenance data is one
+of the key triggers for new scientific discoveries. Fields of studies involving
+genomic and protiens are examples of domains where provenance and metadata
+plays key roles. SWEs can be integrated or extended with metadata and
+provenance techniques rendering powerful computing traceability features.
+
+\item \textbf{Sharing and Collaboration.} Workflow managers are often targetted
+towards a community of users. For instance, the Galaxy workflow system is
+targetted specifically for the bioinformatics users. Galaxy attracts many users
+from the same community thus promoting sharing and collaboration via a common
+computational platform. Another such example is Taverna which is geared towards
+sharing and collaborative workflow oriented scientific computation enabling
+users to discover new services introduced to a community.
+
+\end{enumerate}
+
+As a consequence to these design goals, the SWEs differ in many aspects with
+respect to traditional programming environments. The following list identifies
+the major differences between traditional and the SWE programming
+paradigm:
+
+\begin{enumerate}
+%
+\item \textbf{Scalability and Optimization.} SWEs are more likely to involve extensive usage of distributed resources than conventional programs. Owing to the large-scale experiments, for which scientific users turn to automation, their demands for computational power often exceeds that of a single personal computer. Such applications are often composed of multiple, distinct computational stages making them well-suited to the workflow paradigm. These properties also make them ideal candidates for a large-scale distributed computing environment. The case for suitability of SWEs on large-scale distributed infrastructures has been well-argued upon in~\cite{jha-katz-etal:2009}. In such a scenario, taking explicit steps to ensure scalable and optimized performance is vital.
+%
+\item \textbf{Data Management.} The scale of data transfer is much higher in SWEs from one execution site to others as well as among storage resources while it is lower (ranging from variables to small data structures) in programs.
+%
+\item \textbf{Interface to Distributed Computing Infrastructures (DCIs).} Building SWE's interfaces to distributed systems is a complex task. The distributed nature of resource utilization and asynchronous execution of workflow requires a set of interdependent parameters to be configured correctly. Further complexity is added because of complex dataflow requirements, interactions with diverse tools and linking with legacy application codes.
+%
+\item \textbf{Expressiveness.} Programming languages are inherently control flow oriented where data flow is a secondary aspect. In fact, the programmer must explicitly make sure that correct the inputs are available to instructions and are in the right format. A program proceeds as the execution of its statements from beginning to end and completes its execution in a predefined sequence. However, in SWEs, the flow is often determined by the data availability for execution. This model of computation is known as dataflow computing. A workflow thus does not follow a fixed order of execution and different execution sequences are possible which are dominated by dataflow. The unit of work in SWEs is at a higher level of granularity. A unit of execution is coarse-grained, and often termed as ``processor'', ``task'', ``service'' or ``actor'' in the SWE community. This notion of high-level granularity drives the depth to which a workflow can be expressed in a given language form. In the rest of this paper, this unit of work will be referred to as \textit{processor}. On the other hand, a unit of execution in most programming languages is a much simpler and finer executable statement that accomplishes a small computational task. This presents a whole new set of requirements for expressing the processors and how they should interact and operate upon data.
+%
+\item \textbf{Usability.} SWEs predominantly serve as a tool for the domain experts to utilize the computational power. This makes it essential for them to have a friendly, and intuitive user-interface for novice and non-expert users. For this reason, SWE user interfaces are dominated by the visual paradigm of programming. On the other hand, traditional programs are most often written by expert programmers. Thus, they have a text-based composition environment albeit with visually assisting programming environments such as IDEs. However, they are seldom to the extent that a non-expert user can graphically compose programs.
+    
+\end{enumerate}
+
+We concede that the above is not an exhaustive list of differences in features.
+However, it is reasonably inclusive and we believe it covers the breadth of
+aspects we cover in the current work. We do not include other interesting SWE
+features such as provenance and interoperability in this analysis as they are
+out of scope of the objectives of the current paper.
+
+
+\section{Architecture of a Generic SWE}
+Figure \ref{fig:wfms} shows a high-level architecture of a SWE. It shows key components and their interaction in a SWE. These components are the focus of interest for the present work. A \textit{user interface} interacts with the \textit{workflow engine} using commands and messages. The \textit{workflow language} becomes an intermediate representation for communication between user interface and the \textit{workflow engine}. The workflow engine acts as a compiler/interpreter and scheduler for the workflow tasks and interfaces with the underlying \textit{distributed resources}. It also monitors the workflow progress and collects the intermediate and final results.
+%
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=\linewidth]{figures/workflow_interfaces_and_language}
+\caption{A generic SWE scheme showing the relationship and interaction among important components}
+\label{fig:wfms}
+\end{center}
+\end{figure}
+%
+SWEs are used as tools to benefit from the underlying large-scale computing infrastructure such as clusters, supercomputers, clouds, grids. Such environments are in use today for production level work in different scientific domains worldwide. They do the basic task of linking inter-related processors of a multi-staged scientific computation. However, they differ in the features they provide based upon the scientific domain they offer service for, and the computational model they follow. Often, one of the main reasons for such difference is the specialized components and requirements for a particular domain. Owing to this fact, a given workflow system dominates a particular area of science (eg. astronomy, biology, etc.). Nonetheless, there exist a plethora of SWEs suitable for general purpose workflow style computations.
+% Ketanmark
+
+\section{Related Work}
+Surveys and studies on workflows similar to the present one have been done in
+the past. Yu and Buyya \cite{yu-buyya:2005} proposed a detailed taxonomy of
+SWEs, studying many existing systems for distributed computing. This taxonomy
+is based, to a large extent on the capabilities of the workflow enactors. It
+provides only a limited insight to the SWE aspects considered in the present
+paper, especially the workflow languages expressiveness and SWEs interactions
+with the distributed computing infrastructures. A more recent work by Goderis
+and co-authors \cite{goderis-brooks-etal:2009} studies a topic more closely
+related to the workflow language expressiveness: it compares the models of
+computations of various workflow directors implemented in Kepler
+\cite{ludascher-altintas-etal:2005a} with the perspective of enabling
+composition of different models in sub-workflows of a global orchestration.
+This work illustrates how different enactors designed for different application
+needs have different expressiveness power. Deelman et. al.
+\cite{deelman-overview} present a high-level overview of the scientific
+workflow features and capabilities including SWE composition, representation
+and resource mapping capabilities. The recent survey from Stratan et. al.
+\cite{stratan-iosup-etal:2008} about the workflow engine performance takes into
+account the latencies involved during the enactment mechanisms. A small survey
+and analysis of file-access characteristics of Data-intensive workflows has
+been done by Shibata et. al.~\cite{Shibata}. Early surveys on workflow
+languages and suitability of general purpose languages to workflows is
+conducted in \cite{generalpurpose}. These surveys were conducted before a few
+years and in the meantime SWEs have come a long way in terms of capabilities
+and enactment approaches. New techniques such as the map/reduce framework
+\cite{mapreduce} have been introduced as a promising new approach to workflow
+enactment over distributed infrastructures. Several issues put forth by such
+surveys such as customized service wrapping and enactment have been adequately
+addressed over the
+years~\cite{glatard-montagnat-etal:2008a,delaitre-kiss-etal:2005,rojasbalderrama-montagnat-etal:2010}.
+
+Another well-studied feature is the workflow languages. Many different
+languages have been considered within the SWE community, from raw Directed
+Acyclic Graphs (DAGs) of computational processes such as CONDOR DAGMan
+\cite{dagman} to abstractions for parallel computations such as Petri nets
+\cite{alt-hoheisel:2005}, meta-models \cite{nemo-glatard-etal:2007},
+data-driven languages such as Scufl \cite{turi-missier-etal:2007} and scripting
+languages such as SwiftScript \cite{swift}. Glatard's PhD thesis
+\cite{glatard:2007} presents a taxonomy of SWE languages classifying them into
+functional, graph, service-oriented and executable representations. A detailed
+classification and taxonomy of parallelism patterns in Grid Workflows has been
+presented by Pautasso and Alonso in \cite{pautasso1}. This classification is
+more generic while the one presented in Glatard's thesis has emphasis on
+service based workflows.  Each of these approaches can be defended through some
+aspects well covered in their design: DAGs are convenient for scheduling
+\cite{Malewicz:2007,hall-rosenberg-etal:2007}, Petri nets can be used to detect
+properties such as potential deadlocks, data-driven languages ease the
+description of applications logic for nonexpert users and scripting is
+extensively used by programmers for prototyping, etc.
+
+DAGs are by far, the most popular abstraction of the way workflows are
+perceived and visualized. The MA
+DAG\footnote{http://graal.ens-lyon.fr/diet/workflow.html}
+\cite{caron-desprez:2005}, engine is one example of a DAG generator engine. MA
+DAG has evolved from a regular DAG generator to a more abstract DAG generator
+laced with control structures. MA DAG benefits from the workflow scheduling
+mechanisms included in the middleware. Due to the impossibility to produce
+complete DAGs owing to the presence of control structures such as conditionals
+and loops, MA DAG generate partial DAGs greedily: a sub-DAG, as complete as
+possible, is produced as soon as possible. In spite of the presence of many
+different approaches to workflow languages, new application requirements
+continue to pose workflow expressiveness challenges. The community is yet to
+realize a truly generic workflow language that can express a wide variety of
+flow patterns encountered in scientific domains.
+
+\section{Objectives and Organization}
+The present work analyzes contemporary SWEs used in the context of e-science to
+find out the capabilities and key features in terms of the characteristics
+described in the introduction part of this paper. The rest of this paper is
+organized as follows: Section \ref{sec:overview} presents an overview of the
+key SWEs studied in this work. Section \ref{sec:scal} discusses the
+optimization features and resulting scalable performance as observed in the
+SWEs studied. Section \ref{sec:data} studies the data management and
+description aspects of the SWEs. Section \ref{sec:inter} presents a study of
+SWEs approaches to interface the large-scale computing infrastructures. Section
+\ref{sec:lang} details the language features and expressiveness of the SWEs
+studied. Section \ref{sec:usable} discusses the usability aspects of the SWEs.
+Section \ref{sec:sum} presents a summary and a classification of all the
+aspects of SWEs studied in this work. Throughout the paper, we also present
+tables summarizing the aspects of SWEs considered in respective sections. It
+was not possible to obtain an exhaustive information about all the SWEs
+considered in this work since we rely on the peer reviewed publications for
+information on a given SWE. Some features, such as extendability of SWE
+strongly depend on the extension points designed in the code; consequently, we
+consider it present in only those SWEs that have a documented description or
+demonstration of the given feature. 
+
+\section{Overview of the Workflow Environments} \label{sec:overview}
+In this section we present an overview of the Workflow Environments studied.
+The paragraphs headers are organized by the name of the workflow environment
+followed by the language they chiefly support separated by a forward slash (/).
+The cases where the workflow language is not specifically defined or conversely
+where there are multiple engines supporting a generic workflow language are
+denoted by an asterisk (*) or a hyphen (-) at the respective places.
+\paragraph{Taverna/scufl} The Taverna Workflow Management System
+\cite{oinn-addis-etal:2004} is an open source scientific dataflow manager
+developed by the mygrid~consortium in the UK.
+%
+Taverna includes a GUI-based rich-client workbench for workflow design and a
+workflow enactment engine. Taverna can enact workflows expressed in the scufl
+language. Scufl is a near Turing complete dataflow language with well-defined
+semantics \cite{turi-missier-etal:2007,glatard-montagnat:2008}. 
+
+A Taverna workflow consists of a collection of processors connected by data
+links, which establish a dependency between the output(s) of a processor and
+the input(s) of another. Apart from data links, the processors may also be
+connected through coordination links that make a processor invoke when a
+previous processor ends its execution.  The processors are of different kinds
+depending on the application code to be invoked: typically, processors are Web
+Services, with input and output \textit{ports} that correspond to the
+operation's invocations and response sequences defined in the service`s WSDL
+interface.  Java classes and local scripts can be used as workflow processors,
+as long as they expose their signature as input and output ports as required by
+the model.  The engine orchestrates the execution of the processors in a way
+that is consistent with the dependencies, and manages the flow of data through
+the processors' ports. The overall workflow execution is data-driven, with a
+push model: a processor's execution is started as soon as all of its inputs are
+available.
+
+Taverna is a flexible and extendible workflow environment
+\cite{missier-soiland-reyes-etal:2010,sroka2009a} in that extending the
+engine's functionality is facilitated through a Service Provider Interface
+(SPI). A third party developer intending to extend a functionality must write
+its logic as an SPI and publish it as an extension SPI. This may manifest
+itself in different ways depending upon the intended requirements of the
+developer, examples being as a task in the service panel or internally within
+the enactor as additional functionality.
+
+The Taverna engine implements a sophisticated mechanism for enactment of
+parallel workflows. These mechanisms manifest in the form of pipelines and an
+advanced superpipelined enactment of workflows. In the case of pipelined
+execution, a simple pipeline of tasks are overlapped into a back to back
+execution for a single data set. Such a mechanism induces multiple downstream
+workflow processors running in parallel for a dataset. In the case of
+superpipelines, multiple such pipelines instances run for multi-datasets
+providing a high degree of parallelism limited only by the availability of
+underlying hardware resources.
+
+Taverna is not natively interfaced with a Grid infrastructure but the same can
+be achieved with the help of extending the engine through one of its SPIs. 
+
+\paragraph{MOTEUR/scufl} MOTEUR \cite{glatard-montagnat-etal:2008} is a SWE
+developed at the I3S laboratory, University of Nice at Sophia Antipolis (UNS).
+MOTEUR facilitates executing workflows consisting of remote web- and
+grid-services. It exploits service parallelism at workflow level and data
+parallelism for multiple datasets.
+
+MOTEUR has sophisticated data management mechanisms within the workflow definition. It provides a diverse set of iterations strategies well adapted for different combinations of input datasets at the processor. An iteration strategy allows different combinations of the data arriving at a processor along its multiple inputs. Running legacy application code on grids has been eased by MOTEUR by providing a generic grid-service wrapper for these applications \cite{glatard-montagnat-etal:2008a}. Grid-services thus created can be readily deployed on the grids by the MOTEUR workflow enactor. MOTEUR workflows are written in the scufl language and are compatible with those written for the Taverna SWE. It also supports an extension of scufl language called the Gwendia language, developed at the same laboratory. 
+%
+\paragraph{Makeflow} Business Process Execution Language (BPEL) \cite{oasis:2007} is a workflow language pioneered by IBM Corporation and used predominantly to define business workflows. It is now a broad standard for business workflow applications. BPEL is an open language and commercial enactors are available that provide enactment functionality for the BPEL workflows. There has been attempts to use BPEL or its extended version in the scientific applications \cite{slominski:2007,bpel}. However, the language does not suit well to the data-intensive, grid workflows and has a limited adoption in the scientific community \cite{tan-missier-etal:2010,barga-gannon:2007,scherp-hoing-etal:2009,emmerich-butchart-etal:2005}. Apart from that, a lack of an open-source workflow engine with graphical interface also contributes to its limited acceptance in academic research. However, BPEL has been famously unsuitable for data intensive scientific applications  BPEL lacks different user-defined strategies to effect multiple invocations of each processor according to the application semantics. BPEL also lacks data streams and implicit parallelism forcing a user to explicitly define parallelism using one of its parallel processing constructs such as \texttt{foreach}.
+%
+\paragraph{Triana/xml} Triana \cite{taylor-shields-etal:2003} is a java-based SWE developed at the Cardiff University. It consists of a workflow composition GUI, a framework to integrate workflow with the different execution environments and middlewares and a set of predefined services written as java components. A Triana workflow is expressed as an XML grammar similar to a WSDL specification for webservices \cite{taylor-wand-etal:2005}. A highlight of Triana is that it provides ready-to-use interface for a wide variety of middleware and distributed infrastructures including P2P, grids and web-services frameworks. A Triana workflow provides dataflow as well as control flow support. Triana allows conditional branching and looping in its workflows.
+%
+\paragraph{Kepler/MoML} Kepler \cite{ludascher-altintas-etal:2005a} is a SWE based upon the Ptollemy II framework \cite{eker-janneck-etal:2003} developed at the University of California. Kepler workflows follow an actor-director metaphor where an actor represents a unit of execution and the director represents the paradigm for executing the workflows consisting of the actors. Depending upon the types of directors, a Kepler workflow may exhibit a different type of execution behavior. A workflow designer can chose from among directors based upon the purpose of a workflow. Few of these include Process Network (PN) for a parallel execution at the workflow level, Synchronous Data Flow (SDF) for simple sequential data flow and Collection Oriented Modeling and Design (COMAD) \cite{keplercomad} for a collection oriented workflow. Kepler uses the Modeling Markup Language (MoML)~\cite{lee-neuendorffer:2000} for its workflow representation. MoML is an extended XML syntax providing a rich vocabulary to compose Kepler workflows. A workflow processor is called an `actor' in Kepler. 
+%
+\paragraph{Dryad/--} The GridNexus \cite{GridNexus} SWE, developed at the University of North Carolina, Wilmington, facilitates a graphical composition and execution of DAG-based workflows. Like Kepler, GridNexus is also based on Ptolemy II framework. GridNexus workflows are expressed in an XML-based scripting language called JXPL \cite{hunt-ferner-etal:2005}. JXPL is a customizable and extensible scripting language allowing users to write their own workflow processor types. GridNexus workflows are grid oriented and can be deployed on grid resources accessed through a persistent WS-RF (Web Services Resource Framework) interface.
+%
+\paragraph{Pegasus/DAX} Pegasus \cite{deelman-peg} is a low-level distributed computing framework that can map abstract workflows as DAGs to the concrete underlying resources using intelligent and dynamic scheduling policies. A Pegasus workflow is expressed in a simple XML-based language called DAX (DAG in XML). DAX describes the logical workflow components, their inputs and outputs and their links and dependencies in a Pegasus workflow. These kind of workflows has been shown to enact optimally using Pegasus' smart memory and disk management techniques. Pegasus manager buffers and maintains a fix-sized window of executable tasks before accepting new tasks.
+%
+
+\paragraph{Swift/Swift Script} Swift \cite{swift} is a script-based scientific workflow environment developed at the University of Chicago. A Swift workflow specified in the SwiftScript scripting language is translated to an intermediate XML-based representation and enacted by the Karajan workflow enactment engine. The SwiftScript language is proposed as a workflow language founded on a scripting approach programmers are familiar with. To make the language adapted to grids, the inventors of SwiftScript generalized the use of futures \cite{Halstead85multilisp:a} for every variables defined in the script. Futures are non-blocking assignment variables, using a proxy to ensure immediate execution of assignment and performing lazy blocking on variable value accesses only. The systematic use of futures for every variables in the language makes it completely data-driven: the execution progresses asynchronously as long as a data access is not blocking. The availability of data enables blocked thread to restart execution. The beauty of futures is to make this process completely hidden from the programmer who can use a scripting language he is familiar with without ever manipulating explicit parallel programming constructs. Swift facilitates a highly asynchronous workflow execution. Swift supports advanced workflow constructs such as parallel loops and conditionals. Furthermore Swift supports processing of explicitly defined arrays of data. Swift workflows take advantage of POSIX-style shared file system to reuse the data produced by other processors.
+% Put this somewhere else, either in the analysis or may be in the conclusions and summary.
+%The \textit{gscript} \cite{maheshwari-montagnat:2010} workflow language developed as a part of the current work is similar in spirit to the SwiftScript. Similar to SwiftScript, gscript adopts futures to express asynchronous execution in a script-based language. A SwiftScript workflow contains statically typed datasets that can be specified using ``annotations'' in the script. Unlike SwiftScript, gscript does provide user-defined strategies in order to effect data combinations in the workflow. SwiftScript provides for fault-tolerance and exception handling at run-time which is lacking currently in gscript. The underlying datasets organization in swift is represented using an XDTM XML-representation. This means that effectively, a workflow is SwiftScript plus the XDTM data representation. A workflow is simpler and compact in gscript as its data description is embedded within a workflow representation. SwiftScript supports creation of nested-workflows in the form of compound procedures. Conditional and Loop execution is supported using the if and for/while statements in both the languages.
+%
+\paragraph{ASKALON/AGWL.} The ASKALON Problem Solving Environment (PSE) \cite{fahringer-prodan-etal:2007} is developed at the University of Innsbruck. ASKALON is described as a Scientific PSE capable of composing, hosting, executing, sharing and reusing scientific workflows written in the Abstract Grid Workflow Language (AGWL). AGWL is an XML-based workflow language that is capable of expressing scientific application components chains at a high-level of abstraction. A concrete workflow consists of the abstract workflow combined with the resources and target execution environment binding the workflow. The graphical interface of AGWL is based upon the UML (Unified Modeling Language) diagrams.
+%
+\paragraph{GWES/GWorkflowDL} The Grid Workflow Execution Service (GWES)~\cite{Hoheisel2007} is a SWE developed by the Fraunhofer-First institute. It implements a dynamic workflow composition and enactment model based on the Grid Workflow Description Language (GWorkflowDL)~\cite{Alt2006}. GWES enables key workflow development and deployment lifecycle phases including visual composition, data-staging, Grid middleware interfacing and execution monitoring. Currently, GWES is intensively being used in the field of Medical Image Processing especially at the Charit\'{e} Hospital at Berlin in Germany. It has been successfully interfaced with the German D-Grid infrastructure.
+%
+
+\paragraph{The Galaxy Portal/JSON} The P-GRADE Portal \cite{kacsuk-sipos:2005} developed at the MTA SZTAKI Computation and Automation Institute, Budapest, provides an access to grid computational and storage resources from a web browser through a specialized workflow oriented grid portal. A workflow development environment interfaces the users through this web based portal. The portal interfaces the multiple grid computing middleware and storage resources as a backend component of the environment. A highlight of P-GRADE portal is that it provides access to multiple grids and scientific communities in a single environment leading to a highly collaborative inter-community, inter-grid research environment. An older version of P-GRADE used the condor-Dagman as workflow engine while the recent version uses its own in-house developed workflow engine called Xen.
+%
+\paragraph{DaGue/--} Bioflow \cite{bioflow} is a query based workflow language. It is motivated by the fact that bioinformatics applications are query based applications that benefit from the complex database queries or saved database `views'. A typical Bioflow workflow pipelines a sequence of filter queries in order to get the desired results. Bioflow is mainly utilized in the area of bioinformatics and querying genome databases. Additionally, a Bioflow workflow provides mechanisms for data manipulation and updation in the existing databases. It also includes advanced features such as parallel processing of a set of mutually independent database queries. The execution model is based on the popular database query language SQL (Structured Query Language). Processes can be defined in Bioflow which are processor counterparts in workflow paradigm and similar to stored-procedures in SQL jargon.
+
+Vizbuilder \cite{vizbuilder} is a graphical toolkit to generate the graphical representation of bioflow workflows. A Vizbuilder workflow links to an underlying bioflow engine and provides an interface to submit the bioflow workflows for execution.
+%
+\paragraph{*/Martlet} Martlet \cite{martlet} is a text-based, declarative workflow language that is inspired by the functional programming paradigm. A Martlet workflow conveniently enables distributed parameter sweep applications wherein the language intuitively defines the computation and a matching with the distributed resources can be carried out at workflow execution time. List processing applications where a sequence of application components work over an array of data in a Multi-data multi-instruction style setup is well-suited to the Martlet's model of computation.
+%
+\paragraph{Knime/--} Knime \cite{knime} is a distributed, parallel pipelining system for data intensive applications developed at the University of Konstanz. It is a java-based platform with a Graphical Interface that is based on eclipse (\textit{http://www.eclipse.org}) plug-in framework. A Knime workflow consists of processors belonging to categories such as readers, manipulators, learners, predictors, etc. Each processor has a configuration dialog associated with it that allows user to set its parameters. Processors are connected through data and/or control connections. A highlight of knime is support for shared- and distributed-memory workflow enactment and support for parallel workflow loops and subworkflows. The loops in Knime manifest themselves in the form of subworkflows (called metanodes in Knime) by a repeated enactment of the same subworkflow.
+%
+\paragraph{*/} StarFlow \cite{angelino-yamins-etal:2010} is a Python-based script oriented workflow language used to encode parallel pipelines. StarFlow handles data as well as control flow using a combination of static, dynamic and user annotations analysis. A parallelization engine uses data and control dependencies in a workflow in order to build a parallel profile of the workflow. StarFlow has been shown to be successfully interface with the SunGrid \cite{gentzsch:2001} Schedular and Amazon EC2 cloud infrastructure \cite{ec2}. The key feature of StarFlow is its capability to execute workflows to maximum possible parallelism. While StarFlow provides a script-based compact and semiautomatic workflow composition environment, currently it lacks a sophisticated GUI for workflow composition. 
+
+\paragraph{Galaxy/--} Galaxy \cite{blankenberg-vonkuster-etal:2010} is a bioinformatics domain SWE based framework developed at the Penn State University, Pennsilvania. It provides a webportal based environment to build complex pipelines from an available repository of tools (\textit{http://g2.bx.psu.edu}). Users can extend the tool repository provided by Galaxy using their own Galaxy server or a web-server exposing the webservice descriptions through public WSDLs. One of the major use of Galaxy is to achieve a mix and match of data analysis tools in order to analyze a vast repository of genome based database.
+
+% == ENACTOR SCALABILITY AND OPTIMIZATION ==
+\section{Enactor Scalability and Optimization} \label{sec:scal}
+%We have results comparing \MOTEUR and Taverna performance!
+%For Pegasus: Scaling up workflow based applications.
+A simple definition of scalability in the context of SWE is that the
+performance of the workflow engine increases linearly with the increasing
+number of similar tasks.  Here, similar is an important term that means the
+nature of tasks should be the same in terms of processing and data handling.
+Depending upon the lag or increase in the linearity we say a workflow enactor
+scales up or down.  In the present section, we focus on the scalability aspects
+of the core workflow engine. We do not consider the specific scalability issues
+related to a distributed infrastructure such as network latencies and protocol
+offsets. However, there have been efforts to thwart such issues at the workflow
+level by combining workflow enactment techniques with those of distributed
+computing.  One such example is the map/reduce framework \cite{mapreduce}.
+Recently, the map/reduce framework, that aims at performing distributed
+processing on large datasets, has gained a significant popularity in workflow
+community. It is based on the master/worker metaphor of distributed processing.
+It employs the commonly used \textit{map} and \textit{reduce} functions from
+the functional programming languages. The map function chops a large chunk of
+data into smaller pieces and distributes it to \textit{workers} which in turn
+can also chop it to further smaller datasets forming a tree-like hierarchy. The
+worker process the data and return the results back to their parents. The
+reduce step collects the results from the workers and combines them to obtain
+the final result. One of the main reason for the popularity of the map/reduce
+framework for workflows is the recent attention to collections based datasets
+and processing. There exists implementations of the map/reduce framework
+written in different languages with enhancements and support services such as a
+sophisticated query service. Hadoop (\textit{http://hadoop.apache.org/}) is one
+such implementation which has already been interfaced by the Kepler
+SWE~\cite{wang-crawl-etal:2009}.
+
+Large-scale workflows with thousands of tasks often pose memory and disk
+management difficulties leading to scalability issues.  However, the
+performance of a workflow engine is dependent on several factors including the
+type of tasks and approach for submitting tasks for execution.  There is not
+much research done towards the enactor scalability baring a couple of studies
+carried out by C. Stratan et. al. \cite{stratan-iosup-etal:2008} and Deelman
+et. al. \cite{callaghan-deelman-etal:2010}.  One way to compare the scalability
+of different workflow environment is to experiment with a similar set of
+workflows on a given system. In addition, different SWEs interface to different
+DCIs. This is a time consuming process.  In the current study we do not
+directly compare the workflow engine scalability but we study the similarities
+and differences in the techniques employed by workflow engines in order to
+achieve scalability.
+
+The software architecture of an enactor plays a key role in determining the
+scalability for the workflow applications exhibiting a large number of tasks.
+An architecture that takes into account the properties of the underlying
+infrastructure could scale well in the face of growing number of workflow
+tasks.
+
+In the context of workflow enactors, scalability can be further classified in
+terms of the computational and data transfer scalability. Computational
+scalability could be expressed as the rate of increase in number of tasks
+executed with respect to the increase in the elapsed time.
+
+While the computational scalability of a large scale experiment depends upon
+the underlying computing infrastructure, at the workflow enactor level, it
+becomes important to be able to prepare and dispatch as many processor
+instances as possible without loss in performance. Failing to do so for a
+workflow engine can become a performance bottleneck and hamper the optimal
+utilization of an available computing infrastructure.
+
+Most workflow enactors exploit the parallelism at three-levels. First, at the
+workflow-level wherein the independent branches of a workflow are enacted
+concurrently. Second, at the data-level, where a same processor is instantiated
+multiple times based upon the repeated operations on different datasets. Third,
+the low-level parallelism that is encoded within the application components
+independent of the workflow itself. At this level, the workflow enactor may
+need to make a matching based upon the application type. For instance, a
+workflow enactor may schedule the MPI-based processors on the resources that
+indicate as possessing such capabilities.
+
+In this section we analyze the scalability measures and techniques employed by
+contemporary SWEs. 
+
+Illustrated below are some of the techniques used to achieve scalability in
+various SWEs.
+
+Taverna version 2.x introduced new measures in order to be able to submit a
+large number of jobs simultaneously. It is able to dispatch large number of
+concurrent instances of processors. An ability to implement superpipelined
+\cite{hwang:1992} execution of workflow tasks leads to a maximum expression of
+parallelism.
+
+Within the Taverna engine, all the data involved in the execution is managed by
+a data manager through an external database, and is addressed by the engine
+only by \textit{reference}. This facilitates the management of data-intensive
+workflows in a scalable way, as high volume data is only transferred into the
+engine space when needed by processors that are unable to resolve external data
+references on their own.
+
+Taverna, Swift-Karajan and Pegasus all provide a means to limit the maximum
+number of processor instances that can run concurrently through a builtin
+parameter. In Taverna, this can be configured at a workflow level while in
+Pegasus, this can be configured at the Condor \cite{thain-tannenbaum-etal:2005}
+scheduler level. In Swift-Karajan system this parameter is regulated
+automatically as part of a ``throttling parallelfor" construct. A similar
+configurable parameter is provided by the Knime thread manager in order to
+limit the size of the thread-pool employed to run a workflow.
+
+Kepler optimizes the workflow execution through parallel and pipelined
+execution. In addition to these, Kepler also provides dataflow analysis
+optimization that involves data bypassing the processors in a workflow that
+does not make use of that data. This is detected using a builtin Kepler
+mechanism called ``static type propagation".
+
+Another alternative is to optimize the enactment at runtime. This approach has
+advantages including a better information about the actual data available. For
+instance, Askalon does runtime branch prediction, parallel loop unrolling and
+loop sequentialization.
+
+The Pegasus workflow manager introduced subworkflows because of scalability
+issues at the local host for a large number of nodes in a DAG. A hierarchical
+representation helps it scale at the local planning level as well as at the
+execution level on distributed resources.
+
+Static planners in Pegasus translate a workflow graph into a location specific
+DAGMan input file, adding stages for data staging, intersite transfer and data
+registration. These planners can reduce processing of tasks for files that
+already exist, select sites for jobs, and cluster jobs based on various
+criteria. Pegasus performs graph transformation with the knowledge of the whole
+workflow graph.
+
+In Swift systems the structure of a workflow is constructed and expanded
+dynamically as opposed to that of Pegasus' static planning. A static workflow
+graph allows optimizations based on the global state of the workflow, whereas a
+dynamic workflow structure allows adaptations to changing environments.
+Depending upon the execution environment and access conditions to the available
+resources, each approach can result in the overall optimization of a given
+application.
+
+Knime has a different execution strategies for shared memory Symmetric
+Multiprocessing Systems (SMP) and distributed memory systems. In the case of
+SMP, it uses the message passing library or MPI to distribute the independent
+parts of a workflow to available processors. This approach results in efficient
+use of available processors. However, for a large scale, the global memory
+becomes a bottleneck hindering the scalability. 
+
+In the case of distributed memory and independent computational nodes connected
+with highspeed network or the internet, Knime employs a Master/Worker metaphor
+of computing. A Knime installation with GUI acts as a master node that
+coordinates the bare Knime installations on the worker nodes. These worker
+nodes are then sent the portions of a workflow by the master node. The master
+node keeps track of the participating nodes by their unique IP addresses. At
+the end of each execution, the master node collects the results from the worker
+nodes.
+
+\begin{table}[ht!]
+\begin{center}
+% use packages: array
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{SWE} / & \multicolumn{3}{c|}{\textbf{Parallelism}} & \multicolumn{3}{c|}{\textbf{Optimization}}\\
+\cline{2-7}
+\textbf{Language} & \textbf{data} & \textbf{workflow} & \textbf{pipeline} & \textbf{static} & \textbf{runtime} & \textbf{other}\\ \hline
+Taverna/Scufl2 & \checkmark & \checkmark & \checkmark & -- & \checkmark & -- \\\hline
++/BPEL &foreach & \checkmark & -- &-- &\checkmark &-- \\\hline
+Triana/- & \checkmark & \checkmark & \checkmark & -- & \checkmark &--\\\hline
+MOTEUR/Scufl & \checkmark & \checkmark & \checkmark &-- &\checkmark &-- \\\hline
+Kepler/MoML & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &--\\\hline
+GridNexus/GXPL & -- & \checkmark & -- &-- &\checkmark &-- \\\hline
+Swift/SwiftScript & \checkmark & \checkmark & \checkmark & \checkmark &\checkmark &-- \\\hline
+Askalon/AGWL &--& \checkmark & -- & \checkmark & \checkmark & -- \\\hline
+P-GRADE/- &\checkmark &\checkmark &\checkmark &--&--&--\\\hline
+Vizbuilder/bioflow &-- &\checkmark &-- &--&\checkmark &Query optimization\\\hline
+Martlet/- & \checkmark & \checkmark & -- &-- &\checkmark&-- \\\hline
+Knime/- & \checkmark &\checkmark &\checkmark & -- & \checkmark & -- \\\hline
+StarFlow/- &\checkmark & \checkmark & \checkmark & \checkmark & \checkmark & -- \\\hline
+Pegasus/DAX &\checkmark &\checkmark &\checkmark &\checkmark &\checkmark &AI-based techniques \\\hline
+Galaxy/- &-- &-- &\checkmark &-- &-- &-- \\\hline
+GWES/GWorkflowDL &-- &-- &\checkmark &-- &\checkmark &-- \\\hline
+MOTEUR2/Gwendia~ & \checkmark &\checkmark & \checkmark &-- &\checkmark &-- \\\hline
+\end{tabular}
+%\caption{A summary of SWEs Scalability and optimization Mechanisms}
+\label{tbl:scalability}
+\end{center}
+\end{table}
+
+Shown in Table \ref{tbl:scalability} is a summary of the Scalability and optimization mechanisms of the studied SWEs. The scalability features considered are through three levels of parallelism in the form of data, workflow and pipeline. The optimization features considered are the presence of mechanisms by which static and runtime optimizations are achieved.
+%
+% == DATA MANAGEMENT ==
+\section{Data Management and Description} \label{sec:data}
+Many aspects of data handling present significant diversity among the workflow
+managers. Data management approaches for scientific workflows can be classified
+as resource and language level. Resource level strategies include data
+management at the application level of abstraction where the data is required
+to be distributed, available and securely remote-accessible. It also determines
+how the data will be delivered to a resource that handles the processing and
+returning the processed data or results to the next processors in the workflow.
+Provenance, staging, and managing heterogeneous data structures (files, arrays
+etc.) are functional requirements at this level.
+
+Whereas the language level data management involves how the actual data items
+are described and handled across a workflow execution. Decisions such as how
+complex data structures are supported, transferred and delivered from workflow
+input source or from one processor to another are determined at language level.
+In most workflow systems, the transfer of data is achieved through `data-ports'
+attached to the processors. These ports act as channels to collect and transfer
+data across a workflow. The association of data description with the workflow
+determines whether the data is loosely or strongly coupled with a workflow. A
+loosely coupled workflow with data has advantage over the strongly coupled ones
+in the sense that the workflow is independent of its data and can be invoked
+with a different set of data.
+
+A source of complexity for the workflow manager is the existence of different
+formats of data for a single scientific experiment. These include the different
+legacy formats of storage as well as the different ways the data is organized
+including database, filesystems and remote links. Further, most remote data is
+stored at locations secured behind different types of secure communication
+protocols involving special access mechanisms.
+
+In the rest of this section, we study the data handling mechanisms of SWEs.
+Taverna's reference scheme makes sure the data produced and consumed is in the
+form of references. This approach of data management is efficient because: 1)
+It takes less time to transport references, and 2) Locality of references
+ensures that the data is processed at a location that is local to multiple
+processors operating on the same dataset.
+
+In MOTEUR and Kepler workflow environments, data is described as an XML grammar
+allowing for nested collections or multi-dimensional arrays of data. Kepler's
+COMAD \cite{keplercomad} workflow enactment model is well suited to collection
+oriented data like arrays and streams. Similar efforts exist elsewhere to model
+the streams for workflow programming
+\cite{blower-haines-etal:2005,herath-plale:2010}.
+
+MOTEUR only uses references to data files while Pegasus groups small files into
+a single compressed file for transfer thus saving transfer time. It optimizes
+the workflow by annotating and reusing the data already available, if
+appropriate. Pegasus is able to generate a workflow from a metadata description
+of the desired data product with the aid of Artificial Intelligence planning
+techniques. Grouping of tasks by Pegasus increases the data usage efficiency
+since a group of tasks that require the same set of files for execution are
+localized. Pegasus also manages the temporary storage space needed for data
+processing at a particular processor location and commands the local Operating
+System to allocate the space. A data provider abstraction allows data to be
+referenced in the Trident SWE from any external entities in the form of typed
+referenced data objects.
+
+A majority of SWE support primitive, MIME based or XSD data types similar to
+traditional programming datatypes. Specific support for complex and structured
+data types are provided by the SWEs based upon their domain and application
+requirements. For instance, Kepler supports a specialized byte data streams and
+Bioflow supports a natively developed life-science database engine. Others such
+as the SwiftScript support extensible structures such as filesystem mappers and
+customized C language style structures.
+
+Remote and secure data access is supported by SWEs by providing secured
+protocols based accession to remote data repositories. Third party protocols
+such as GridFTP, HTTP over TLS (HTTPS) and gLite LFC (LCG File Catalog) access
+are commonly supported.
+
+\begin{table}[ht!]
+\begin{center}
+\hspace*{-2.2cm}
+% use packages: array
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{SWE /} & \multicolumn{3}{c|}{\textbf{Language Level}} & \multicolumn{2}{c|}{\textbf{Resource Level}}\\
+\cline{2-6}
+\multirow{2}{*}{\textbf{Language}} & \textbf{Data Coupling} & \textbf{Data Types} & \textbf{Data Structures} & \textbf{Type} & \textbf{Access}\\
+& \textbf{with Workflow} & \textbf{Supported} & \textbf{Supported} & & \\
+\hline
+Taverna/Scufl2&Loose&MIME-types&multi-dim Arrays&Local+Remote&By Reference\\\hline
++/BPEL&Strong&XSD-Based&--&Grids, Clouds& Adhoc\\\hline
+%
+\multirow{2}{*}{Triana/-}&Strong&XML Schema-&Streams,&Local+&Through \\
+&&Types&Java Objects&Remote&Adaptors\\\hline
+%
+\multirow{2}{*}{MOTEUR/Scufl}&Loose&MIME-&Lists&Local+&Services+\\
+&&Types&&Remote&Middleware\\\hline
+% 
+\multirow{2}{*}{Kepler/}&Strong&Primitive&Collections,&Filesystem&Customized\\
+MoML&&Types&User defined&&Actors\\\hline
+% 
+GridNexus/GXPL&Loose&XSD-Based&--&Grid Data&OGSA-DAI \\\hline
+% 
+\multirow{2}{*}{Swift/SwiftScript} &Strong&--&1-Dim Arrays,&Shared& POSIX-style\\
+&&&Customised&FileSystem&\\\hline
+% 
+Askalon/AGWL&Loose&MIME-types&Arrays&Data Repository&SQL-based\\\hline
+%
+\multirow{2}{*}{P-GRADE/-}&Loose&--&--&Grid&Secure\\
+&&&&File Catalogs&Protocols\\\hline
+%
+Vizbuilder/bioflow&Strong&SQL-types&--&Database&SQL,PL/SQL\\\hline
+%
+\multirow{2}{*}{Martlet/-}&Loose&URI&Lists&Distributed& By\\
+&&&&Filesystems&Reference\\\hline
+% 
+\multirow{2}{*}{Knime/-}&Loose&String, Integer,&Filestreams,&FileSystems,&Datamining\\
+&&Double&Arrays&Databases&Tools\\\hline
+% 
+StarFlow/-&Strong&Python-based&Python-based&--&--\\\hline
+GWES/GWorkflowDL&Strong&java-based&java-based&--&--\\\hline
+% 
+\multirow{2}{*}{}Pegasus/&Loose&--&--&Distributed&Secure\\
+DAX&&&&Filesystems&Protocols\\\hline
+% 
+Galaxy/-&Loose&--&File Streams&File Systems&--\\\hline
+% 
+\multirow{2}{*}{MOTEUR2/} &Loose&Integer,String,&multi-dim Arrays&Grid&By\\
+Gwendia~ &&Double,URI&&Data&Reference\\\hline
+\end{tabular}
+%\caption{A summary of SWEs Data Management Mechanisms}
+\label{tbl:datadesc}
+\end{center}
+\end{table}
+
+Table \ref{tbl:datadesc} presents a summary of the data management mechanisms of the studied SWEs. Language and resource level data management mechanisms are highlighted. At the language level, data description as coupled with that of the workflow, data types and structures are considered for the SWE studied. At the resource level, the major resource types supported and their access mechanisms are highlighted. We distinguish the remote form of Grid resource types by the specific Grid protocols (\textit{eg.} GridFTP) supported for those resource access. Other resource types such as data repositories or file catalogues are the resource types specific to a given SWE. For instance, Askalon uses a specifically configured data repository to access data and application binaries.
+%Replication is one of the solution.
+% == INTERFACE TO COMPUTING AND DATA INFRASTRUCTURES ==
+\section{Interface to Distributed Computing Infrastructures (DCIs)} \label{sec:inter}
+Workflow environments are external systems to large scale computing
+infrastructures. They require an interface to connect to and use the
+infrastructures. Provided the complex and distributed nature of grids, it is
+not easy and practical to interact with such an infrastructure directly. Most
+distributed systems have a software service layer through which it interacts
+with the outside world. These interactions include accepting queries for
+information and accepting requests and data for job executions. Such a layer is
+typically called the \textit{middleware}. A workflow engine intending to
+interact with a grid environment must provide interface to link to such
+middleware layer. 
+
+Most grid computing systems today are batch oriented execution systems (with a
+notable exception of GridRPC \cite{seymour-nakada-etal:2002} based systems). A
+batch of ``jobs" are submitted to the system which in turn passes through some
+execution queues before actually being scheduled for execution. Such systems
+are prone to high execution latencies and unreliability issues. A workflow
+manager must take these issues into account while interacting with such
+systems.
+
+At the resource management level, most grid computing environments today are
+utilizing one or more components of the Globus Toolkit
+\cite{foster-kesselman:1997} or the Condor distributed computing software
+system~\cite{dagman}.
+
+The Globus Toolkit is a software stack that provides useful functionalities for
+grid computing operations. These functionalities are provided in the form of a
+software stack that ranges from low-level data management tasks to the higher
+level functionalities like authentication and metadata services. Any external
+entity accessing the grid computing system must possess proper authentication
+and sufficient authority to operate upon the infrastructure. The most popular
+secure access system in place for today's grids is the public key
+infrastructure (PKI) system through which a secure access to the grid is
+guaranteed for a finite time period. A workflow manager must be capable of
+handling the security protocols with the underlying execution infrastructure.
+The duration of access to the system is also of critical importance as a
+typical scientific workflow is bound to run for a considerably long time
+period. The Condor software system provides scheduling mechanisms to access the
+low-layer grid resources. A grid workflow enactor must provide interface to
+access the services of these external scheduling and middleware systems. 
+
+\begin{table}
+\begin{center}
+%\hspace*{-1cm}
+% use packages: array
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{SWE/Language} & \textbf{DCI Interfacing Mechanisms} & \textbf{Currently Interfaced DCIs}\\
+\hline
+Taverna/Scufl2 & By Extension & None Inherently \\\hline
++/BPEL & Ad-hoc & None Inherently \\\hline
+Triana/- & Provides Adapters & P2P Networks, NGS (ngs.org.uk)  \\\hline
+MOTEUR/Scufl & Inherent & EGI (www.eu-egi.eu), g5k (www.grid5000.fr)\\\hline
+Kepler/MoML & Using Directors & EarthGrid (http://seek.ecoinformatics.org) \\\hline
+GridNexus/GXPL & Inherent & Generic Grids \\\hline
+Swift/SwiftScript & Inherent & IBM/bluegene/P HPC Clusters \\\hline
+Askalon/AGWL & Inherent & Austrian Grid (http://www.austriangrid.at/)\\\hline
+P-GRADE/- & Inherent & NGS \\\hline
+Vizbuilder/bioflow & DCI Independent & None Inherently \\\hline
+Martlet/- & interfaces multiple middlewares & Generic Grids \\\hline
+Knime/- & Extensions & SGE Clusters \\\hline
+StarFlow/- &Interfacing External Schedulars & Generic Clouds \\\hline
+GWES/GWorkflowDL&Globus WS-Gram& German D-Grid \\\hline
+Pegasus/DAX & Using Condor & OSG (www.opensciencegrid.org) \\\hline
+Galaxy/- & Extensions & None Inherently \\\hline
+MOTEUR2/Gwendia~ & Inherent & EGI, g5k, HIPernet Cloud \\\hline
+\end{tabular}
+%\vspace*{1cm}
+%\caption{A summary of SWEs DCI Interfacing Mechanisms}
+\label{tbl:interfacedci}
+\end{center}
+\end{table}
+
+Remotely located grid resources are accessed normally over the Internet links.
+In such situations, long network latency or outright link failures are common.
+Workflow managers are likely to face issues such as no response from the job
+submitter or long delays. There must be some mechanism in place to handle such
+scenarios. Depending upon the sophistication of the underlying infrastructure a
+failover mechanism or logging information could be obtained for failures. Often
+times workflow managers have their own failover mechanisms in place.
+
+In the rest of this section, we study the approaches and techniques of SWEs to
+interact with the Computing and Data Infrastructures. We also discuss briefly
+the mechanisms for the mandatory security requirements.
+
+MOTEUR provides seamless access to local and remote grid data resources by
+closely coupling itself with the vBrowser~\cite{olabarriaga-deboer-etal:2006}
+virtual resource browser environment. It has a built-in job management
+mechanism that includes building job-specification, job submission data staging
+and collection of results from the jobmanager. Additionally, MOTEUR2 is
+interfaced with the HiPerNet cloud, a virtual platform manager that takes into
+account, both computing and network resources
+\cite{vicat-blancprimet-roca-etal:2009}.
+
+In Taverna, a processor's invocation sequence can be customized
+programmatically to enhance the processor's performance selectively. This
+feature can be exploited by effectively interfacing a Taverna processor to Grid
+middleware and create jobs and inputs/outputs definitions for that middleware.
+
+In Taverna, a processor's invocation sequence can be customized
+programmatically to enhance the processor's performance selectively. This
+feature can be exploited by effectively interfacing a Taverna processor to Grid
+middleware and create jobs and inputs/outputs definitions for that middleware.
+
+Pegasus interfaces explicitly and transparently with the infrastructure in that
+it maps the simplified workflow DAGs to the grid resources through the Condor
+resource management service. Pegasus interacts with the available replica
+management services in order to optimize the data access cost for the workflow
+executions at runtime. It does cluster--group similar jobs together, in order
+to ease the load on the scheduler and the dispatching of those jobs to the
+worker nodes.
+
+Swift/Karajan and Pegasus interface to a POSIX-style shared file system which
+is one crucial aspect to their performance. %== may be shifted to data desc ==
+
+Askalon does provide advanced resources mapping and reservations. These
+features however are limited to the fact that not all underlying
+infrastructures allow for a resource reservation scheme as offered by ASKALON.
+GridNexus uses the OGSA-DAI (Open Grid Services Architecture Data Access and
+Integration) services to access Globus grid data resources. It uses
+web/grid-service clients in order to interact with the computations wrapped by
+those services.
+
+The data management services of Trident supports local storage as well as the
+remote data storage services such as the Amazon S3
+(\textit{http://aws.amazon.com/s3}) and SQL Server Data Services (SSDS)
+(\textit{http://microsoft.com/sql/dataservices}) clouds.
+
+Table \ref{tbl:interfacedci} presents a summary of the studied SWEs mechanisms for interfacing DCIs.
+% == WORKFLOW LANGUAGE EXPRESSIVENESS ==
+\section{Workflow Language Expressiveness} \label{sec:lang}
+A workflow language is the medium of expression of the task a workflow is supposed to accomplish. A workflow language acts as an interface between the workflow enactor and an end-user. Apart from correctly expressing the flow of execution and data, a workflow language must be able to link with the application code in a transparent way.
+
+Historically, low-level, general-purpose scripting languages have been used for
+workflow descriptions. For example, batch files, UNIX shell scripts and
+script-based languages like perl, python \cite{begeman-belikov-etal:2010} etc.
+There also exist some domain specific scripting languages such as bioperl
+(\textit{www.bioperl.org}). However, these languages are less suitable for
+expression of high-level, sophisticated workflow constructs such as iterations,
+while at the same time dealing with parallelism and array processing. They also
+fall short of providing implicit parallelism and must be defined explicitly by
+the user designing workflows. Description of remote data is another important
+aspect that these languages are limited in expressing. Thus, in modern SWEs, it
+is required to have a higher-level, specialized and dedicated workflow
+language.
+
+Applications and in-silico scientific experiments exhibit diverse patterns of
+data and/or control flow. Apart from this, operations and combinations of data
+are required to correctly and efficiently express a scientific workflow. This
+has led to a requirement of highly expressive workflow languages. Most tasks
+could be accomplished by simplified and minimal constructs in a language,
+however, they lead to unintuitive and inefficient workflow design. A
+sophisticated language not only increases the readability and maintainability
+of a workflow, it also increases the chances of its efficient deployment and
+execution in the target computational environment.
+
+Description of data and dataflow in a workflow such that the application code
+is invoked correctly and in accordance with the experiment has been a
+challenging task for large experiments. This is partly because of the large
+amount and different type of parallelization opportunities and partly because
+of the way the components of an application deal with the data.
+
+A workflow language must be able to express the invocation that is required for
+tools to deploy the application components. For example, an experiment may be a
+combination of remotely executable services and deployable legacy application
+binaries. Along with the application binaries, a workflow language must be
+capable of handling the different expressions for different kinds of data
+transfer methods and protocols. A common way of invoking legacy applications is
+through a traditional Command Line Interface. It is thus desirable to have a
+way to wrap such command lines in order to provide a suitable interface to such
+a legacy
+application~\cite{rojasbalderrama-montagnat-etal:2010,maheshwari:2007}.
+
+%
+\begin{table}
+\begin{center}
+% use packages: array
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{SWE/Language} &\textbf{Control Structures}& \textbf{Array Programming} & \textbf{Iterators}\\
+\hline
+Taverna/Scufl2 &Conditionals and Loops& \checkmark & \checkmark \\\hline
++/BPEL &Conditionals and Loops& -- & -- \\\hline
+Triana/- &Conditionals and Loops& \checkmark & -- \\\hline
+MOTEUR/Scufl &Conditionals& -- & \checkmark \\\hline
+Kepler/MoML &Conditionals and Loops & \checkmark & limited \\\hline
+GridNexus/GXPL &Conditionals and Loops& -- & -- \\\hline
+Swift/SwiftScript & Conditionals and Loops & 1-dim & limited \\\hline
+Askalon/AGWL & Conditionals and Loops & -- & -- \\\hline
+P-GRADE/- & Conditionals & -- & \checkmark \\\hline
+Vizbuilder/bioflow & Conditionals and Loops & -- & -- \\\hline
+Martlet/- & Conditionals and Loops & -- & -- \\\hline
+Knime/- & Loops & -- & \checkmark \\\hline
+StarFlow/- & Conditionals and Loops & -- & -- \\\hline
+GWES/GWorkflowDL & Conditionals& -- & -- \\\hline
+Pegasus/DAX & -- & \checkmark & -- \\\hline
+Galaxy/- & -- & -- & -- \\\hline
+MOTEUR2/Gwendia~ & Conditionals and Loops & \checkmark & \checkmark \\\hline
+\end{tabular}
+%\caption{A summary of SWEs Expressiveness Capabilities}
+\label{tbl:expressive}
+\end{center}
+\end{table}
+
+\paragraph{Dataflow and Functional Languages} Functional and Dataflow languages
+and their derivatives have been a viable choice for workflow languages
+paradigm. In the dataflow paradigm, a workflow processor will `fire' when the
+data sufficient for its firing is available. Dataflow programming paradigm
+particularly suites the workflow approach of programming. There are many
+research works advocating a dataflow oriented approach to solve problems
+involving a flow of data among computing components, predominantly in a
+Directed Acyclic Graph form \cite{dataflow,lee-messerschmitt:1987}. Early
+research on dataflow languages as visual language \cite{sutherland:1966}
+reinforce the notion of the suitability of dataflow paradigm for workflows.
+
+Functional programming complement the dataflow paradigm by providing
+appropriate expression and semantics to a dataflow. Several features of
+functional programming are shared by the dataflow programming approach. One of
+the key hinderance of functional programming is the `side-effects' produced
+when the values of variables are mutated more than once during a single
+execution. Dataflow and functional programming approach converge when these
+`side-effects' are eliminated and a functional program can express pure
+dataflow under such conditions. 
+% Modify and write ==> Functional languages, such as SCALA and Haskell, offer
+% an implicit way of exposing parallelism, making it easier to identify data
+% dependencies so that the runtime system can implicitly schedule independent
+% work (work that respects the dependency graph).
+In this section we study the features of contemporary workflow languages that
+make them expressive of representing complex data and control flow situations
+and enable them to map these expression onto the underlying computing
+infrastructure.
+
+Pegasus uses DAX which is an XML-based language to describe DAGs. Applications
+using Pegasus use higher level languages such as Python or Java to describe
+workflows and then map them onto DAX specification. Such transformations face
+two issues: 1. DAGs are simple to transform but can get complicated if
+hierarchical DAGs are used. 2. DAGs representations need sophisticated
+translators. All features in low-level languages such as loops are not
+supported by DAGs. This must be taken care of by the translators.
+
+Kepler, GridNexus and Triana support loops, conditionals and sub-workflows as
+advanced constructs of their workflow language. These constructs are manifested
+in the GUI as configurable components that get their mapping in the underlying
+language by a mapper software component.
+
+ASKALON's AGWL (Abstract Grid Workflow Language) provides an abstract XML-based
+representation of dataflows. It does not directly support control flow, however
+control flow can be achieved indirectly using `pseudo datatokens'. It is
+modularized and supports sub-workflows. AGWL provides conditionals, iterators,
+and explicit parallelism. AGWL provides sophisticated workflow constructs
+including sub-workflows, parallel and sequential execution constructs, loops,
+conditionals and iteration strategies.
+
+The GWorkflowDL employed by GWES is an XML-based representation of Workflows
+which are based on the theory of high-level petri nets. This theoreticaly
+well-found language provides basis for high expressiveness to GWES workflows.
+It leads to the expressions of workflows at three different levels of
+abstractions from user-intentions at high-level to the executable services
+instances at the low-level.
+%Swift is dynamic
+%
+%A paragraph saying the most generic language approaches of contemporary
+%workflow environments
+Both Askalon and Pegasus enable users to define abstract workflows to be
+concretized at the later stage of workflow development. This feature
+facilitates users to have the flexibility to generate concrete workflows based
+upon the state and availability of resources at the time of enactment. 
+
+The graphical representation is the only workflow language in Knime. It
+provides an interesting feature of metanodes that acts as a self-contained
+subworkflow. A metanode is a processor that act as a container for other
+processors. Thus a branch of a workflow in Knime can be configured into a
+single processor in the form of metanode. A single such processor might be
+enacted multiple times giving a form of loop to a Knime workflow.
+
+Table \ref{tbl:expressive} shows a summary of language expressiveness capabilities of the SWEs studied. We consider the control structures: conditionals and loops, support for arrays and iterators \cite{montagnat-glatard-etal:2006} as the expressive features of SWEs.
+
+\section{Usability} \label{sec:usable}
+A workflow environment influences the end-user comfort and convenience towards the goal of efficiently organizing and deploying a scientific experiment involving heavy usage of computational resources. However, there is no single factor that determines the usability of a SWE. A combination of several qualitative and quantitative factors play a role in determining how usable a given SWE is.
+\begin{table}[ht!]
+\begin{center}
+% use packages: array
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{SWE/Language} & \textbf{Workflow Composition} & \textbf{Reusable} & \textbf{Extendable}\\
+\hline
+Taverna/Scufl2 & GUI & \checkmark & \checkmark\\\hline
++/BPEL & GUI & \checkmark & \checkmark \\\hline
+Triana/- & GUI & \checkmark & \checkmark \\\hline
+MOTEUR/Scufl & GUI & \checkmark & -- \\\hline
+Kepler/MoML & GUI & \checkmark & \checkmark \\\hline
+GridNexus/GXPL & GUI/Text & -- & -- \\\hline
+Swift/SwiftScript & Text & -- & -- \\\hline
+Askalon/AGWL & GUI & \checkmark & \checkmark \\\hline
+P-GRADE/- & Web Portal & \checkmark & -- \\\hline
+Vizbuilder/bioflow & GUI/Text & \checkmark & -- \\\hline
+Martlet/- & Text & -- & -- \\\hline
+Knime/- & GUI & \checkmark & -- \\\hline
+StarFlow/- & Text & \checkmark & -- \\\hline
+GWES/GWorkflowDL & GUI & \checkmark & \checkmark \\\hline
+Pegasus/DAX & GUI & \checkmark & \checkmark \\\hline
+Galaxy/- & Web Portal & -- & -- \\\hline
+\multirow{2}{*}{MOTEUR2/} & GUI/Text & \checkmark & --\\
+Gwendia~/gscript & & & \\\hline
+\end{tabular}
+%\caption{A summary of SWEs Usability Analysis}
+\label{tbl:usability}
+\end{center}
+\end{table}
+
+In this section, the following aspects of grid workflow usability are mainly
+considered: a) Ease and convenience for workflow composition. This largely
+rests on the available composition interfaces such as a GUI. b) Workflow
+reusability. c) Extensibility by being able to be linked to external
+applications or the ease of customizing the existing codebase of the SWE. Since
+legacy applications are not developed keeping workflow enactment in mind, it
+largely depends upon the extendability of the workflow environment to adapt to
+the application's requirements. We discuss these features in more details in
+the rest of this section and summarize them in table \ref{tbl:usability} for
+the SWEs studied.
+
+A visual workflow development environment is most prominent among the workflow
+community. The visual paradigm of workflow development is convenient as it
+provides an intuitive ability to the user to design workflows by visualizing
+the flow of data and the processors involved in the data processing at each
+stage. It also facilitates users to visualize the opportunities to exploit
+parallelism in the graph.
+
+Another dimension of usability is from the point of view of the computational
+infrastructure and its middleware. A SWE must optimally expose and make
+available all the features of the underlying middleware components.
+
+On the other side of the workflow development paradigm are the script-based
+workflow development capability. A script-based workflow development has its
+own advantages and can lead to the development of highly expressive, compact
+and portable workflows rapidly in the hands of expert or well-experienced
+end-users. An ideal situation is a workflow manager allowing both visual as
+well as scripting development of scientific workflows.
+
+There are two key aspects to highly usable SWE, expressibility and simplicity.
+From the end-user point of view, these are often contradictory and a trade-off
+is required to attain a balance between the degree to which each aspect is
+contained and come in the way of user comfort. User comfort, time to design and
+construct a workflow are of particular importance in the case of SWEs as the
+users are not necessarily technical experts.
+
+This section explores the above mentioned aspects and features seen in the
+SWEs.
+
+The above mentioned aspects also play a role in workflow reusability.
+Scientific procedures are recurring in nature and offer opportunities to reuse
+fully or partially , the existing workflows~\cite{xiaorong-madey:2007}. In
+order to be able to reuse an existing workflow, it must be easily available and
+clearly described as to what are its functions.
+
+Furthermore, other operational factors contribute significantly to a SWE's
+overall usability. An example is as reported by Ramakrishnan et. al. in
+\cite{ramakrishnan-nurmi-etal:2009} wherein factors such as virtual
+reservations, coordinated use of resources and fault tolerance combined
+together considerably enhance workflow usability. Among these, the fault
+tolerance mechanisms are the most challenging to implement and realize at the
+workflow level. This is owing to the fact that workflows interacting with many
+diverse entities have a large number of, and unforeseen fault conditions. A
+small number of SWEs provide some kind of fault tolerance mechanisms. For
+instance MOTEUR provides a `retry' mechanism on job fault while SwiftScript and
+BPEL provide an exception handling mechanism in order to notify users of
+occurrence of known fault conditions.
+
+Some interesting efforts have been made in the past to increase usability of
+grid environments for a particular domain users such as medical imaging
+\cite{olabarriaga-deboer-etal:2006,olabarriaga-glatard-etal:2008}. In the case
+of SWEs, specific usability issues have been addressed relatively late.
+Distributed workflow repositories \cite{stoyanovich-taskar-etal:2010} have been
+especially popular recently. These repositories play an important role in
+making a large number of scientific workflows available and hence reusable. The
+\textit{myexperiment.org} \cite{deroure-goble-etal:2008} is one such popular
+repository of Taverna workflows available publicly. Other examples of such
+repositories are the workflow libraries maintained as a part of the Kepler
+project (library.kepler-project.org/kepler/) and another one with the Vistrails
+project \cite{callahan-freire-etal:2006}. Kepler also integrates with DataStaR
+\footnote{https://wiki.duraspace.org/display/FEDORACREATE/DataStaR+Use+Case} to
+support data sharing among researchers during the research process, and to
+promote publishing or archiving data and metadata to discipline-specific data
+centers. The workflows hosted in these repositories are tagged and categorized
+based upon their features and functionalities. The ``myexperiment" repository
+is especially notable for its adoption of social web paradigm where users not
+only find and reuse the workflows but can actively collaborate on scientific
+experiments over the web.
+
+% ---------------------------------------------------------------------------
+
+\section{Conclusions} \label{sec:sum}
+% \begin{sidewaysfigure}
+% \begin{center}
+% \includegraphics[width=\linewidth]{2/figures/pdf/Taxonomy}
+% \caption{A Taxonomy of the Features of Scientific Workflow Environments}
+% \label{fig:taxonomy}
+% \end{center}
+% \end{sidewaysfigure}
+
+%\begin{sidewaysfigure}
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[]
+ \path[mindmap,concept color=darkgray,text=white,font=\sf]
+ node[concept] {Scientific Workflows}
+ [clockwise from=0]
+ child[concept color=darkgray,font=\sf] {
+ node[concept] {scalability}
+ [clockwise from=90]
+ child [concept color=gray,font=\sf] {
+ node[concept] {\small{parallelism}}
+ [clockwise from=120]
+ child[concept color=lightgray,text=darkgray,font=\sf] {node[concept]{data}}
+ child[concept color=lightgray,text=darkgray,font=\sf] {node[concept]{\scriptsize{pipeline}}}
+	 child[concept color=lightgray,text=darkgray,font=\sf] {node[concept]{\scriptsize{workflow}}}
+% 	 child[concept color=lightgray,text=darkgray,font=\sf] {node[concept]{\small{activity}}}
+ }
+ child[concept color=gray,font=\sf] { node[concept] {\scriptsize{optimization}} }
+ }
+ child[concept color=darkgray,font=\sf] { node[concept] {\small{data management}}}
+ child[concept color=darkgray,font=\sf] {
+ node[concept] {\small{expressiveness}}
+ [clockwise from=-45]
+ child[concept color=gray,font=\sf] { node[concept] {iterators} }
+ child[concept color=gray,font=\sf] { node[concept] {\small{array programming}} }
+ child[concept color=gray,font=\sf] { node[concept] {\small{control structures}} }
+ }
+ child[concept color=darkgray,font=\sf] {
+ node[concept] {usability}
+ [clockwise from=-120]
+ child[concept color=gray,font=\sf] { node[concept] {\scriptsize{composition}} }
+ child[concept color=gray,font=\sf] { node[concept] {extendible} }
+ child[concept color=gray,font=\sf] { node[concept] {reusable} }
+ }
+ child[concept color=darkgray,font=\sf] { node[concept] {interface to DCIs} };
+\end{tikzpicture}
+\caption{A Taxonomy of the Features of Scientific Workflow Environments}
+\label{fig:taxonomy}
+\end{center}
+\end{figure}
+
+Figure \ref{fig:taxonomy} shows a taxonomy of SWE features studied in this paper. We studied twenty SWEs from different scientific fields developed worldwide. Some trends as observed in the approaches of the SWEs development are noted below:
+\begin{itemize}
+ \item A recent surge in distributed computing approach of Cloud Computing has given rise to adoption of new enactment technologies. 
+ \item SWEs tend to offer complementary properties which has led to several collaborations among the developing groups. Notable among these are the recent ones between Taverna and Galaxy \cite{mohamed-alaa-etal:2010} and Kepler and Pegasus \cite{mandal-deelman-etal:2007}.
+ \item Collection oriented SWEs wherein arrays of data are treated as first-class entities has been seen a significant trend among the contemporary SWEs.
+ \item A trend of increasing number of SWEs providing a script-based workflow composition interface solely or in combination with a visual interface in the form of GUI has been observed.
+ \item Workflow systems originally developed for business domains have been introduced to scientific domains, such as BPEL and Trident.
+\end{itemize}
+
+In the present work we explore different dimensions of SWE paradigm. We study a
+number of SWE implementations. While we see a number of implementations
+dominant in areas suitable to their targeted applications, there is no single
+SWE that could sufficiently fulfill the objectives of this work. There is a
+lack of an SWE addressing the workflow expressibility and parallelism
+requirements while at the same time targeting enactment within the Grid
+Environment. Key features such as effective application data combinations or
+array-based execution coupled with Grid centric execution are either missing or
+partially available in the studied workflows. 
+
+However, so far, from our study, we find Taverna as being the closest SWE that
+can be a suitable candidate for our enactments. With this motivation, we get
+into studying the details of the workings of the Taverna Workflow Environment. 
+
+While many contemporary SWEs are studied in this survey, we are aware that this is not an exhaustive list. Some other SWEs have been missed or omitted, notable among them being: ICENI \cite{furmento-mayer-etal:2002}, Calcium \cite{caromel-henrio-etal:2008} and YML \cite{delannoy-emad-etal:2006}.
+
+
+% Bibliography
+\bibliographystyle{ACM-Reference-Format-Journals}
+\bibliography{sanebib}
+%\nocite{*}
+\end{document}
+
+As a new technology, Wireless Sensor Networks (WSNs) has a wide
+range of applications [Culler 2001,Bahl 2002,Akyildiz 2001], including
+environment monitoring, smart buildings, medical care, industrial and
+military applications. Among them, a recent trend is to develop
+commercial sensor networks that require pervasive sensing of both
+environment and human beings, for example, assisted living
+[Akyildiz 2002,Harvard 2001,CROSSBOW] and smart homes
+[Harvard 2001,Adya 2001,CROSSBOW].
+% quote
+\begin{quote}
+``For these applications, sensor devices are incorporated into human
+cloths [Natarajan 2001,Zhou 2006,Bahl 2002,Adya 2001] for monitoring
+health related information like EKG readings, fall detection, and voice recognition".
+\end{quote}
+While collecting all these multimedia information
+[Akyildiz 2002] requires a high network throughput, off-the-shelf
+sensor devices only provide very limited bandwidth in a single
+channel: 19.2Kbps in MICA2 [Bahl 2002] and 250Kbps in MICAz.
+
+In this article, we propose MMSN, abbreviation for Multifrequency
+Media access control for wireless Sensor Networks. The main
+contributions of this work can be summarized as follows.
+% itemize
+\begin{itemize}
+\item To the best of our knowledge, the MMSN protocol is the first
+multifrequency MAC protocol especially designed for WSNs, in which
+each device is equipped with a single radio transceiver and
+the MAC layer packet size is very small.
+\item Instead of using pairwise RTS/CTS frequency negotiation
+[Adya 2001,Culler 2001; Tzamaloukas 2001; Zhou 2006],
+we propose lightweight frequency assignments, which are good choices
+for many deployed comparatively static WSNs.
+\item We develop new toggle transmission and snooping techniques to
+enable a single radio transceiver in a sensor device to achieve
+scalable performance, avoiding the nonscalable ``one
+control channel + multiple data channels'' design [Natarajan 2001].
+\end{itemize}
+
+% Head 1
+\section{MMSN Protocol}
+
+% Head 2
+\subsection{Frequency Assignment}
+
+We propose a suboptimal distribution to be used by each node, which is
+easy to compute and does not depend on the number of competing
+nodes. A natural candidate is an increasing geometric sequence, in
+which
+% Numbered Equation
+\begin{equation}
+\label{eqn:01}
+P(t)=\frac{b^{\frac{t+1}{T+1}}-b^{\frac{t}{T+1}}}{b-1},
+\end{equation}
+where $t=0,{\ldots}\,,T$, and $b$ is a number greater than $1$.
+
+In our algorithm, we use the suboptimal approach for simplicity and
+generality. We need to make the distribution of the selected back-off
+time slice at each node conform to what is shown in Equation
+(\ref{eqn:01}). It is implemented as follows: First, a random
+variable $\alpha$ with a uniform distribution within the interval
+$(0, 1)$ is generated on each node, then time slice $i$ is selected
+according to the following equation:
+% Unnumbered Equation
+\[
+i=\lfloor(T+1)\log_b[\alpha(b-1)+1]\rfloor.
+\]
+It can be easily proven that the distribution of $i$ conforms to Equation
+(\ref{eqn:01}).
+
+So protocols [Bahl 2002,Culler 2001,Zhou 2006,Adya 2001,Culler 2001;
+Tzamaloukas-01; Akyildiz-01] that use RTS/CTS
+controls\footnote{RTS/CTS controls are required to be implemented by
+802.11-compliant devices. They can be used as an optional mechanism
+to avoid Hidden Terminal Problems in the 802.11 standard and
+protocols based on those similar to [Akyildiz 2001] and
+[Adya 2001].} for frequency negotiation and reservation are not
+suitable for WSN applications, even though they exhibit good
+performance in general wireless ad hoc
+networks.
+
+% Head 3
+\subsubsection{Exclusive Frequency Assignment}
+
+In exclusive frequency assignment, nodes first exchange their IDs
+among two communication hops so that each node knows its two-hop
+neighbors' IDs. In the second broadcast, each node beacons all
+neighbors' IDs it has collected during the first broadcast period.
+
+% Head 4
+\paragraph{Eavesdropping}
+
+Even though the even selection scheme leads to even sharing of
+available frequencies among any two-hop neighborhood, it involves a
+number of two-hop broadcasts. To reduce the communication cost, we
+propose a lightweight eavesdropping scheme.
+
+\subsection{Basic Notations}
+
+As Algorithm~\ref{alg:one} states, for each frequency
+number, each node calculates a random number (${\textit{Rnd}}_{\alpha}$) for
+itself and a random number (${\textit{Rnd}}_{\beta}$) for each of its two-hop
+neighbors with the same pseudorandom number generator.
+% Algorithm
+\begin{algorithm}[t]
+\SetAlgoNoLine
+\KwIn{Node $\alpha$'s ID ($ID_{\alpha}$), and node $\alpha$'s
+neighbors' IDs within two communication hops.}
+\KwOut{The frequency number ($FreNum_{\alpha}$) node $\alpha$ gets assigned.}
+$index$ = 0; $FreNum_{\alpha}$ = -1\;
+\Repeat{$FreNum_{\alpha} > -1$}{
+        $Rnd_{\alpha}$ = Random($ID_{\alpha}$, $index$)\;
+        $Found$ = $TRUE$\;
+        \For{each node $\beta$ in $\alpha$'s two communication hops
+    }{
+      $Rnd_{\beta}$ = Random($ID_{\beta}$, $index$)\;
+      \If{($Rnd_{\alpha} < Rnd_{\beta}$) \text{or} ($Rnd_{\alpha}$ ==
+          $Rnd_{\beta}$ \text{and} $ID_{\alpha} < ID_{\beta}$)\;
+      }{
+        $Found$ = $FALSE$; break\;
+      }
+        }
+     \eIf{$Found$}{
+           $FreNum_{\alpha}$ = $index$\;
+         }{
+           $index$ ++\;
+     }
+      }
+\caption{Frequency Number Computation}
+\label{alg:one}
+\end{algorithm}
+
+Bus masters are divided into two disjoint sets, $\mathcal{M}_{RT}$
+and $\mathcal{M}_{NRT}$.
+% description
+\begin{description}
+\item[RT Masters]
+$\mathcal{M}_{RT}=\{ \vec{m}_{1},\dots,\vec{m}_{n}\}$ denotes the
+$n$ RT masters issuing real-time constrained requests. To model the
+current request issued by an $\vec{m}_{i}$ in $\mathcal{M}_{RT}$,
+three parameters---the recurrence time $(r_i)$, the service cycle
+$(c_i)$, and the relative deadline $(d_i)$---are used, with their
+relationships.
+\item[NRT Masters]
+$\mathcal{M}_{NRT}=\{ \vec{m}_{n+1},\dots,\vec{m}_{n+m}\}$ is a set
+of $m$ masters issuing nonreal-time constrained requests. In our
+model, each $\vec{m}_{j}$ in $\mathcal{M}_{NRT}$ needs only one
+parameter, the service cycle, to model the current request it
+issues.
+\end{description}
+
+Here, a question may arise, since each node has a global ID. Why
+don't we just map nodes' IDs within two hops into a group of
+frequency numbers and assign those numbers to all nodes within two
+hops?
+
+\section{Simulator}
+\label{sec:sim}
+
+If the model checker requests successors of a state which are not
+created yet, the state space uses the simulator to create the
+successors on-the-fly. To create successor states the simulator
+conducts the following steps.
+% enumerate
+\begin{enumerate}
+\item Load state into microcontroller model.
+\item Determine assignments needed for resolving nondeterminism.
+\item For each assignment.
+      \begin{enumerate}
+      \item either call interrupt handler or simulate effect of next instruction, or
+      \item evaluate truth values of atomic propositions.
+      \end{enumerate}
+\item Return resulting states.
+\end{enumerate}
+Figure~\ref{fig:one} shows a typical microcontroller C program that
+controls an automotive power window lift. The program is one of the
+programs used in the case study described in Section~\ref{sec:sim}.
+At first sight, the programs looks like an ANSI~C program. It
+contains function calls, assignments, if clauses, and while loops.
+% Figure
+\begin{figure}
+\centerline{\includegraphics{acmsmall-mouse}}
+\caption{Code before preprocessing.}
+\label{fig:one}
+\end{figure}
+
+\subsection{Problem Formulation}
+
+The objective of variable coalescence-based offset assignment is to find
+both the coalescence scheme and the MWPC on the coalesced graph. We start
+with a few definitions and lemmas for variable coalescence.
+
+% Enunciations
+\begin{definition}[Coalesced Node (C-Node)]A C-node is a set of
+live ranges (webs) in the AG or IG that are coalesced. Nodes within the same
+C-node cannot interfere with each other on the IG. Before any coalescing is
+done, each live range is a C-node by itself.
+\end{definition}
+
+\begin{definition}[C-AG (Coalesced Access Graph)]The C-AG is the access
+graph after node coalescence, which is composed of all C-nodes and C-edges.
+\end{definition}
+
+\begin{lemma}
+The C-MWPC problem is NP-complete.
+\end{lemma}
+\begin{proof} C-MWPC can be easily reduced to the MWPC problem assuming a
+coalescence graph without any edge or a fully connected interference graph.
+Therefore, each C-node is an uncoalesced live range after value separation
+and C-PC is equivalent to PC. A fully connected interference graph is made
+possible when all live ranges interfere with each other. Thus, the C-MWPC
+problem is NP-complete.
+\end{proof}
+
+\begin{lemma}[Lemma Subhead]The solution to the C-MWPC problem is no
+worse than the solution to the MWPC.
+\end{lemma}
+\begin{proof}
+Simply, any solution to the MWPC is also a solution to the
+C-MWPC. But some solutions to C-MWPC may not apply to the MWPC (if any
+coalescing were made).
+\end{proof}
+
+\section{Performance Evaluation}
+
+During all the experiments, the Geographic Forwarding (GF)
+[Akyildiz 2001] routing protocol is used. GF exploits geographic
+information of nodes and conducts local data-forwarding to achieve
+end-to-end routing. Our simulation is
+configured according to the settings in
+Table~\ref{tab:one}. Each run lasts for 2 minutes and
+repeated 100 times. For each data value we present in the results,
+we also give its 90\% confidence interval.
+% Table
+\begin{table}%
+\tbl{Simulation Configuration\label{tab:one}}{%
+\begin{tabular}{|l|l|}
+\hline
+TERRAIN{$^a$}   & (200m$\times$200m) Square\\\hline
+Node Number     & 289\\\hline
+Node Placement  & Uniform\\\hline
+Application     & Many-to-Many/Gossip CBR Streams\\\hline
+Payload Size    & 32 bytes\\\hline
+Routing Layer   & GF\\\hline
+MAC Layer       & CSMA/MMSN\\\hline
+Radio Layer     & RADIO-ACCNOISE\\\hline
+Radio Bandwidth & 250Kbps\\\hline
+Radio Range     & 20m--45m\\\hline
+\end{tabular}}
+\begin{tabnote}%
+\Note{Source:}{This is a table
+sourcenote. This is a table sourcenote. This is a table
+sourcenote.}
+\vskip2pt
+\Note{Note:}{This is a table footnote.}
+\tabnoteentry{$^a$}{This is a table footnote. This is a
+table footnote. This is a table footnote.}
+\end{tabnote}%
+\end{table}%
+
+\section{Conclusions}
+
+In this article, we develop the first multifrequency MAC protocol for
+WSN applications in which each device adopts a
+single radio transceiver. The different MAC design requirements for
+WSNs and general wireless ad-hoc networks are
+compared, and a complete WSN multifrequency MAC design (MMSN) is
+put forth. During the MMSN design, we analyze and evaluate different
+choices for frequency assignments and also discuss the nonuniform
+back-off algorithms for the slotted media access design.
+
+% Start of "Sample References" section
+
+\section{Typical references in new ACM Reference Format}
+A paginated journal article \cite{Abril07}, an enumerated
+journal article \cite{Cohen07}, a reference to an entire issue \cite{JCohen96},
+a monograph (whole book) \cite{Kosiur01}, a monograph/whole book in a series (see 2a in spec. document)
+\cite{Harel79}, a divisible-book such as an anthology or compilation \cite{Editor00}
+followed by the same example, however we only output the series if the volume number is given
+\cite{Editor00a} (so Editor00a's series should NOT be present since it has no vol. no.),
+a chapter in a divisible book \cite{Spector90}, a chapter in a divisible book
+in a series \cite{Douglass98}, a multi-volume work as book \cite{Knuth97},
+an article in a proceedings (of a conference, symposium, workshop for example)
+(paginated proceedings article) \cite{Andler79}, a proceedings article
+with all possible elements \cite{Smith10}, an example of an enumerated
+proceedings article \cite{VanGundy07},
+an informally published work \cite{Harel78}, a doctoral dissertation \cite{Clarkson85},
+a master's thesis: \cite{anisi03}, an online document / world wide web resource \cite{Thornburg01}, \cite{Ablamowicz07},
+\cite{Poker06}, a video game (Case 1) \cite{Obama08} and (Case 2) \cite{Novak03}
+and \cite{Lee05} and (Case 3) a patent \cite{JoeScientist001},
+work accepted for publication \cite{rous08}, 'YYYYb'-test for prolific author
+\cite{SaeediMEJ10} and \cite{SaeediJETC10}. Other cites might contain
+'duplicate' DOI and URLs (some SIAM articles) \cite{Kirschmer:2010:AEI:1958016.1958018}.
+Boris / Barbara Beeton: multi-volume works as books
+\cite{MR781536} and \cite{MR781537}.
+
+% Appendix
+\appendix
+\section*{APPENDIX}
+\setcounter{section}{1}
+In this appendix, we measure
+the channel switching time of Micaz [CROSSBOW] sensor devices.
+In our experiments, one mote alternatingly switches between Channels
+11 and 12. Every time after the node switches to a channel, it sends
+out a packet immediately and then changes to a new channel as soon
+as the transmission is finished. We measure the
+number of packets the test mote can send in 10 seconds, denoted as
+$N_{1}$. In contrast, we also measure the same value of the test
+mote without switching channels, denoted as $N_{2}$. We calculate
+the channel-switching time $s$ as
+\begin{eqnarray}%
+s=\frac{10}{N_{1}}-\frac{10}{N_{2}}. \nonumber
+\end{eqnarray}%
+By repeating the experiments 100 times, we get the average
+channel-switching time of Micaz motes: 24.3$\mu$s.
+
+\appendixhead{ZHOU}
+
+% Acknowledgments
+\begin{acks}
+The authors would like to thank Dr. Maura Turolla of Telecom
+Italia for providing specifications about the application scenario.
+\end{acks}
+
+% Bibliography
+\bibliographystyle{ACM-Reference-Format-Journals}
+\bibliography{acmsmall-sample-bibfile}
+                             % Sample .bib file with references that match those in
+                             % the 'Specifications Document (V1.5)' as well containing
+                             % 'legacy' bibs and bibs with 'alternate codings'.
+                             % Gerry Murray - March 2012
+
+% History dates
+\received{February 2007}{March 2009}{June 2009}
+
+% Electronic Appendix
+\elecappendix
+
+\medskip
+
+\section{This is an example of Appendix section head}
+
+Channel-switching time is measured as the time length it takes for
+motes to successfully switch from one channel to another. This
+parameter impacts the maximum network throughput, because motes
+cannot receive or send any packet during this period of time, and it
+also affects the efficiency of toggle snooping in MMSN, where motes
+need to sense through channels rapidly.
+
+By repeating experiments 100 times, we get the average
+channel-switching time of Micaz motes: 24.3 $\mu$s. We then conduct
+the same experiments with different Micaz motes, as well as
+experiments with the transmitter switching from Channel 11 to other
+channels. In both scenarios, the channel-switching time does not have
+obvious changes. (In our experiments, all values are in the range of
+23.6 $\mu$s to 24.9 $\mu$s.)
+
+\section{Appendix section head}
+
+The primary consumer of energy in WSNs is idle listening. The key to
+reduce idle listening is executing low duty-cycle on nodes. Two
+primary approaches are considered in controlling duty-cycles in the
+MAC layer.
+
+% End of v2-acmsmall-sample.tex (March 2012) - Gerry Murray, ACM
+
+
