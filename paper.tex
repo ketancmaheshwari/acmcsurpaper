@@ -178,15 +178,66 @@ paradigm:
 
 \begin{enumerate}
 %
-\item \textbf{Scalability and Optimization.} SWEs are more likely to involve extensive usage of distributed resources than conventional programs. Owing to the large-scale experiments, for which scientific users turn to automation, their demands for computational power often exceeds that of a single personal computer. Such applications are often composed of multiple, distinct computational stages making them well-suited to the workflow paradigm. These properties also make them ideal candidates for a large-scale distributed computing environment. The case for suitability of SWEs on large-scale distributed infrastructures has been well-argued upon in~\cite{jha-katz-etal:2009}. In such a scenario, taking explicit steps to ensure scalable and optimized performance is vital.
+
+\item \textbf{Scalability and Optimization.} SWEs are more likely to involve
+extensive usage of distributed resources than conventional programs. Owing
+to the large-scale experiments, for which scientific users turn to
+automation, their demands for computational power often exceeds that of a
+single personal computer. Such applications are often composed of multiple,
+distinct computational stages making them well-suited to the workflow
+paradigm. These properties also make them ideal candidates for a
+large-scale distributed computing environment. The case for suitability of
+SWEs on large-scale distributed infrastructures has been well-argued upon
+in~\cite{jha-katz-etal:2009}. In such a scenario, taking explicit steps to
+ensure scalable and optimized performance is vital.
 %
-\item \textbf{Data Management.} The scale of data transfer is much higher in SWEs from one execution site to others as well as among storage resources while it is lower (ranging from variables to small data structures) in programs.
+
+\item \textbf{Data Management.} The scale of data transfer is much higher in
+SWEs from one execution site to others as well as among storage resources
+while it is lower (ranging from variables to small data structures) in
+programs.
 %
-\item \textbf{Interface to Distributed Computing Infrastructures (DCIs).} Building SWE's interfaces to distributed systems is a complex task. The distributed nature of resource utilization and asynchronous execution of workflow requires a set of interdependent parameters to be configured correctly. Further complexity is added because of complex dataflow requirements, interactions with diverse tools and linking with legacy application codes.
+
+\item \textbf{Interface to Distributed Computing Infrastructures (DCIs).}
+Building SWE's interfaces to distributed systems is a complex task. The
+distributed nature of resource utilization and asynchronous execution of
+workflow requires a set of interdependent parameters to be configured
+correctly. Further complexity is added because of complex dataflow
+requirements, interactions with diverse tools and linking with legacy
+application codes.
+
 %
-\item \textbf{Expressiveness.} Programming languages are inherently control flow oriented where data flow is a secondary aspect. In fact, the programmer must explicitly make sure that correct the inputs are available to instructions and are in the right format. A program proceeds as the execution of its statements from beginning to end and completes its execution in a predefined sequence. However, in SWEs, the flow is often determined by the data availability for execution. This model of computation is known as dataflow computing. A workflow thus does not follow a fixed order of execution and different execution sequences are possible which are dominated by dataflow. The unit of work in SWEs is at a higher level of granularity. A unit of execution is coarse-grained, and often termed as ``processor'', ``task'', ``service'' or ``actor'' in the SWE community. This notion of high-level granularity drives the depth to which a workflow can be expressed in a given language form. In the rest of this paper, this unit of work will be referred to as \textit{processor}. On the other hand, a unit of execution in most programming languages is a much simpler and finer executable statement that accomplishes a small computational task. This presents a whole new set of requirements for expressing the processors and how they should interact and operate upon data.
+\item \textbf{Expressiveness.} Programming languages are inherently control
+flow oriented where data flow is a secondary aspect. In fact, the
+programmer must explicitly make sure that correct the inputs are available
+to instructions and are in the right format. A program proceeds as the
+execution of its statements from beginning to end and completes its
+execution in a predefined sequence. However, in SWEs, the flow is often
+determined by the data availability for execution. This model of
+computation is known as dataflow computing. A workflow thus does not follow
+a fixed order of execution and different execution sequences are possible
+which are dominated by dataflow. The unit of work in SWEs is at a higher
+level of granularity. A unit of execution is coarse-grained, and often
+termed as ``processor'', ``task'', ``service'' or ``actor'' in the SWE
+community. This notion of high-level granularity drives the depth to which
+a workflow can be expressed in a given language form. In the rest of this
+paper, this unit of work will be referred to as \textit{processor}. On the
+other hand, a unit of execution in most programming languages is a much
+simpler and finer executable statement that accomplishes a small
+computational task. This presents a whole new set of requirements for
+expressing the processors and how they should interact and operate upon
+data.
+
 %
-\item \textbf{Usability.} SWEs predominantly serve as a tool for the domain experts to utilize the computational power. This makes it essential for them to have a friendly, and intuitive user-interface for novice and non-expert users. For this reason, SWE user interfaces are dominated by the visual paradigm of programming. On the other hand, traditional programs are most often written by expert programmers. Thus, they have a text-based composition environment albeit with visually assisting programming environments such as IDEs. However, they are seldom to the extent that a non-expert user can graphically compose programs.
+\item \textbf{Usability.} SWEs predominantly serve as a tool for the domain
+experts to utilize the computational power. This makes it essential for
+them to have a friendly, and intuitive user-interface for novice and
+non-expert users. For this reason, SWE user interfaces are dominated by the
+visual paradigm of programming. On the other hand, traditional programs are
+most often written by expert programmers. Thus, they have a text-based
+composition environment albeit with visually assisting programming
+environments such as IDEs. However, they are seldom to the extent that a
+non-expert user can graphically compose programs.
     
 \end{enumerate}
 
@@ -198,7 +249,16 @@ out of scope of the objectives of the current paper.
 
 
 \section{Architecture of a Generic SWE}
-Figure \ref{fig:wfms} shows a high-level architecture of a SWE. It shows key components and their interaction in a SWE. These components are the focus of interest for the present work. A \textit{user interface} interacts with the \textit{workflow engine} using commands and messages. The \textit{workflow language} becomes an intermediate representation for communication between user interface and the \textit{workflow engine}. The workflow engine acts as a compiler/interpreter and scheduler for the workflow tasks and interfaces with the underlying \textit{distributed resources}. It also monitors the workflow progress and collects the intermediate and final results.
+Figure \ref{fig:wfms} shows a high-level architecture of a SWE. It shows key
+components and their interaction in a SWE. These components are the focus of
+interest for the present work. A \textit{user interface} interacts with the
+\textit{workflow engine} using commands and messages. The \textit{workflow
+language} becomes an intermediate representation for communication between user
+interface and the \textit{workflow engine}. The workflow engine acts as a
+compiler/interpreter and scheduler for the workflow tasks and interfaces with
+the underlying \textit{distributed resources}. It also monitors the workflow
+progress and collects the intermediate and final results.
+
 %
 \begin{figure}[htb]
 \begin{center}
@@ -208,7 +268,17 @@ Figure \ref{fig:wfms} shows a high-level architecture of a SWE. It shows key com
 \end{center}
 \end{figure}
 %
-SWEs are used as tools to benefit from the underlying large-scale computing infrastructure such as clusters, supercomputers, clouds, grids. Such environments are in use today for production level work in different scientific domains worldwide. They do the basic task of linking inter-related processors of a multi-staged scientific computation. However, they differ in the features they provide based upon the scientific domain they offer service for, and the computational model they follow. Often, one of the main reasons for such difference is the specialized components and requirements for a particular domain. Owing to this fact, a given workflow system dominates a particular area of science (eg. astronomy, biology, etc.). Nonetheless, there exist a plethora of SWEs suitable for general purpose workflow style computations.
+SWEs are used as tools to benefit from the underlying large-scale computing
+infrastructure such as clusters, supercomputers, clouds, grids. Such
+environments are in use today for production level work in different scientific
+domains worldwide. They do the basic task of linking inter-related processors
+of a multi-staged scientific computation. However, they differ in the features
+they provide based upon the scientific domain they offer service for, and the
+computational model they follow. Often, one of the main reasons for such
+difference is the specialized components and requirements for a particular
+domain. Owing to this fact, a given workflow system dominates a particular area
+of science (eg. astronomy, biology, etc.). Nonetheless, there exist a plethora
+of SWEs suitable for general purpose workflow style computations.
 % Ketanmark
 
 \section{Related Work}
@@ -359,41 +429,199 @@ MOTEUR facilitates executing workflows consisting of remote web- and
 grid-services. It exploits service parallelism at workflow level and data
 parallelism for multiple datasets.
 
-MOTEUR has sophisticated data management mechanisms within the workflow definition. It provides a diverse set of iterations strategies well adapted for different combinations of input datasets at the processor. An iteration strategy allows different combinations of the data arriving at a processor along its multiple inputs. Running legacy application code on grids has been eased by MOTEUR by providing a generic grid-service wrapper for these applications \cite{glatard-montagnat-etal:2008a}. Grid-services thus created can be readily deployed on the grids by the MOTEUR workflow enactor. MOTEUR workflows are written in the scufl language and are compatible with those written for the Taverna SWE. It also supports an extension of scufl language called the Gwendia language, developed at the same laboratory. 
+MOTEUR has sophisticated data management mechanisms within the workflow
+definition. It provides a diverse set of iterations strategies well adapted for
+different combinations of input datasets at the processor. An iteration
+strategy allows different combinations of the data arriving at a processor
+along its multiple inputs. Running legacy application code on grids has been
+eased by MOTEUR by providing a generic grid-service wrapper for these
+applications \cite{glatard-montagnat-etal:2008a}. Grid-services thus created
+can be readily deployed on the grids by the MOTEUR workflow enactor. MOTEUR
+workflows are written in the scufl language and are compatible with those
+written for the Taverna SWE. It also supports an extension of scufl language
+called the Gwendia language, developed at the same laboratory. 
 %
-\paragraph{Makeflow} Business Process Execution Language (BPEL) \cite{oasis:2007} is a workflow language pioneered by IBM Corporation and used predominantly to define business workflows. It is now a broad standard for business workflow applications. BPEL is an open language and commercial enactors are available that provide enactment functionality for the BPEL workflows. There has been attempts to use BPEL or its extended version in the scientific applications \cite{slominski:2007,bpel}. However, the language does not suit well to the data-intensive, grid workflows and has a limited adoption in the scientific community \cite{tan-missier-etal:2010,barga-gannon:2007,scherp-hoing-etal:2009,emmerich-butchart-etal:2005}. Apart from that, a lack of an open-source workflow engine with graphical interface also contributes to its limited acceptance in academic research. However, BPEL has been famously unsuitable for data intensive scientific applications  BPEL lacks different user-defined strategies to effect multiple invocations of each processor according to the application semantics. BPEL also lacks data streams and implicit parallelism forcing a user to explicitly define parallelism using one of its parallel processing constructs such as \texttt{foreach}.
+\paragraph{Makeflow} A make-like workflow platform~\cite{makeflow}.
+
 %
-\paragraph{Triana/xml} Triana \cite{taylor-shields-etal:2003} is a java-based SWE developed at the Cardiff University. It consists of a workflow composition GUI, a framework to integrate workflow with the different execution environments and middlewares and a set of predefined services written as java components. A Triana workflow is expressed as an XML grammar similar to a WSDL specification for webservices \cite{taylor-wand-etal:2005}. A highlight of Triana is that it provides ready-to-use interface for a wide variety of middleware and distributed infrastructures including P2P, grids and web-services frameworks. A Triana workflow provides dataflow as well as control flow support. Triana allows conditional branching and looping in its workflows.
+\paragraph{Triana/xml} Triana \cite{taylor-shields-etal:2003} is a java-based
+SWE developed at the Cardiff University. It consists of a workflow composition
+GUI, a framework to integrate workflow with the different execution
+environments and middlewares and a set of predefined services written as java
+components. A Triana workflow is expressed as an XML grammar similar to a WSDL
+specification for webservices \cite{taylor-wand-etal:2005}. A highlight of
+Triana is that it provides ready-to-use interface for a wide variety of
+middleware and distributed infrastructures including P2P, grids and
+web-services frameworks. A Triana workflow provides dataflow as well as control
+flow support. Triana allows conditional branching and looping in its workflows.
+
 %
-\paragraph{Kepler/MoML} Kepler \cite{ludascher-altintas-etal:2005a} is a SWE based upon the Ptollemy II framework \cite{eker-janneck-etal:2003} developed at the University of California. Kepler workflows follow an actor-director metaphor where an actor represents a unit of execution and the director represents the paradigm for executing the workflows consisting of the actors. Depending upon the types of directors, a Kepler workflow may exhibit a different type of execution behavior. A workflow designer can chose from among directors based upon the purpose of a workflow. Few of these include Process Network (PN) for a parallel execution at the workflow level, Synchronous Data Flow (SDF) for simple sequential data flow and Collection Oriented Modeling and Design (COMAD) \cite{keplercomad} for a collection oriented workflow. Kepler uses the Modeling Markup Language (MoML)~\cite{lee-neuendorffer:2000} for its workflow representation. MoML is an extended XML syntax providing a rich vocabulary to compose Kepler workflows. A workflow processor is called an `actor' in Kepler. 
+\paragraph{Kepler/MoML} Kepler \cite{ludascher-altintas-etal:2005a} is a SWE
+based upon the Ptollemy II framework \cite{eker-janneck-etal:2003} developed at
+the University of California. Kepler workflows follow an actor-director
+metaphor where an actor represents a unit of execution and the director
+represents the paradigm for executing the workflows consisting of the actors.
+Depending upon the types of directors, a Kepler workflow may exhibit a
+different type of execution behavior. A workflow designer can chose from among
+directors based upon the purpose of a workflow. Few of these include Process
+Network (PN) for a parallel execution at the workflow level, Synchronous Data
+Flow (SDF) for simple sequential data flow and Collection Oriented Modeling and
+Design (COMAD) \cite{keplercomad} for a collection oriented workflow. Kepler
+uses the Modeling Markup Language (MoML)~\cite{lee-neuendorffer:2000} for its
+workflow representation. MoML is an extended XML syntax providing a rich
+vocabulary to compose Kepler workflows. A workflow processor is called an
+`actor' in Kepler. 
+
 %
-\paragraph{Dryad/--} The GridNexus \cite{GridNexus} SWE, developed at the University of North Carolina, Wilmington, facilitates a graphical composition and execution of DAG-based workflows. Like Kepler, GridNexus is also based on Ptolemy II framework. GridNexus workflows are expressed in an XML-based scripting language called JXPL \cite{hunt-ferner-etal:2005}. JXPL is a customizable and extensible scripting language allowing users to write their own workflow processor types. GridNexus workflows are grid oriented and can be deployed on grid resources accessed through a persistent WS-RF (Web Services Resource Framework) interface.
+\paragraph{Dryad/--} The GridNexus \cite{GridNexus} SWE, developed at the
+University of North Carolina, Wilmington, facilitates a graphical composition
+and execution of DAG-based workflows. Like Kepler, GridNexus is also based on
+Ptolemy II framework. GridNexus workflows are expressed in an XML-based
+scripting language called JXPL \cite{hunt-ferner-etal:2005}. JXPL is a
+customizable and extensible scripting language allowing users to write their
+own workflow processor types. GridNexus workflows are grid oriented and can be
+deployed on grid resources accessed through a persistent WS-RF (Web Services
+Resource Framework) interface.
+
 %
-\paragraph{Pegasus/DAX} Pegasus \cite{deelman-peg} is a low-level distributed computing framework that can map abstract workflows as DAGs to the concrete underlying resources using intelligent and dynamic scheduling policies. A Pegasus workflow is expressed in a simple XML-based language called DAX (DAG in XML). DAX describes the logical workflow components, their inputs and outputs and their links and dependencies in a Pegasus workflow. These kind of workflows has been shown to enact optimally using Pegasus' smart memory and disk management techniques. Pegasus manager buffers and maintains a fix-sized window of executable tasks before accepting new tasks.
+\paragraph{Pegasus/DAX} Pegasus \cite{deelman-peg} is a low-level distributed
+computing framework that can map abstract workflows as DAGs to the concrete
+underlying resources using intelligent and dynamic scheduling policies. A
+Pegasus workflow is expressed in a simple XML-based language called DAX (DAG in
+XML). DAX describes the logical workflow components, their inputs and outputs
+and their links and dependencies in a Pegasus workflow. These kind of workflows
+has been shown to enact optimally using Pegasus' smart memory and disk
+management techniques. Pegasus manager buffers and maintains a fix-sized window
+of executable tasks before accepting new tasks.
+
 %
 
-\paragraph{Swift/Swift Script} Swift \cite{swift} is a script-based scientific workflow environment developed at the University of Chicago. A Swift workflow specified in the SwiftScript scripting language is translated to an intermediate XML-based representation and enacted by the Karajan workflow enactment engine. The SwiftScript language is proposed as a workflow language founded on a scripting approach programmers are familiar with. To make the language adapted to grids, the inventors of SwiftScript generalized the use of futures \cite{Halstead85multilisp:a} for every variables defined in the script. Futures are non-blocking assignment variables, using a proxy to ensure immediate execution of assignment and performing lazy blocking on variable value accesses only. The systematic use of futures for every variables in the language makes it completely data-driven: the execution progresses asynchronously as long as a data access is not blocking. The availability of data enables blocked thread to restart execution. The beauty of futures is to make this process completely hidden from the programmer who can use a scripting language he is familiar with without ever manipulating explicit parallel programming constructs. Swift facilitates a highly asynchronous workflow execution. Swift supports advanced workflow constructs such as parallel loops and conditionals. Furthermore Swift supports processing of explicitly defined arrays of data. Swift workflows take advantage of POSIX-style shared file system to reuse the data produced by other processors.
+\paragraph{Swift/Swift Script} Swift \cite{swift} is a script-based scientific
+workflow environment developed at the University of Chicago. A Swift workflow
+specified in the SwiftScript scripting language is translated to an
+intermediate XML-based representation and enacted by the Karajan workflow
+enactment engine. The SwiftScript language is proposed as a workflow language
+founded on a scripting approach programmers are familiar with. To make the
+language adapted to grids, the inventors of SwiftScript generalized the use of
+futures \cite{Halstead85multilisp:a} for every variables defined in the script.
+Futures are non-blocking assignment variables, using a proxy to ensure
+immediate execution of assignment and performing lazy blocking on variable
+value accesses only. The systematic use of futures for every variables in the
+language makes it completely data-driven: the execution progresses
+asynchronously as long as a data access is not blocking. The availability of
+data enables blocked thread to restart execution. The beauty of futures is to
+make this process completely hidden from the programmer who can use a scripting
+language he is familiar with without ever manipulating explicit parallel
+programming constructs. Swift facilitates a highly asynchronous workflow
+execution. Swift supports advanced workflow constructs such as parallel loops
+and conditionals. Furthermore Swift supports processing of explicitly defined
+arrays of data. Swift workflows take advantage of POSIX-style shared file
+system to reuse the data produced by other processors.
+
 % Put this somewhere else, either in the analysis or may be in the conclusions and summary.
 %The \textit{gscript} \cite{maheshwari-montagnat:2010} workflow language developed as a part of the current work is similar in spirit to the SwiftScript. Similar to SwiftScript, gscript adopts futures to express asynchronous execution in a script-based language. A SwiftScript workflow contains statically typed datasets that can be specified using ``annotations'' in the script. Unlike SwiftScript, gscript does provide user-defined strategies in order to effect data combinations in the workflow. SwiftScript provides for fault-tolerance and exception handling at run-time which is lacking currently in gscript. The underlying datasets organization in swift is represented using an XDTM XML-representation. This means that effectively, a workflow is SwiftScript plus the XDTM data representation. A workflow is simpler and compact in gscript as its data description is embedded within a workflow representation. SwiftScript supports creation of nested-workflows in the form of compound procedures. Conditional and Loop execution is supported using the if and for/while statements in both the languages.
+
 %
-\paragraph{ASKALON/AGWL.} The ASKALON Problem Solving Environment (PSE) \cite{fahringer-prodan-etal:2007} is developed at the University of Innsbruck. ASKALON is described as a Scientific PSE capable of composing, hosting, executing, sharing and reusing scientific workflows written in the Abstract Grid Workflow Language (AGWL). AGWL is an XML-based workflow language that is capable of expressing scientific application components chains at a high-level of abstraction. A concrete workflow consists of the abstract workflow combined with the resources and target execution environment binding the workflow. The graphical interface of AGWL is based upon the UML (Unified Modeling Language) diagrams.
+\paragraph{ASKALON/AGWL.} The ASKALON Problem Solving Environment (PSE)
+\cite{fahringer-prodan-etal:2007} is developed at the University of Innsbruck.
+ASKALON is described as a Scientific PSE capable of composing, hosting,
+executing, sharing and reusing scientific workflows written in the Abstract
+Grid Workflow Language (AGWL). AGWL is an XML-based workflow language that is
+capable of expressing scientific application components chains at a high-level
+of abstraction. A concrete workflow consists of the abstract workflow combined
+with the resources and target execution environment binding the workflow. The
+graphical interface of AGWL is based upon the UML (Unified Modeling Language)
+diagrams.
+
 %
-\paragraph{GWES/GWorkflowDL} The Grid Workflow Execution Service (GWES)~\cite{Hoheisel2007} is a SWE developed by the Fraunhofer-First institute. It implements a dynamic workflow composition and enactment model based on the Grid Workflow Description Language (GWorkflowDL)~\cite{Alt2006}. GWES enables key workflow development and deployment lifecycle phases including visual composition, data-staging, Grid middleware interfacing and execution monitoring. Currently, GWES is intensively being used in the field of Medical Image Processing especially at the Charit\'{e} Hospital at Berlin in Germany. It has been successfully interfaced with the German D-Grid infrastructure.
+\paragraph{GWES/GWorkflowDL} The Grid Workflow Execution Service
+(GWES)~\cite{Hoheisel2007} is a SWE developed by the Fraunhofer-First
+institute. It implements a dynamic workflow composition and enactment model
+based on the Grid Workflow Description Language (GWorkflowDL)~\cite{Alt2006}.
+GWES enables key workflow development and deployment lifecycle phases including
+visual composition, data-staging, Grid middleware interfacing and execution
+monitoring. Currently, GWES is intensively being used in the field of Medical
+Image Processing especially at the Charit\'{e} Hospital at Berlin in Germany.
+It has been successfully interfaced with the German D-Grid infrastructure.
 %
 
-\paragraph{The Galaxy Portal/JSON} The P-GRADE Portal \cite{kacsuk-sipos:2005} developed at the MTA SZTAKI Computation and Automation Institute, Budapest, provides an access to grid computational and storage resources from a web browser through a specialized workflow oriented grid portal. A workflow development environment interfaces the users through this web based portal. The portal interfaces the multiple grid computing middleware and storage resources as a backend component of the environment. A highlight of P-GRADE portal is that it provides access to multiple grids and scientific communities in a single environment leading to a highly collaborative inter-community, inter-grid research environment. An older version of P-GRADE used the condor-Dagman as workflow engine while the recent version uses its own in-house developed workflow engine called Xen.
-%
-\paragraph{DaGue/--} Bioflow \cite{bioflow} is a query based workflow language. It is motivated by the fact that bioinformatics applications are query based applications that benefit from the complex database queries or saved database `views'. A typical Bioflow workflow pipelines a sequence of filter queries in order to get the desired results. Bioflow is mainly utilized in the area of bioinformatics and querying genome databases. Additionally, a Bioflow workflow provides mechanisms for data manipulation and updation in the existing databases. It also includes advanced features such as parallel processing of a set of mutually independent database queries. The execution model is based on the popular database query language SQL (Structured Query Language). Processes can be defined in Bioflow which are processor counterparts in workflow paradigm and similar to stored-procedures in SQL jargon.
+\paragraph{The P-GRADE Portal/--} The P-GRADE Portal \cite{kacsuk-sipos:2005}
+developed at the MTA SZTAKI Computation and Automation Institute, Budapest,
+provides an access to grid computational and storage resources from a web
+browser through a specialized workflow oriented grid portal. A workflow
+development environment interfaces the users through this web based portal. The
+portal interfaces the multiple grid computing middleware and storage resources
+as a backend component of the environment. A highlight of P-GRADE portal is
+that it provides access to multiple grids and scientific communities in a
+single environment leading to a highly collaborative inter-community,
+inter-grid research environment. An older version of P-GRADE used the
+condor-Dagman as workflow engine while the recent version uses its own in-house
+developed workflow engine called Xen.
 
-Vizbuilder \cite{vizbuilder} is a graphical toolkit to generate the graphical representation of bioflow workflows. A Vizbuilder workflow links to an underlying bioflow engine and provides an interface to submit the bioflow workflows for execution.
 %
-\paragraph{*/Martlet} Martlet \cite{martlet} is a text-based, declarative workflow language that is inspired by the functional programming paradigm. A Martlet workflow conveniently enables distributed parameter sweep applications wherein the language intuitively defines the computation and a matching with the distributed resources can be carried out at workflow execution time. List processing applications where a sequence of application components work over an array of data in a Multi-data multi-instruction style setup is well-suited to the Martlet's model of computation.
-%
-\paragraph{Knime/--} Knime \cite{knime} is a distributed, parallel pipelining system for data intensive applications developed at the University of Konstanz. It is a java-based platform with a Graphical Interface that is based on eclipse (\textit{http://www.eclipse.org}) plug-in framework. A Knime workflow consists of processors belonging to categories such as readers, manipulators, learners, predictors, etc. Each processor has a configuration dialog associated with it that allows user to set its parameters. Processors are connected through data and/or control connections. A highlight of knime is support for shared- and distributed-memory workflow enactment and support for parallel workflow loops and subworkflows. The loops in Knime manifest themselves in the form of subworkflows (called metanodes in Knime) by a repeated enactment of the same subworkflow.
-%
-\paragraph{*/} StarFlow \cite{angelino-yamins-etal:2010} is a Python-based script oriented workflow language used to encode parallel pipelines. StarFlow handles data as well as control flow using a combination of static, dynamic and user annotations analysis. A parallelization engine uses data and control dependencies in a workflow in order to build a parallel profile of the workflow. StarFlow has been shown to be successfully interface with the SunGrid \cite{gentzsch:2001} Schedular and Amazon EC2 cloud infrastructure \cite{ec2}. The key feature of StarFlow is its capability to execute workflows to maximum possible parallelism. While StarFlow provides a script-based compact and semiautomatic workflow composition environment, currently it lacks a sophisticated GUI for workflow composition. 
+\paragraph{DaGue/--} Bioflow \cite{bioflow} is a query based workflow language.
+It is motivated by the fact that bioinformatics applications are query based
+applications that benefit from the complex database queries or saved database
+`views'. A typical Bioflow workflow pipelines a sequence of filter queries in
+order to get the desired results. Bioflow is mainly utilized in the area of
+bioinformatics and querying genome databases. Additionally, a Bioflow workflow
+provides mechanisms for data manipulation and updation in the existing
+databases. It also includes advanced features such as parallel processing of a
+set of mutually independent database queries. The execution model is based on
+the popular database query language SQL (Structured Query Language). Processes
+can be defined in Bioflow which are processor counterparts in workflow paradigm
+and similar to stored-procedures in SQL jargon.
 
-\paragraph{Galaxy/--} Galaxy \cite{blankenberg-vonkuster-etal:2010} is a bioinformatics domain SWE based framework developed at the Penn State University, Pennsilvania. It provides a webportal based environment to build complex pipelines from an available repository of tools (\textit{http://g2.bx.psu.edu}). Users can extend the tool repository provided by Galaxy using their own Galaxy server or a web-server exposing the webservice descriptions through public WSDLs. One of the major use of Galaxy is to achieve a mix and match of data analysis tools in order to analyze a vast repository of genome based database.
+Vizbuilder \cite{vizbuilder} is a graphical toolkit to generate the graphical
+representation of bioflow workflows. A Vizbuilder workflow links to an
+underlying bioflow engine and provides an interface to submit the bioflow
+workflows for execution.
+
+%
+\paragraph{*/Martlet} Martlet \cite{martlet} is a text-based, declarative
+workflow language that is inspired by the functional programming paradigm. A
+Martlet workflow conveniently enables distributed parameter sweep applications
+wherein the language intuitively defines the computation and a matching with
+the distributed resources can be carried out at workflow execution time. List
+processing applications where a sequence of application components work over an
+array of data in a Multi-data multi-instruction style setup is well-suited to
+the Martlet's model of computation.
+
+%
+\paragraph{Knime/--} Knime \cite{knime} is a distributed, parallel pipelining
+system for data intensive applications developed at the University of Konstanz.
+It is a java-based platform with a Graphical Interface that is based on eclipse
+(\textit{http://www.eclipse.org}) plug-in framework. A Knime workflow consists
+of processors belonging to categories such as readers, manipulators, learners,
+predictors, etc. Each processor has a configuration dialog associated with it
+that allows user to set its parameters. Processors are connected through data
+and/or control connections. A highlight of knime is support for shared- and
+distributed-memory workflow enactment and support for parallel workflow loops
+and subworkflows. The loops in Knime manifest themselves in the form of
+subworkflows (called metanodes in Knime) by a repeated enactment of the same
+subworkflow.
+%
+\paragraph{*/} StarFlow \cite{angelino-yamins-etal:2010} is a Python-based
+script oriented workflow language used to encode parallel pipelines. StarFlow
+handles data as well as control flow using a combination of static, dynamic and
+user annotations analysis. A parallelization engine uses data and control
+dependencies in a workflow in order to build a parallel profile of the
+workflow. StarFlow has been shown to be successfully interface with the SunGrid
+\cite{gentzsch:2001} Schedular and Amazon EC2 cloud infrastructure \cite{ec2}.
+The key feature of StarFlow is its capability to execute workflows to maximum
+possible parallelism. While StarFlow provides a script-based compact and
+semiautomatic workflow composition environment, currently it lacks a
+sophisticated GUI for workflow composition. 
+
+\paragraph{Galaxy Portal/JSON} Galaxy~\cite{blankenberg-vonkuster-etal:2010} is a
+bioinformatics domain SWE based framework developed at the Penn State
+University, Pennsilvania. It provides a webportal based environment to build
+complex pipelines from an available repository of tools
+(\textit{http://g2.bx.psu.edu}). Users can extend the tool repository provided
+by Galaxy using their own Galaxy server or a web-server exposing the webservice
+descriptions through public WSDLs. One of the major use of Galaxy is to achieve
+a mix and match of data analysis tools in order to analyze a vast repository of
+genome based database.
 
 % == ENACTOR SCALABILITY AND OPTIMIZATION ==
 \section{Enactor Scalability and Optimization} \label{sec:scal}
@@ -575,7 +803,12 @@ MOTEUR2/Gwendia~ & \checkmark &\checkmark & \checkmark &-- &\checkmark &-- \\\hl
 \end{center}
 \end{table}
 
-Shown in Table \ref{tbl:scalability} is a summary of the Scalability and optimization mechanisms of the studied SWEs. The scalability features considered are through three levels of parallelism in the form of data, workflow and pipeline. The optimization features considered are the presence of mechanisms by which static and runtime optimizations are achieved.
+Shown in Table \ref{tbl:scalability} is a summary of the Scalability and
+optimization mechanisms of the studied SWEs. The scalability features
+considered are through three levels of parallelism in the form of data,
+workflow and pipeline. The optimization features considered are the presence of
+mechanisms by which static and runtime optimizations are achieved.
+
 %
 % == DATA MANAGEMENT ==
 \section{Data Management and Description} \label{sec:data}
@@ -705,7 +938,18 @@ Gwendia~ &&Double,URI&&Data&Reference\\\hline
 \end{center}
 \end{table}
 
-Table \ref{tbl:datadesc} presents a summary of the data management mechanisms of the studied SWEs. Language and resource level data management mechanisms are highlighted. At the language level, data description as coupled with that of the workflow, data types and structures are considered for the SWE studied. At the resource level, the major resource types supported and their access mechanisms are highlighted. We distinguish the remote form of Grid resource types by the specific Grid protocols (\textit{eg.} GridFTP) supported for those resource access. Other resource types such as data repositories or file catalogues are the resource types specific to a given SWE. For instance, Askalon uses a specifically configured data repository to access data and application binaries.
+Table \ref{tbl:datadesc} presents a summary of the data management mechanisms
+of the studied SWEs. Language and resource level data management mechanisms are
+highlighted. At the language level, data description as coupled with that of
+the workflow, data types and structures are considered for the SWE studied. At
+the resource level, the major resource types supported and their access
+mechanisms are highlighted. We distinguish the remote form of Grid resource
+types by the specific Grid protocols (\textit{eg.} GridFTP) supported for those
+resource access. Other resource types such as data repositories or file
+catalogues are the resource types specific to a given SWE. For instance,
+Askalon uses a specifically configured data repository to access data and
+application binaries.
+
 %Replication is one of the solution.
 % == INTERFACE TO COMPUTING AND DATA INFRASTRUCTURES ==
 \section{Interface to Distributed Computing Infrastructures (DCIs)} \label{sec:inter}
@@ -839,7 +1083,11 @@ remote data storage services such as the Amazon S3
 Table \ref{tbl:interfacedci} presents a summary of the studied SWEs mechanisms for interfacing DCIs.
 % == WORKFLOW LANGUAGE EXPRESSIVENESS ==
 \section{Workflow Language Expressiveness} \label{sec:lang}
-A workflow language is the medium of expression of the task a workflow is supposed to accomplish. A workflow language acts as an interface between the workflow enactor and an end-user. Apart from correctly expressing the flow of execution and data, a workflow language must be able to link with the application code in a transparent way.
+A workflow language is the medium of expression of the task a workflow is
+supposed to accomplish. A workflow language acts as an interface between the
+workflow enactor and an end-user. Apart from correctly expressing the flow of
+execution and data, a workflow language must be able to link with the
+application code in a transparent way.
 
 Historically, low-level, general-purpose scripting languages have been used for
 workflow descriptions. For example, batch files, UNIX shell scripts and
@@ -983,10 +1231,19 @@ processors. Thus a branch of a workflow in Knime can be configured into a
 single processor in the form of metanode. A single such processor might be
 enacted multiple times giving a form of loop to a Knime workflow.
 
-Table \ref{tbl:expressive} shows a summary of language expressiveness capabilities of the SWEs studied. We consider the control structures: conditionals and loops, support for arrays and iterators \cite{montagnat-glatard-etal:2006} as the expressive features of SWEs.
+Table \ref{tbl:expressive} shows a summary of language expressiveness
+capabilities of the SWEs studied. We consider the control structures:
+conditionals and loops, support for arrays and iterators
+\cite{montagnat-glatard-etal:2006} as the expressive features of SWEs.
 
 \section{Usability} \label{sec:usable}
-A workflow environment influences the end-user comfort and convenience towards the goal of efficiently organizing and deploying a scientific experiment involving heavy usage of computational resources. However, there is no single factor that determines the usability of a SWE. A combination of several qualitative and quantitative factors play a role in determining how usable a given SWE is.
+A workflow environment influences the end-user comfort and convenience towards
+the goal of efficiently organizing and deploying a scientific experiment
+involving heavy usage of computational resources. However, there is no single
+factor that determines the usability of a SWE. A combination of several
+qualitative and quantitative factors play a role in determining how usable a
+given SWE is.
+
 \begin{table}[ht!]
 \begin{center}
 % use packages: array
@@ -1096,6 +1353,27 @@ based upon their features and functionalities. The ``myexperiment" repository
 is especially notable for its adoption of social web paradigm where users not
 only find and reuse the workflows but can actively collaborate on scientific
 experiments over the web.
+
+% -------------------- Fit here as not main content ------------------------
+
+Business Process Execution Language (BPEL) \cite{oasis:2007} is a workflow
+language pioneered by IBM Corporation and used predominantly to define business
+workflows. It is now a broad standard for business workflow applications. BPEL
+is an open language and commercial enactors are available that provide
+enactment functionality for the BPEL workflows. There has been attempts to use
+BPEL or its extended version in the scientific applications
+\cite{slominski:2007,bpel}. However, the language does not suit well to the
+data-intensive, grid workflows and has a limited adoption in the scientific
+community
+\cite{tan-missier-etal:2010,barga-gannon:2007,scherp-hoing-etal:2009,emmerich-butchart-etal:2005}.
+Apart from that, a lack of an open-source workflow engine with graphical
+interface also contributes to its limited acceptance in academic research.
+However, BPEL has been famously unsuitable for data intensive scientific
+applications  BPEL lacks different user-defined strategies to effect multiple
+invocations of each processor according to the application semantics. BPEL also
+lacks data streams and implicit parallelism forcing a user to explicitly define
+parallelism using one of its parallel processing constructs such as
+\texttt{foreach}.
 
 % ---------------------------------------------------------------------------
 
