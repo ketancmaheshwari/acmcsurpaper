@@ -102,9 +102,9 @@ Author's addresses: Ketan Maheshwari, Argonne National Laboratory; Johan Montagn
 % Triana
 % Galaxy
 % Makeflow
+% Kepler/Ptolemy
 % Dryad
 % Science pipes
-% GWES
 % Spark
 % Linda
 % DaGue
@@ -348,26 +348,26 @@ realize a truly generic workflow language that can express a wide variety of
 flow patterns encountered in scientific domains.
 
 \section{Objectives and Organization}
-The present work analyzes contemporary SWEs used in the context of e-science to
-find out the capabilities and key features in terms of the characteristics
-described in the introduction part of this paper. The rest of this paper is
-organized as follows: Section \ref{sec:overview} presents an overview of the
-key SWEs studied in this work. Section \ref{sec:scal} discusses the
-optimization features and resulting scalable performance as observed in the
-SWEs studied. Section \ref{sec:data} studies the data management and
-description aspects of the SWEs. Section \ref{sec:inter} presents a study of
-SWEs approaches to interface the large-scale computing infrastructures. Section
-\ref{sec:lang} details the language features and expressiveness of the SWEs
-studied. Section \ref{sec:usable} discusses the usability aspects of the SWEs.
-Section \ref{sec:sum} presents a summary and a classification of all the
-aspects of SWEs studied in this work. Throughout the paper, we also present
-tables summarizing the aspects of SWEs considered in respective sections. It
-was not possible to obtain an exhaustive information about all the SWEs
-considered in this work since we rely on the peer reviewed publications for
-information on a given SWE. Some features, such as extendability of SWE
-strongly depend on the extension points designed in the code; consequently, we
-consider it present in only those SWEs that have a documented description or
-demonstration of the given feature. 
+The present work analyzes contemporary SWEs in order to find the capabilities
+and key features in terms of the characteristics described in the introduction
+part of this paper. The rest of this paper is organized as follows: Section
+\ref{sec:overview} presents an overview of the key SWEs studied in this work.
+Section \ref{sec:scal} discusses the optimization features and resulting
+scalable performance as observed in the SWEs studied. Section \ref{sec:data}
+studies the data management and description aspects of the SWEs. Section
+\ref{sec:inter} presents a study of SWEs approaches to interface the
+large-scale computing infrastructures. Section \ref{sec:lang} details the
+language features and expressiveness of the SWEs studied. Section
+\ref{sec:usable} discusses the usability aspects of the SWEs.  Section
+\ref{sec:sum} presents a summary and a classification of all the aspects of
+SWEs studied in this work. Throughout the paper, we also present tables
+summarizing the aspects of SWEs considered in respective sections. It was not
+possible to obtain an exhaustive information about all the SWEs considered in
+this work since we rely on the peer reviewed publications for information on a
+given SWE. Some features, such as extendability of SWE strongly depend on the
+extension points designed in the code; consequently, we consider it present in
+only those SWEs that have a documented description or demonstration of the
+given feature. 
 
 \section{Overview of the Workflow Environments} \label{sec:overview}
 In this section we present an overview of the Workflow Environments studied.
@@ -518,8 +518,23 @@ and conditionals. Furthermore Swift supports processing of explicitly defined
 arrays of data. Swift workflows take advantage of POSIX-style shared file
 system to reuse the data produced by other processors.
 
-% Put this somewhere else, either in the analysis or may be in the conclusions and summary.
-%The \textit{gscript} \cite{maheshwari-montagnat:2010} workflow language developed as a part of the current work is similar in spirit to the SwiftScript. Similar to SwiftScript, gscript adopts futures to express asynchronous execution in a script-based language. A SwiftScript workflow contains statically typed datasets that can be specified using ``annotations'' in the script. Unlike SwiftScript, gscript does provide user-defined strategies in order to effect data combinations in the workflow. SwiftScript provides for fault-tolerance and exception handling at run-time which is lacking currently in gscript. The underlying datasets organization in swift is represented using an XDTM XML-representation. This means that effectively, a workflow is SwiftScript plus the XDTM data representation. A workflow is simpler and compact in gscript as its data description is embedded within a workflow representation. SwiftScript supports creation of nested-workflows in the form of compound procedures. Conditional and Loop execution is supported using the if and for/while statements in both the languages.
+% Put this somewhere else, either in the analysis or may be in the conclusions
+% and summary.
+%The \textit{gscript} \cite{maheshwari-montagnat:2010} workflow language
+%developed as a part of the current work is similar in spirit to the
+%SwiftScript. Similar to SwiftScript, gscript adopts futures to express
+%asynchronous execution in a script-based language. A SwiftScript workflow
+%contains statically typed datasets that can be specified using ``annotations''
+%in the script. Unlike SwiftScript, gscript does provide user-defined
+%strategies in order to effect data combinations in the workflow. SwiftScript
+%provides for fault-tolerance and exception handling at run-time which is
+%lacking currently in gscript. The underlying datasets organization in swift is
+%represented using an XDTM XML-representation. This means that effectively, a
+%workflow is SwiftScript plus the XDTM data representation. A workflow is
+%simpler and compact in gscript as its data description is embedded within a
+%workflow representation. SwiftScript supports creation of nested-workflows in
+%the form of compound procedures. Conditional and Loop execution is supported
+%using the if and for/while statements in both the languages.
 
 %
 \paragraph{ASKALON/AGWL.} The ASKALON Problem Solving Environment (PSE)
@@ -533,17 +548,6 @@ with the resources and target execution environment binding the workflow. The
 graphical interface of AGWL is based upon the UML (Unified Modeling Language)
 diagrams.
 
-%
-\paragraph{GWES/GWorkflowDL} The Grid Workflow Execution Service
-(GWES)~\cite{Hoheisel2007} is a SWE developed by the Fraunhofer-First
-institute. It implements a dynamic workflow composition and enactment model
-based on the Grid Workflow Description Language (GWorkflowDL)~\cite{Alt2006}.
-GWES enables key workflow development and deployment lifecycle phases including
-visual composition, data-staging, Grid middleware interfacing and execution
-monitoring. Currently, GWES is intensively being used in the field of Medical
-Image Processing especially at the Charit\'{e} Hospital at Berlin in Germany.
-It has been successfully interfaced with the German D-Grid infrastructure.
-%
 
 \paragraph{The P-GRADE Portal/--} The P-GRADE Portal \cite{kacsuk-sipos:2005}
 developed at the MTA SZTAKI Computation and Automation Institute, Budapest,
@@ -795,7 +799,6 @@ Knime/- & \checkmark &\checkmark &\checkmark & -- & \checkmark & -- \\\hline
 StarFlow/- &\checkmark & \checkmark & \checkmark & \checkmark & \checkmark & -- \\\hline
 Pegasus/DAX &\checkmark &\checkmark &\checkmark &\checkmark &\checkmark &AI-based techniques \\\hline
 Galaxy/- &-- &-- &\checkmark &-- &-- &-- \\\hline
-GWES/GWorkflowDL &-- &-- &\checkmark &-- &\checkmark &-- \\\hline
 MOTEUR2/Gwendia~ & \checkmark &\checkmark & \checkmark &-- &\checkmark &-- \\\hline
 \end{tabular}
 %\caption{A summary of SWEs Scalability and optimization Mechanisms}
@@ -923,7 +926,6 @@ Vizbuilder/bioflow&Strong&SQL-types&--&Database&SQL,PL/SQL\\\hline
 &&Double&Arrays&Databases&Tools\\\hline
 % 
 StarFlow/-&Strong&Python-based&Python-based&--&--\\\hline
-GWES/GWorkflowDL&Strong&java-based&java-based&--&--\\\hline
 % 
 \multirow{2}{*}{}Pegasus/&Loose&--&--&Distributed&Secure\\
 DAX&&&&Filesystems&Protocols\\\hline
@@ -1014,7 +1016,6 @@ Vizbuilder/bioflow & DCI Independent & None Inherently \\\hline
 Martlet/- & interfaces multiple middlewares & Generic Grids \\\hline
 Knime/- & Extensions & SGE Clusters \\\hline
 StarFlow/- &Interfacing External Schedulars & Generic Clouds \\\hline
-GWES/GWorkflowDL&Globus WS-Gram& German D-Grid \\\hline
 Pegasus/DAX & Using Condor & OSG (www.opensciencegrid.org) \\\hline
 Galaxy/- & Extensions & None Inherently \\\hline
 MOTEUR2/Gwendia~ & Inherent & EGI, g5k, HIPernet Cloud \\\hline
@@ -1150,7 +1151,6 @@ Vizbuilder/bioflow & Conditionals and Loops & -- & -- \\\hline
 Martlet/- & Conditionals and Loops & -- & -- \\\hline
 Knime/- & Loops & -- & \checkmark \\\hline
 StarFlow/- & Conditionals and Loops & -- & -- \\\hline
-GWES/GWorkflowDL & Conditionals& -- & -- \\\hline
 Pegasus/DAX & -- & \checkmark & -- \\\hline
 Galaxy/- & -- & -- & -- \\\hline
 MOTEUR2/Gwendia~ & Conditionals and Loops & \checkmark & \checkmark \\\hline
@@ -1264,7 +1264,6 @@ Vizbuilder/bioflow & GUI/Text & \checkmark & -- \\\hline
 Martlet/- & Text & -- & -- \\\hline
 Knime/- & GUI & \checkmark & -- \\\hline
 StarFlow/- & Text & \checkmark & -- \\\hline
-GWES/GWorkflowDL & GUI & \checkmark & \checkmark \\\hline
 Pegasus/DAX & GUI & \checkmark & \checkmark \\\hline
 Galaxy/- & Web Portal & -- & -- \\\hline
 \multirow{2}{*}{MOTEUR2/} & GUI/Text & \checkmark & --\\
@@ -1374,6 +1373,17 @@ invocations of each processor according to the application semantics. BPEL also
 lacks data streams and implicit parallelism forcing a user to explicitly define
 parallelism using one of its parallel processing constructs such as
 \texttt{foreach}.
+%
+\paragraph{GWES/GWorkflowDL} The Grid Workflow Execution Service
+(GWES)~\cite{Hoheisel2007} is a SWE developed by the Fraunhofer-First
+institute. It implements a dynamic workflow composition and enactment model
+based on the Grid Workflow Description Language (GWorkflowDL)~\cite{Alt2006}.
+GWES enables key workflow development and deployment lifecycle phases including
+visual composition, data-staging, Grid middleware interfacing and execution
+monitoring. Currently, GWES is intensively being used in the field of Medical
+Image Processing especially at the Charit\'{e} Hospital at Berlin in Germany.
+It has been successfully interfaced with the German D-Grid infrastructure.
+%
 
 % ---------------------------------------------------------------------------
 
