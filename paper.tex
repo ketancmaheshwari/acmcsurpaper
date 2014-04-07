@@ -109,6 +109,7 @@ Author's addresses: Ketan Maheshwari, Argonne National Laboratory; Johan Montagn
 % Linda
 % DaGue
 % Wings
+% PGRADE Portal
 
 \section{Introduction}
 
@@ -210,7 +211,8 @@ programs.
 %
 
 \item \textbf{Interface to Distributed Computing Infrastructures (DCIs).}
-%TODO: Add content about new and emerging Distributed Computing Infrastructures: Clouds, GPUs and exascale supercomputers
+%TODO: Add content about new and emerging Distributed Computing
+    %Infrastructures: Clouds, GPUs and exascale supercomputers
 Building SWE's interfaces to distributed systems is a complex task. The
 distributed nature of resource utilization and asynchronous execution of
 workflow requires a set of interdependent parameters to be configured
@@ -364,6 +366,17 @@ flow patterns encountered in scientific domains.
 % -- Existing users who have adopted workflows
 % -- New users
 % -- Experts in the field
+
+% Say that different workflow systems have different design goals. It is hard
+% to chose one from the existing or build your own. It is almost equally
+% complex to build own just as it is complex to create own programming
+% platform. We hope to provide by the way of this paper a guide for new adopters on how to chose a workflow language appropriate for their needs. We ask and answer the following questions of the workflow systems that we study in this paper:
+%-- What were the original design goals?
+%-- What are the main application areas that the system is currently being used?
+%-- What are the characteristics and capabilities of the language? expressivity features?
+%-- What are the characteristics and capabilities of the run-time? parallelism? concurrency? task and data grouping?
+%-- What kinds of computing and computational infrastructure does the workflow system cater to? Grids, Clouds, Clusters, Supercomputers, fast IB networks? Accelerators?
+
 The present work analyzes contemporary SWEs in order to find the capabilities
 and key features in terms of the characteristics described in the introduction
 part of this paper. The rest of this paper is organized as follows: Section
@@ -547,22 +560,19 @@ IBM BlueGene and Cray series of machines.
 % Put this somewhere else, either in the analysis or may be in the conclusions
 % and summary.
 %The \textit{gscript} \cite{maheshwari-montagnat:2010} workflow language
-%developed as a part of the current work is similar in spirit to the
+%is similar in spirit to the
 %SwiftScript. Similar to SwiftScript, gscript adopts futures to express
-%asynchronous execution in a script-based language. A SwiftScript workflow
-%contains statically typed datasets that can be specified using ``annotations''
-%in the script. Unlike SwiftScript, gscript does provide user-defined
-%strategies in order to effect data combinations in the workflow. SwiftScript
-%provides for fault-tolerance and exception handling at run-time which is
-%lacking currently in gscript. The underlying datasets organization in swift is
-%represented using an XDTM XML-representation. This means that effectively, a
-%workflow is SwiftScript plus the XDTM data representation. A workflow is
+%asynchronous execution in a script-based language. A Swift script 
+%contains statically typed datasets that can be declared
+%in the script. Unlike Swift script, gscript does provide user-defined
+%strategies in order to effect data combinations in the workflow. The underlying datasets organization in Swift is
+%represented using XML-representation. This means that effectively, a
+%workflow is a DAG. A workflow is
 %simpler and compact in gscript as its data description is embedded within a
-%workflow representation. SwiftScript supports creation of nested-workflows in
-%the form of compound procedures. Conditional and Loop execution is supported
-%using the if and for/while statements in both the languages.
-
+%workflow representation. Conditional and Loop execution is supported
+%using the if and foreach statements in both languages.
 %
+
 \paragraph{ASKALON/AGWL.} The ASKALON Problem Solving Environment (PSE)
 \cite{fahringer-prodan-etal:2007} is developed at the University of Innsbruck.
 ASKALON is described as a Scientific PSE capable of composing, hosting,
@@ -573,7 +583,6 @@ of abstraction. A concrete workflow consists of the abstract workflow combined
 with the resources and target execution environment binding the workflow. The
 graphical interface of AGWL is based upon the UML (Unified Modeling Language)
 diagrams.
-
 
 \paragraph{The P-GRADE Portal/--} The P-GRADE Portal \cite{kacsuk-sipos:2005}
 developed at the MTA SZTAKI Computation and Automation Institute, Budapest,
