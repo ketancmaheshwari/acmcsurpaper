@@ -108,6 +108,7 @@ Author's addresses: Ketan Maheshwari, Argonne National Laboratory; Johan Montagn
 % Spark
 % Linda
 % DaGue
+% Wings
 
 \section{Introduction}
 
@@ -121,18 +122,26 @@ aspects of workflow paradigm that makes them a limited contenders.
 %
 %Add more content here to beef up the context.
 %
+% Goals and benefits of a workflow management system
 The goals of a workflow management system for scientific computing are as
 follows:
 
 \begin{enumerate}
+\item \textbf{Bulk Work.}
+Workflows are often used to perform computational work in bulk. This could be
+bulk data processing or running multiple distinct processing on a single set of
+data. In addition to carrying out such work, workflow environments provide
+oppurtunities for giving structure and order to a set of tasks and often with
+sufficient expressivity, choices and selections to perform tasks selectively.
+    
 \item \textbf{User Interaction.} Adaptation to new methods of computing is not
 easy for domain science users. Such users often need special assistance in
 order to translate their computation requirements into concrete computing
 entities.  SWEs are an ideal platform enabling users to perform many tasks
 conveniently.  These tasks include composing and marshalling of execution,
-browsing and selecting data, visualizing results. Furthermore, dissemination of
-methods and results to communities and collaborators are some of the activities
-that SWEs make convenient for end-users.
+browsing and selecting data, visualizing results. Furthermore,
+dissemination of methods and results to communities and collaborators are
+some of the activities that SWEs make convenient for end-users.
 
 \item \textbf{Resource Access and Utilization.} Computational platforms and
  access modalities change rapidly with upgradation of existing technologies and
@@ -171,6 +180,8 @@ users to discover new services introduced to a community.
 
 \end{enumerate}
 
+% How SWEs differ from traditional programming languages and runtimes
+
 As a consequence to these design goals, the SWEs differ in many aspects with
 respect to traditional programming environments. The following list identifies
 the major differences between traditional and the SWE programming
@@ -199,13 +210,13 @@ programs.
 %
 
 \item \textbf{Interface to Distributed Computing Infrastructures (DCIs).}
+%TODO: Add content about new and emerging Distributed Computing Infrastructures: Clouds, GPUs and exascale supercomputers
 Building SWE's interfaces to distributed systems is a complex task. The
 distributed nature of resource utilization and asynchronous execution of
 workflow requires a set of interdependent parameters to be configured
 correctly. Further complexity is added because of complex dataflow
 requirements, interactions with diverse tools and linking with legacy
 application codes.
-
 %
 \item \textbf{Expressiveness.} Programming languages are inherently control
 flow oriented where data flow is a secondary aspect. In fact, the
@@ -279,7 +290,6 @@ difference is the specialized components and requirements for a particular
 domain. Owing to this fact, a given workflow system dominates a particular area
 of science (eg. astronomy, biology, etc.). Nonetheless, there exist a plethora
 of SWEs suitable for general purpose workflow style computations.
-% Ketanmark
 
 \section{Related Work}
 Surveys and studies on workflows similar to the present one have been done in
@@ -348,6 +358,12 @@ realize a truly generic workflow language that can express a wide variety of
 flow patterns encountered in scientific domains.
 
 \section{Objectives and Organization}
+% What are the goals of this work?
+% How is this paper supposed to help:
+% -- Existing scientific users who have not adopted workflows
+% -- Existing users who have adopted workflows
+% -- New users
+% -- Experts in the field
 The present work analyzes contemporary SWEs in order to find the capabilities
 and key features in terms of the characteristics described in the introduction
 part of this paper. The rest of this paper is organized as follows: Section
@@ -470,7 +486,10 @@ Design (COMAD) \cite{keplercomad} for a collection oriented workflow. Kepler
 uses the Modeling Markup Language (MoML)~\cite{lee-neuendorffer:2000} for its
 workflow representation. MoML is an extended XML syntax providing a rich
 vocabulary to compose Kepler workflows. A workflow processor is called an
-`actor' in Kepler. 
+`actor' in Kepler.
+
+Recent advances in Kepler include: MapReduce style computation, bioinformatics
+computation, cloud computing~\cite{kepler2013}.
 
 %
 \paragraph{Dryad/--} The GridNexus \cite{GridNexus} SWE, developed at the
@@ -495,7 +514,6 @@ management techniques. Pegasus manager buffers and maintains a fix-sized window
 of executable tasks before accepting new tasks.
 
 %
-
 \paragraph{Swift/Swift Script} Swift \cite{swift} is a script-based scientific
 workflow environment developed at the University of Chicago. A Swift workflow
 specified in the SwiftScript scripting language is translated to an
@@ -517,6 +535,14 @@ execution. Swift supports advanced workflow constructs such as parallel loops
 and conditionals. Furthermore Swift supports processing of explicitly defined
 arrays of data. Swift workflows take advantage of POSIX-style shared file
 system to reuse the data produced by other processors.
+
+%Recent advances in Swift: 
+1. Swift has been shown to run on multiple clouds~\cite{ccgrid2013} via its
+coasters mechanism~\cite{ucc2011}.
+
+2. Swift/T~\cite{turbine2013}, runs scientific workflows over
+HPC resources. Have been shown to work on petascale supercomputers such as the
+IBM BlueGene and Cray series of machines.
 
 % Put this somewhere else, either in the analysis or may be in the conclusions
 % and summary.
