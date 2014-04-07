@@ -376,6 +376,7 @@ flow patterns encountered in scientific domains.
 %-- What are the characteristics and capabilities of the language? expressivity features?
 %-- What are the characteristics and capabilities of the run-time? parallelism? concurrency? task and data grouping?
 %-- What kinds of computing and computational infrastructure does the workflow system cater to? Grids, Clouds, Clusters, Supercomputers, fast IB networks? Accelerators?
+%-- How have they evolved? What are the possible future directions?
 
 The present work analyzes contemporary SWEs in order to find the capabilities
 and key features in terms of the characteristics described in the introduction
@@ -505,15 +506,7 @@ Recent advances in Kepler include: MapReduce style computation, bioinformatics
 computation, cloud computing~\cite{kepler2013}.
 
 %
-\paragraph{Dryad/--} The GridNexus \cite{GridNexus} SWE, developed at the
-University of North Carolina, Wilmington, facilitates a graphical composition
-and execution of DAG-based workflows. Like Kepler, GridNexus is also based on
-Ptolemy II framework. GridNexus workflows are expressed in an XML-based
-scripting language called JXPL \cite{hunt-ferner-etal:2005}. JXPL is a
-customizable and extensible scripting language allowing users to write their
-own workflow processor types. GridNexus workflows are grid oriented and can be
-deployed on grid resources accessed through a persistent WS-RF (Web Services
-Resource Framework) interface.
+\paragraph{Dryad/--} 
 
 %
 \paragraph{Pegasus/DAX} Pegasus \cite{deelman-peg} is a low-level distributed
@@ -1419,6 +1412,16 @@ monitoring. Currently, GWES is intensively being used in the field of Medical
 Image Processing especially at the Charit\'{e} Hospital at Berlin in Germany.
 It has been successfully interfaced with the German D-Grid infrastructure.
 %
+
+The GridNexus \cite{GridNexus} SWE, developed at the
+University of North Carolina, Wilmington, facilitates a graphical composition
+and execution of DAG-based workflows. Like Kepler, GridNexus is also based on
+Ptolemy II framework. GridNexus workflows are expressed in an XML-based
+scripting language called JXPL \cite{hunt-ferner-etal:2005}. JXPL is a
+customizable and extensible scripting language allowing users to write their
+own workflow processor types. GridNexus workflows are grid oriented and can be
+deployed on grid resources accessed through a persistent WS-RF (Web Services
+Resource Framework) interface.
 
 % ---------------------------------------------------------------------------
 
