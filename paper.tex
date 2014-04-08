@@ -673,13 +673,13 @@ workflow engine can become a performance bottleneck and hamper the optimal
 utilization of an available computing infrastructure.
 
 Most workflow enactors exploit the parallelism at three-levels. First, at the
-workflow-level wherein the independent branches of a workflow are enacted
+task-level wherein the independent branches of a workflow graph are enacted
 concurrently. Second, at the data-level, where a same processor is instantiated
 multiple times based upon the repeated operations on different datasets. Third,
 the low-level parallelism that is encoded within the application components
-independent of the workflow itself. At this level, the workflow enactor may
+independent of the workflow. At this level, the workflow enactor may
 need to make a matching based upon the application type. For instance, a
-workflow enactor may schedule the MPI-based processors on the resources that
+workflow enactor may schedule the GPU-based processors on the resources that
 indicate as possessing such capabilities.
 
 In this section we analyze the scalability measures and techniques employed by
@@ -774,7 +774,6 @@ GridNexus/GXPL & -- & \checkmark & -- &-- &\checkmark &-- \\\hline
 Swift/SwiftScript & \checkmark & \checkmark & \checkmark & \checkmark &\checkmark &-- \\\hline
 Askalon/AGWL &--& \checkmark & -- & \checkmark & \checkmark & -- \\\hline
 P-GRADE/- &\checkmark &\checkmark &\checkmark &--&--&--\\\hline
-Vizbuilder/bioflow &-- &\checkmark &-- &--&\checkmark &Query optimization\\\hline
 Pegasus/DAX &\checkmark &\checkmark &\checkmark &\checkmark &\checkmark &AI-based techniques \\\hline
 Galaxy/- &-- &-- &\checkmark &-- &-- &-- \\\hline
 MOTEUR2/Gwendia~ & \checkmark &\checkmark & \checkmark &-- &\checkmark &-- \\\hline
@@ -787,7 +786,7 @@ MOTEUR2/Gwendia~ & \checkmark &\checkmark & \checkmark &-- &\checkmark &-- \\\hl
 Shown in Table \ref{tbl:scalability} is a summary of the Scalability and
 optimization mechanisms of the studied SWEs. The scalability features
 considered are through three levels of parallelism in the form of data,
-workflow and pipeline. The optimization features considered are the presence of
+task and pipeline. The optimization features considered are the presence of
 mechanisms by which static and runtime optimizations are achieved.
 
 %
@@ -895,16 +894,6 @@ Askalon/AGWL&Loose&MIME-types&Arrays&Data Repository&SQL-based\\\hline
 \multirow{2}{*}{P-GRADE/-}&Loose&--&--&Grid&Secure\\
 &&&&File Catalogs&Protocols\\\hline
 %
-Vizbuilder/bioflow&Strong&SQL-types&--&Database&SQL,PL/SQL\\\hline
-%
-\multirow{2}{*}{Martlet/-}&Loose&URI&Lists&Distributed& By\\
-&&&&Filesystems&Reference\\\hline
-% 
-\multirow{2}{*}{Knime/-}&Loose&String, Integer,&Filestreams,&FileSystems,&Datamining\\
-&&Double&Arrays&Databases&Tools\\\hline
-% 
-StarFlow/-&Strong&Python-based&Python-based&--&--\\\hline
-% 
 \multirow{2}{*}{}Pegasus/&Loose&--&--&Distributed&Secure\\
 DAX&&&&Filesystems&Protocols\\\hline
 % 
@@ -990,10 +979,6 @@ GridNexus/GXPL & Inherent & Generic Grids \\\hline
 Swift/SwiftScript & Inherent & IBM/bluegene/P HPC Clusters \\\hline
 Askalon/AGWL & Inherent & Austrian Grid (http://www.austriangrid.at/)\\\hline
 P-GRADE/- & Inherent & NGS \\\hline
-Vizbuilder/bioflow & DCI Independent & None Inherently \\\hline
-Martlet/- & interfaces multiple middlewares & Generic Grids \\\hline
-Knime/- & Extensions & SGE Clusters \\\hline
-StarFlow/- &Interfacing External Schedulars & Generic Clouds \\\hline
 Pegasus/DAX & Using Condor & OSG (www.opensciencegrid.org) \\\hline
 Galaxy/- & Extensions & None Inherently \\\hline
 MOTEUR2/Gwendia~ & Inherent & EGI, g5k, HIPernet Cloud \\\hline
@@ -1075,7 +1060,7 @@ There also exist some domain specific scripting languages such as bioperl
 (\textit{www.bioperl.org}). However, these languages are less suitable for
 expression of high-level, sophisticated workflow constructs such as iterations,
 while at the same time dealing with parallelism and array processing. They also
-fall short of providing implicit parallelism and must be defined explicitly by
+fall short of providing implicit parallelism which must be defined explicitly by
 the user designing workflows. Description of remote data is another important
 aspect that these languages are limited in expressing. Thus, in modern SWEs, it
 is required to have a higher-level, specialized and dedicated workflow
@@ -1125,10 +1110,6 @@ GridNexus/GXPL &Conditionals and Loops& -- & -- \\\hline
 Swift/SwiftScript & Conditionals and Loops & 1-dim & limited \\\hline
 Askalon/AGWL & Conditionals and Loops & -- & -- \\\hline
 P-GRADE/- & Conditionals & -- & \checkmark \\\hline
-Vizbuilder/bioflow & Conditionals and Loops & -- & -- \\\hline
-Martlet/- & Conditionals and Loops & -- & -- \\\hline
-Knime/- & Loops & -- & \checkmark \\\hline
-StarFlow/- & Conditionals and Loops & -- & -- \\\hline
 Pegasus/DAX & -- & \checkmark & -- \\\hline
 Galaxy/- & -- & -- & -- \\\hline
 MOTEUR2/Gwendia~ & Conditionals and Loops & \checkmark & \checkmark \\\hline
@@ -1238,10 +1219,6 @@ GridNexus/GXPL & GUI/Text & -- & -- \\\hline
 Swift/SwiftScript & Text & -- & -- \\\hline
 Askalon/AGWL & GUI & \checkmark & \checkmark \\\hline
 P-GRADE/- & Web Portal & \checkmark & -- \\\hline
-Vizbuilder/bioflow & GUI/Text & \checkmark & -- \\\hline
-Martlet/- & Text & -- & -- \\\hline
-Knime/- & GUI & \checkmark & -- \\\hline
-StarFlow/- & Text & \checkmark & -- \\\hline
 Pegasus/DAX & GUI & \checkmark & \checkmark \\\hline
 Galaxy/- & Web Portal & -- & -- \\\hline
 \multirow{2}{*}{MOTEUR2/} & GUI/Text & \checkmark & --\\
@@ -1452,7 +1429,7 @@ sophisticated GUI for workflow composition.
  [clockwise from=120]
  child[concept color=lightgray,text=darkgray,font=\sf] {node[concept]{data}}
  child[concept color=lightgray,text=darkgray,font=\sf] {node[concept]{\scriptsize{pipeline}}}
-	 child[concept color=lightgray,text=darkgray,font=\sf] {node[concept]{\scriptsize{workflow}}}
+	 child[concept color=lightgray,text=darkgray,font=\sf] {node[concept]{\scriptsize{task}}}
 % 	 child[concept color=lightgray,text=darkgray,font=\sf] {node[concept]{\small{activity}}}
  }
  child[concept color=gray,font=\sf] { node[concept] {\scriptsize{optimization}} }
