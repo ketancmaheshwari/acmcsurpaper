@@ -66,15 +66,20 @@ JOHAN MONTAGNAT
 %       currently affiliated with NASA.
 
 \begin{abstract}
+
 \km{TODO: Expand in the end}
-In this work we conduct a literature study of the key features of the
-contemporary scientific workflow environments. The criteria for study are
-defined. An overview of studied scientific workflow environments is given
-followed by the identification and description of the features offered by each
-of the environment. A tabulated summary for each feature gives a high-level
-view of the offered features. Finally, a taxonomy is proposed placing these
-features into respective places in a hierarchy.  
+
+In this work we conduct a literature survey of the key features of the
+contemporary scientific workflow environments. We define the criteria for the
+survey based chiefly on user needs arising from diverse applications and
+infrastructure. An overview of studied scientific workflow environments is
+presented followed by the identification and description of the features offered by
+each of the environment. A tabulated summary for each feature class gives a
+high-level view of the offered features. Finally, a taxonomy is proposed
+placing these features into respective places in a hierarchy. 
+
 \jm{Test comment}
+
 \end{abstract}
 
 %\category{C.2.2}{Computer-Communication Networks}{Network Protocols}
@@ -271,9 +276,28 @@ aspects we cover in the current work. We do not include other interesting SWE
 features such as provenance and interoperability in this analysis as they are
 out of scope of the objectives of the current paper.
 
+\section{Conceptual Overview}
+In this section we present a conceptual overview of the subjects of this study--Workflows and Scientific Workflow Environments.
 
-\section{Architecture of a Generic SWE}
-Figure \ref{fig:wfms} shows a high-level architecture of a SWE. It shows key
+\subsection{Workflow}
+Figure~\ref{fig:wf} shows a typical workflow in the form of a Directed Acyclic
+Graph (DAG). For the purpose of this text, we define a workflow as a
+computation with at least two discrete tasks either forming distinct
+computational stages or running for two or more distinct datasets as
+parameters. Consequently, a one-off task or running a task for a single copy of
+data is \emph{not} a workflow. For the rest of this paper, we will use the above
+definition of a workflow.
+%
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=4cm]{figures/workflow}
+\caption{A typical workflow depicted as a Directed Acyclic Graph (DAG) of tasks coordinated by data or control flow and illustrating data and task parallelism}
+\label{fig:wf}
+\end{center}
+\end{figure}
+%
+\subsection{Architecture of a Generic SWE}
+Figure~\ref{fig:wfms} shows a high-level architecture of a SWE. It shows key
 components and their interaction in a SWE. These components are the focus of
 interest for the present work. A \textit{user interface} interacts with the
 \textit{workflow engine} using commands and messages. The \textit{workflow
