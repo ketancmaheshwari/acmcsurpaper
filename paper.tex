@@ -128,7 +128,7 @@ Author's addresses: Ketan Maheshwari, Argonne National Laboratory; Johan Montagn
 % PGRADE Portal
 
 \section{Introduction}
-
+\label{sec:intro}
 \vspace*{0.5cm}\hspace{1cm} Scientific Workflow Environments (SWE from here on)
 are, in principle similar to the traditional programming environments
 (programming language, interpreter or compiler, and runtime) albeit with a
@@ -405,7 +405,7 @@ extensively used by programmers for prototyping, etc.
 
 DAGs are by far, the most popular abstraction of the way workflows are
 perceived and visualized. The MA
-DAG~\cite{caron-desprez:2005}, engine is one example of a DAG generator engine. MA
+DAG~\cite{caron-desprez:2005},\km{could not find any recent paper on MA DAG, interesting concept} engine is one example of a DAG generator engine. MA
 DAG has evolved from a regular DAG generator to a more abstract DAG generator
 laced with control structures. MA DAG benefits from the workflow scheduling
 mechanisms included in the middleware. Due to the impossibility to produce
@@ -413,9 +413,36 @@ complete DAGs owing to the presence of control structures such as conditionals
 and loops, MA DAG generate partial DAGs greedily: a sub-DAG, as complete as
 possible, is produced as soon as possible. Despite the presence of many
 different approaches to workflow systems, new requirements
-continue to pose workflow challenges. The community is yet to
-realize a truly generic workflow language that can express a wide variety of
-flow patterns encountered in scientific domains.
+continue to pose workflow challenges. Some of the current challenges facing SWEs are:
+\begin{enumerate}
+    \item \textbf{Multisite execution.} Interfacing to existing computation and
+        storate infrastructure is not trivial, not to mention the new and
+        unforeseen access and compute modes. SWEs are yet to formulate a
+        generalized interface towards the major platforms such that they will
+        run on them out of the box.
+
+    \item \textbf{Manysite execution.} Even if a SWE has interfaces built for
+        more than one infrastructure, it is hard to optimally schedule large
+        workflows to many remote sites simultaneously. The problem of limited
+        control over remote sites and distributing interdependent data and
+        tasks makes it non-trivial to efficiently load-balance work among them.
+    
+    \item \textbf{Expressivity.} Workflow languages have evolved over the years
+        with reasonable expressivity being supported. However, they are often
+        compared with those of the traditional programming languages. As of
+        current state of the art, the workflow languages expressivity still
+        have to catch up to the richness of programming languages across
+        different generations such as C and python.  The community is yet to
+        realize a truly generic workflow language that can express a wide
+        variety of flow patterns encountered in scientific domains.
+    
+    \item \textbf{Interoperability.} Interoperable workflows will benefit to a
+        broad audience of users. Many efforts at this are made in the recent
+        past, such as by the consurtium projects and by individual players.
+        However, a truly interoperable set of standards for workflows are yet
+        to emerge.
+
+\end{enumerate}
 
 \section{Objectives and Organization}
 % What are the goals of this work?
@@ -436,9 +463,41 @@ flow patterns encountered in scientific domains.
 %-- What kinds of computing and computational infrastructure does the workflow system cater to? Grids, Clouds, Clusters, Supercomputers, fast IB networks? Accelerators?
 %-- How have they evolved? What are the possible future directions?
 
-The present work analyzes contemporary SWEs in order to find the capabilities
-and key features in terms of the characteristics described in the introduction
-part of this paper. The rest of this paper is organized as follows: Section
+In the present work we survey and study the various contemporary SWEs in order
+to find the capabilities and key features in terms of the characteristics
+described in section~\ref{sec:intro}. We believe this study will serve to
+address the following objectives:
+
+\begin{enumerate}
+  \item \textbf{Educate.} With more and more science being done with the help of
+      computational methods, SWEs can add significant value to the process.
+      They can accelerate the process, enable community driven science, drive
+      the development at a manageable level of abstraction for users.
+      However, scientific users are often not experienced programmers or
+      compute savvy. This work will serve as a useful starting guide to
+      educate science users of the available tools and techniques with
+      features that might be suitable for their methods.
+
+ \item \textbf{catalog.} We study a number of important features as offered by
+     contemporary SWEs. This will help catalog and collect the SWEs by their
+     offerings and identify mechanisms and needs for new and existing features.
+     This will also help identify current trends in scientific computing
+     community.
+ 
+ \item \textbf{application.} We identify the applications and application
+     classes well adapted to the workflow systems and are benefitting by them.
+     This will help readers relate to the application they are associated to.
+     We hope that readers can make a choice of which SWE to use if there is an
+     adaptation scope.
+ 
+ \item \textbf{evolution.} We comment on the evolution of the existing workflow
+     systems and the possible current and future development directions which
+     will help readers be aware of the general development direction of the
+     SWEs.
+
+\end{enumerate}
+
+The rest of this paper is organized as follows: Section
 \ref{sec:overview} presents an overview of the key SWEs studied in this work.
 Section \ref{sec:scal} discusses the optimization features and resulting
 scalable performance as observed in the SWEs studied. Section \ref{sec:data}
@@ -451,25 +510,32 @@ language features and expressiveness of the SWEs studied. Section
 SWEs studied in this work. Throughout the paper, we also present tables
 summarizing the aspects of SWEs considered in respective sections. It was not
 possible to obtain an exhaustive information about all the SWEs considered in
-this work since we rely on the peer reviewed publications for information on a
-given SWE. Some features, such as extendability of SWE strongly depend on the
-extension points designed in the code; consequently, we consider it present in
-only those SWEs that have a documented description or demonstration of the
-given feature. 
+this work. We rely on the following sources for our information: 
+\begin{itemize}
+    \item \textbf{Publications.} Peer reviewed publications in journals, conferences and workshops.
+    \item \textbf{Technical Reports.} Technical reports and theses.
+    \item \textbf{Web Presence.} Documentation and other information from the web pages of the host SWE.
+    \item \textbf{Experience.} Where possible, we tried features of the SWEs by installing them on the available systems. 
+\end{itemize}
+
+Some features, such as extendability of SWE strongly depend on the extension
+points designed in the code; consequently, we consider it present in only those
+SWEs that have an explicit documented description or demonstration of the given
+feature. 
 
 \section{Overview of the Workflow Environments} \label{sec:overview}
-In this section we present an overview of the Workflow Environments studied.
-The paragraphs headers are organized by the name of the workflow environment
-followed by the language they chiefly support separated by a forward slash (/).
-The cases where the workflow language is not specifically defined or conversely
-where there are multiple engines supporting a generic workflow language are
+In this section we present an overview of the SWEs studied.  The paragraph
+headers are organized by the name of the SWE followed by the name of internal
+representation language use and support separated by a forward slash (/).  The
+cases where an intermediate language is not specifically defined or conversely
+where there are multiple systems supporting a generic representation are
 denoted by an asterisk (*) or a hyphen (-) at the respective places.
 \paragraph{Taverna/scufl} The Taverna Workflow Management System
 \cite{oinn-addis-etal:2004} is an open source scientific dataflow manager
 developed by the mygrid~consortium in the UK.
 %
 Taverna includes a GUI-based rich-client workbench for workflow design and a
-workflow enactment engine. Taverna can enact workflows expressed in the scufl
+workflow enactment runtime. Taverna can enact workflows expressed in the scufl
 language. Scufl is a near Turing complete dataflow language with well-defined
 semantics \cite{turi-missier-etal:2007,glatard-montagnat:2008}. 
 
@@ -478,15 +544,15 @@ links, which establish a dependency between the output(s) of a processor and
 the input(s) of another. Apart from data links, the processors may also be
 connected through coordination links that make a processor invoke when a
 previous processor ends its execution.  The processors are of different kinds
-depending on the application code to be invoked: typically, processors are Web
-Services, with input and output \textit{ports} that correspond to the
-operation's invocations and response sequences defined in the service`s WSDL
-interface.  Java classes and local scripts can be used as workflow processors,
-as long as they expose their signature as input and output ports as required by
-the model.  The engine orchestrates the execution of the processors in a way
-that is consistent with the dependencies, and manages the flow of data through
-the processors' ports. The overall workflow execution is data-driven, with a
-push model: a processor's execution is started as soon as all of its inputs are
+depending on the application code to be invoked: typically being services, with
+input and output \textit{ports} that correspond to the operation's invocations
+and response sequences defined in the service`s interface expressed as WSDL.
+Java classes and local scripts can be used as workflow processors, as long as
+they expose their signature as input and output ports as required by the model.
+The engine orchestrates the execution of the processors in a way that is
+consistent with the dependencies, and manages the flow of data through the
+processors' ports. The overall workflow execution is data-driven, with a \emph{push}
+model: a processor's execution is started as soon as all of its inputs are
 available.
 
 Taverna is a flexible and extendible workflow environment
@@ -508,26 +574,28 @@ superpipelines, multiple such pipelines instances run for multi-datasets
 providing a high degree of parallelism limited only by the availability of
 underlying hardware resources.
 
-Taverna is not natively interfaced with a Grid infrastructure but the same can
-be achieved with the help of extending the engine through one of its SPIs. 
+Taverna is not natively interfaced with external computational infrastructure but the same can
+be achieved with the help of extending the engine through one of its SPIs~\cite{maheshwari-missier-etal:2009}. 
+\km{ToDo: Taverna current activity, applications support, GPU, Cloud support}
 
 \paragraph{MOTEUR/scufl} MOTEUR \cite{glatard-montagnat-etal:2008} is a SWE
 developed at the I3S laboratory, University of Nice at Sophia Antipolis (UNS).
-MOTEUR facilitates executing workflows consisting of remote web- and
-grid-services. It exploits service parallelism at workflow level and data
-parallelism for multiple datasets.
+MOTEUR facilitates executing workflows consisting of remote services. It
+exploits service parallelism at workflow level and data parallelism for
+multiple datasets.
 
-MOTEUR has sophisticated data management mechanisms within the workflow
-definition. It provides a diverse set of iterations strategies well adapted for
-different combinations of input datasets at the processor. An iteration
-strategy allows different combinations of the data arriving at a processor
-along its multiple inputs. Running legacy application code on grids has been
-eased by MOTEUR by providing a generic grid-service wrapper for these
-applications \cite{glatard-montagnat-etal:2008a}. Grid-services thus created
-can be readily deployed on the grids by the MOTEUR workflow enactor. MOTEUR
-workflows are written in the scufl language and are compatible with those
-written for the Taverna SWE. It also supports an extension of scufl language
-called the Gwendia language, developed at the same laboratory. 
+MOTEUR has sophisticated language-level expressions for data management
+mechanisms within a workflow definition. It provides a diverse set of
+parallel iterators that are well adapted for different combinations of input datasets
+at the processor. An iteration strategy allows different combinations of the
+data arriving at a processor along its multiple inputs. Running legacy
+application code on distributed systems has been eased by MOTEUR by providing a
+generic grid-service wrapper for these applications
+\cite{glatard-montagnat-etal:2008a}. Services thus created can be readily
+deployed by the MOTEUR runtime. MOTEUR workflows are written in the scufl
+language and are compatible with those written for the Taverna SWE. It also
+supports an extension of scufl language called the Gwendia~\cite{gwendia}
+language, developed at the same laboratory. 
 %
 \paragraph{Makeflow} A make-like workflow platform~\cite{makeflow}.
 
@@ -537,7 +605,7 @@ SWE developed at the Cardiff University. It consists of a workflow composition
 GUI, a framework to integrate workflow with the different execution
 environments and middlewares and a set of predefined services written as java
 components. A Triana workflow is expressed as an XML grammar similar to a WSDL
-specification for webservices \cite{taylor-wand-etal:2005}. A highlight of
+description for webservices \cite{taylor-wand-etal:2005}. A highlight of
 Triana is that it provides ready-to-use interface for a wide variety of
 middleware and distributed infrastructures including P2P, grids and
 web-services frameworks. A Triana workflow provides dataflow as well as control
