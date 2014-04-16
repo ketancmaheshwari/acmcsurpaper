@@ -135,7 +135,8 @@ are, in principle similar to the traditional programming environments
 larger scale of data and a higher abstraction of computation. The similarity is
 such that scripting languages are sometimes advocated for programming at this
 level. However, traditional scripts do not deal with parallelism and dataflow
-aspects of workflow paradigm that makes them a limited contenders. 
+aspects of workflow paradigm which makes them a strong contenders for the
+purpose of high-level application programmers.
 %
 %Add more content here to beef up the context.
 %
@@ -146,36 +147,41 @@ follows:
 \begin{enumerate}
 \item \textbf{Bulk Work.}
 Workflows are often used to perform computational work in bulk. This could be
-bulk data processing or running multiple distinct processing on a single set of
-data. In addition to carrying out such work, workflow environments provide
-oppurtunities for giving structure and order to a set of tasks and often with
-sufficient expressivity, choices and selections to perform tasks selectively.
+bulk data processing or running multiple distinct processing tasks on a single
+set of data. In addition to carrying out such work, workflow environments
+provide oppurtunities for giving structure and order to a set of tasks and
+often with sufficient expressivity, choices and selections to carry out a bulk
+of work selectively. Some of the examples of such work are \emph{parameter
+sweeps} where tasks are run over a series of parameter values, \emph{ensemble
+studies} where tasks are carried out over discrete groups of parameters over a
+space.
     
 \item \textbf{User Interaction.} Adaptation to new methods of computing is not
 easy for domain science users. Such users often need special assistance in
 order to translate their computation requirements into concrete computing
 entities.  SWEs are an ideal platform enabling users to perform many tasks
-conveniently.  These tasks include composing and marshalling of execution,
-browsing and selecting data, visualizing results. Furthermore,
-dissemination of methods and results to communities and collaborators are
-some of the activities that SWEs make convenient for end-users.
+conveniently.  These tasks include visually formulating a task, composing and
+marshalling of workflow, browsing and selecting data, visualizing and sharing
+results. 
 
 \item \textbf{Resource Access and Utilization.} Computational platforms and
- access modalities change rapidly with upgradation of existing technologies and
+access modalities change rapidly with upgradation of existing technologies and
 adaptation of new techniques. Clouds are the latest examples of new techniques
-of computational platform access while GPGPUs examples in upgradation of
+of computational platform access while GPGPUs are examples of upgradation of
 existing processing environments. Additionally, with the advent of fast and
 dedicated networks such as ESNet and federated visualization resources, remote
-visualization is gaining prominence among scientific users. SWEs play important
-role as platforms to give transparent and hassle free access to such novel and
-multiple environments to users by hiding the technicalities of access methods.
+visualization is gaining prominence among scientific users. SWEs play
+important role as platforms to give transparent and hassle free access to such
+novel and multiple environments to users by hiding the technicalities of
+access methods and usage and configuration related nuances.
 
 \item \textbf{Repeatable Execution.} Scientific users often require a
-repeatable execution of same workflow for reproduction of results and
-demonstration of methods. SWEs can record and save workflows, associated
-parameters, source data and historical results to aid in such activities.
-Additionally, SWEs facilitate an incremental development of such methods
-leading to augmentation of past efforts to current and future developments.
+ repeatable execution of same application(with same parameters and input data)
+ for reproduction of results and demonstration of methods. SWEs can record and
+ save workflows, associated parameters, input data and historical results to
+ aid in such activities.  Additionally, SWEs facilitate an incremental
+ development of these methods leading to augmentation of past efforts to current
+ and future developments.
 
 \item \textbf{Provenance and MetaData.} Historical data and metadata has been
 crucial entities in many research fields. They help connecting results from
@@ -185,77 +191,93 @@ observations of deviations in scientific phenomena from provenance data is one
 of the key triggers for new scientific discoveries. Fields of studies involving
 genomic and protiens are examples of domains where provenance and metadata
 plays key roles. SWEs can be integrated or extended with metadata and
-provenance techniques rendering powerful computing traceability features.
+provenance techniques rendering powerful computing and traceability features.
 
-\item \textbf{Sharing and Collaboration.} Workflow managers are often targetted
-towards a community of users. For instance, the Galaxy workflow system is
-targetted specifically for the bioinformatics users. Galaxy attracts many users
-from the same community thus promoting sharing and collaboration via a common
-computational platform. Another such example is Taverna which is geared towards
-sharing and collaborative workflow oriented scientific computation enabling
-users to discover new services introduced to a community.
+\item \textbf{Sharing and Collaboration.} Workflow systems are often targetted
+towards a particular community of users. Furthermore, dissemination of methods and results
+to communities and collaborators are some of the activities that SWEs make
+convenient for end-users. For instance, the Galaxy workflow system is targetted
+specifically for the bioinformatics users encouraging them to collaborate over
+problems and share results. Another such example is Taverna which is geared
+towards sharing and collaborative workflow oriented scientific computation
+enabling users to discover new services introduced to a community. Sharing and
+collaboration of applications and related data have become ubiquitious with the
+rise of social web. Initiatives such as
+\emph{myExperiment}~\cite{deroure-goble-etal:2008} and recently
+\emph{gitHub}~\cite{github-web} have enabled easy sharing and collaboration of
+reproducible workflows on the social web.
 
 \end{enumerate}
 
-% How SWEs differ from traditional programming languages and runtimes
-
-As a consequence to these design goals, the SWEs differ in many aspects with
-respect to traditional programming environments. The following list identifies
-the major differences between traditional and the SWE programming
-paradigm:
+The above described goals also form a basis for the need for a SWE. The need
+for the use of SWE can arise as a result of one or more of such requirements.
+Traditional programming platforms are not suitable to address these
+requirements as they operate at a different level of abstraction. SWEs differ
+in many respects among themselves as well as with respect to traditional
+programming environments. The following list identifies the major differences
+between traditional and the SWE programming paradigm:
 
 \begin{enumerate}
 %
 
 \item \textbf{Scalability and Optimization.} SWEs are more likely to involve
 extensive usage of distributed resources than conventional programs. Owing
-to the large-scale experiments, for which scientific users turn to
-automation, their demands for computational power often exceeds that of a
-single personal computer. Such applications are often composed of multiple,
-distinct computational stages making them well-suited to the workflow
-paradigm. These properties also make them ideal candidates for a
-large-scale distributed computing environment. The case for suitability of
-SWEs on large-scale distributed infrastructures has been well-argued upon
+to the large-scale experiments, for which scientific users turn to automation,
+their demands for computational power often exceeds that of a single personal
+computer. These properties make them ideal candidates for a large-scale
+distributed computing environment. The case for suitability of SWEs on
+large-scale distributed infrastructures has been well-argued upon
 in~\cite{jha-katz-etal:2009}. In such a scenario, taking explicit steps to
-ensure scalable and optimized performance is vital.
+ensure scalable and optimized performance is vital. Additionally, most SWEs are
+capable of executing workflows at small scale with minimal tuning. This
+multi-scalability enables quick and easy conceptualization and prototyping of
+new workflows.
 %
 
 \item \textbf{Data Management.} The scale of data transfer is much higher in
-SWEs from one execution site to others as well as among storage resources
-while it is lower (ranging from variables to small data structures) in
-programs.
+SWEs from one execution site to others as well as among storage resources while
+it is lower (ranging from variables to small data structures) in programs.
+Owing to such scales, applications often need access to special data movement
+and access protocols such as GridFTP, Amazon S3, NAS, etc. SWEs are often
+shipped with capabilities to handle such protocols.
 %
 
 \item \textbf{Interface to Distributed Computing Infrastructures (DCIs).}
 %TODO: Add content about new and emerging Distributed Computing
     %Infrastructures: Clouds, GPUs and exascale supercomputers
-Building SWE's interfaces to distributed systems is a complex task. The
+Building SWE's interface to distributed systems is a complex task. The
 distributed nature of resource utilization and asynchronous execution of
 workflow requires a set of interdependent parameters to be configured
-correctly. Further complexity is added because of complex dataflow
-requirements, interactions with diverse tools and linking with legacy
-application codes.
-%
+correctly. Modern computing infrastructures such as Clouds, GPUs and
+supercomputers with hybrid nodes pose new challenges of interface development.
+As SWEs involve running many tasks over an infrastructure it becomes crucial to
+interface with these systems such that the tasks are scheduled in an optimal
+manner. Many SWEs implement
+\emph{pilot-jobs}~\cite{montagnat-glatard-etal:2010,ucc2011} in order to
+reserve resources via pseudo-tasks that act as placeholders for real tasks.
+Additionally, decision to manage working data storage on disc, memory and cache
+are some of the distinctions between a traditional programming and workflow
+platforms.
+
 \item \textbf{Expressiveness.} Programming languages are inherently control
 flow oriented where data flow is a secondary aspect. In fact, the
 programmer must explicitly make sure that correct the inputs are available
 to instructions and are in the right format. A program proceeds as the
 execution of its statements from beginning to end and completes its
 execution in a predefined sequence. However, in SWEs, the flow is often
-determined by the data availability for execution. This model of
-computation is known as dataflow computing. A workflow thus does not follow
-a fixed order of execution and different execution sequences are possible
-which are dominated by dataflow. The unit of work in SWEs is at a higher
-level of granularity. A unit of execution is coarse-grained, and often
-termed as ``processor'', ``task'', ``service'' or ``actor'' in the SWE
-community. This notion of high-level granularity drives the depth to which
-a workflow can be expressed in a given language form. In the rest of this
-paper, this unit of work will be referred to as \textit{processor}. On the
-other hand, a unit of execution in most programming languages is a much
-simpler and finer executable statement that accomplishes a small
-computational task. This presents a whole new set of requirements for
-expressing the processors and how they should interact and operate upon
-data.
+determined by the data availability for execution. This model of computation is
+known as dataflow computing. A workflow thus does not follow a fixed order of
+execution. Different execution sequences are possible which are dominated by
+dataflow. The unit of work in SWEs is at a higher level of granularity. A unit
+of execution is coarse-grained, and often termed as ``processor'', ``task'',
+``service'' or ``actor'' in the SWE community. This notion of high-level
+granularity drives the depth to which a workflow can be expressed in a given
+language form. In the rest of the paper, we refer to a unit of execution of a
+workflow system as \emph{processor}. On the other hand, a unit of execution in
+most programming languages is a much simpler and finer executable statement
+that accomplishes a small computational task. This presents a whole new set of
+requirements for expressing the processors and how they should interact with
+computational resources and operate upon data.
 
 %
 \item \textbf{Usability.} SWEs predominantly serve as a tool for the domain
@@ -264,17 +286,20 @@ them to have a friendly, and intuitive user-interface for novice and
 non-expert users. For this reason, SWE user interfaces are dominated by the
 visual paradigm of programming. On the other hand, traditional programs are
 most often written by expert programmers. Thus, they have a text-based
-composition environment albeit with visually assisting programming
-environments such as IDEs. However, they are seldom to the extent that a
-non-expert user can graphically compose programs.
+composition environment albeit with visually assisting programming environments
+such as IDEs. However, they are seldom to the extent that a non-expert user can
+graphically compose programs. While a graphical interface enhances usability, a
+text-based workflow environment can arguably give better control to an
+experienced user. Consequently, many workflow systems offer a dual interface of
+graphical and text medium to compose workflows.
     
 \end{enumerate}
 
 We concede that the above is not an exhaustive list of differences in features.
 However, it is reasonably inclusive and we believe it covers the breadth of
 aspects we cover in the current work. We do not include other interesting SWE
-features such as provenance and interoperability in this analysis as they are
-out of scope of the objectives of the current paper.
+features such as application predictability and dynamic restructure of DAGs in
+this analysis as they are out of scope of the objectives of the current paper.
 
 \section{Conceptual Overview}
 In this section we present a conceptual overview of the subjects of this study--Workflows and Scientific Workflow Environments.
@@ -297,15 +322,16 @@ definition of a workflow.
 \end{figure}
 %
 \subsection{Architecture of a Generic SWE}
-Figure~\ref{fig:wfms} shows a high-level architecture of a SWE. It shows key
+Figure~\ref{fig:wfms} shows a high-level architecture of a generic SWE. It shows key
 components and their interaction in a SWE. These components are the focus of
 interest for the present work. A \textit{user interface} interacts with the
-\textit{workflow engine} using commands and messages. The \textit{workflow
-language} becomes an intermediate representation for communication between user
-interface and the \textit{workflow engine}. The workflow engine acts as a
-compiler/interpreter and scheduler for the workflow tasks and interfaces with
-the underlying \textit{distributed resources}. It also monitors the workflow
-progress and collects the intermediate and final results.
+\textit{workflow system} using commands and messages on the inside while with
+user on the outside. The \textit{workflow language} becomes an intermediate
+representation for communication between user interface and the
+\textit{workflow system}. The workflow system acts as a compiler/interpreter
+and a high-level scheduler for the processors and interfaces with the underlying
+\textit{distributed resources}. It also monitors the workflow progress and
+collects the intermediate and final results.
 
 %
 \begin{figure}[htb]
@@ -335,8 +361,7 @@ SWEs, studying many existing systems for distributed computing. This taxonomy
 is based, to a large extent on the capabilities of the workflow enactors. It
 provides only a limited insight to the SWE aspects considered in the present
 paper, especially the workflow languages expressiveness and SWEs interactions
-with the distributed computing infrastructures. A more recent work by Goderis
-and co-authors \cite{goderis-brooks-etal:2009} studies a topic more closely
+with the distributed computing infrastructures. A more recent work by Goderis \cite{goderis-brooks-etal:2009} studies a topic more closely
 related to the workflow language expressiveness: it compares the models of
 computations of various workflow directors implemented in Kepler
 \cite{ludascher-altintas-etal:2005a} with the perspective of enabling
@@ -345,11 +370,10 @@ This work illustrates how different enactors designed for different application
 needs have different expressiveness power. Deelman et. al.
 \cite{deelman-overview} present a high-level overview of the scientific
 workflow features and capabilities including SWE composition, representation
-and resource mapping capabilities. The recent survey from Stratan et. al.
-\cite{stratan-iosup-etal:2008} about the workflow engine performance takes into
+and resource mapping capabilities. The recent survey from Stratan~\cite{stratan-iosup-etal:2008} about the workflow engine performance takes into
 account the latencies involved during the enactment mechanisms. A small survey
-and analysis of file-access characteristics of Data-intensive workflows has
-been done by Shibata et. al.~\cite{Shibata}. Early surveys on workflow
+and analysis of file-access characteristics for data-intensive workflows has
+been done by Shibata~\cite{Shibata}. Early surveys on workflow
 languages and suitability of general purpose languages to workflows is
 conducted in \cite{generalpurpose}. These surveys were conducted before a few
 years and in the meantime SWEs have come a long way in terms of capabilities
@@ -358,15 +382,15 @@ and enactment approaches. New techniques such as the map/reduce framework
 enactment over distributed infrastructures. Several issues put forth by such
 surveys such as customized service wrapping and enactment have been adequately
 addressed over the
-years~\cite{glatard-montagnat-etal:2008a,delaitre-kiss-etal:2005,rojasbalderrama-montagnat-etal:2010}.
+years~\cite{glatard-montagnat-etal:2008a,rojasbalderrama-montagnat-etal:2010}.
 
 Another well-studied feature is the workflow languages. Many different
 languages have been considered within the SWE community, from raw Directed
 Acyclic Graphs (DAGs) of computational processes such as CONDOR DAGMan
 \cite{dagman} to abstractions for parallel computations such as Petri nets
-\cite{alt-hoheisel:2005}, meta-models \cite{nemo-glatard-etal:2007},
+\cite{alt-hoheisel:2005},
 data-driven languages such as Scufl \cite{turi-missier-etal:2007} and scripting
-languages such as SwiftScript \cite{swift}. Glatard's PhD thesis
+languages such as Swift script \cite{swift}. Glatard's PhD thesis
 \cite{glatard:2007} presents a taxonomy of SWE languages classifying them into
 functional, graph, service-oriented and executable representations. A detailed
 classification and taxonomy of parallelism patterns in Grid Workflows has been
@@ -376,7 +400,7 @@ service based workflows.  Each of these approaches can be defended through some
 aspects well covered in their design: DAGs are convenient for scheduling
 \cite{Malewicz:2007,hall-rosenberg-etal:2007}, Petri nets can be used to detect
 properties such as potential deadlocks, data-driven languages ease the
-description of applications logic for nonexpert users and scripting is
+description of application logic for non-expert users and scripting is
 extensively used by programmers for prototyping, etc.
 
 DAGs are by far, the most popular abstraction of the way workflows are
@@ -388,9 +412,9 @@ laced with control structures. MA DAG benefits from the workflow scheduling
 mechanisms included in the middleware. Due to the impossibility to produce
 complete DAGs owing to the presence of control structures such as conditionals
 and loops, MA DAG generate partial DAGs greedily: a sub-DAG, as complete as
-possible, is produced as soon as possible. In spite of the presence of many
-different approaches to workflow languages, new application requirements
-continue to pose workflow expressiveness challenges. The community is yet to
+possible, is produced as soon as possible. Despite the presence of many
+different approaches to workflow systems, new requirements
+continue to pose workflow challenges. The community is yet to
 realize a truly generic workflow language that can express a wide variety of
 flow patterns encountered in scientific domains.
 
