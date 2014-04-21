@@ -441,7 +441,6 @@ continue to pose workflow challenges. Some of the current challenges facing SWEs
         past, such as by the consurtium projects and by individual players.
         However, a truly interoperable set of standards for workflows are yet
         to emerge.
-
 \end{enumerate}
 
 \section{Objectives and Organization}
@@ -478,19 +477,19 @@ address the following objectives:
       educate science users of the available tools and techniques with
       features that might be suitable for their methods.
 
- \item \textbf{catalog.} We study a number of important features as offered by
+ \item \textbf{Catalog.} We study a number of important features as offered by
      contemporary SWEs. This will help catalog and collect the SWEs by their
      offerings and identify mechanisms and needs for new and existing features.
      This will also help identify current trends in scientific computing
      community.
  
- \item \textbf{application.} We identify the applications and application
+ \item \textbf{Application.} We identify the applications and application
      classes well adapted to the workflow systems and are benefitting by them.
      This will help readers relate to the application they are associated to.
      We hope that readers can make a choice of which SWE to use if there is an
      adaptation scope.
  
- \item \textbf{evolution.} We comment on the evolution of the existing workflow
+ \item \textbf{Evolution.} We comment on the evolution of the existing workflow
      systems and the possible current and future development directions which
      will help readers be aware of the general development direction of the
      SWEs.
@@ -615,7 +614,7 @@ flow support. Triana allows conditional branching and looping in its workflows.
 \paragraph{Kepler/MoML} Kepler \cite{ludascher-altintas-etal:2005a} is a SWE
 based upon the Ptollemy II framework \cite{eker-janneck-etal:2003} developed at
 the University of California. Kepler workflows follow an actor-director
-metaphor where an actor represents a unit of execution and the director
+metaphor where an actor represents a processor and the director
 represents the paradigm for executing the workflows consisting of the actors.
 Depending upon the types of directors, a Kepler workflow may exhibit a
 different type of execution behavior. A workflow designer can chose from among
@@ -630,54 +629,55 @@ vocabulary to compose Kepler workflows. A workflow processor is called an
 
 Recent advances in Kepler include: MapReduce style computation, bioinformatics
 computation, cloud computing~\cite{kepler2013}.
-
-%
-\paragraph{Dryad/--} 
+\km{Todo: describe Kepler MapReduce in more detail, add Kepler's cloud abilities description}
 
 %
 \paragraph{Pegasus/DAX} Pegasus \cite{deelman-peg} is a low-level distributed
 computing framework that can map abstract workflows as DAGs to the concrete
-underlying resources using intelligent and dynamic scheduling policies. A
+underlying resources using intelligent\km{elaborate} and dynamic\km{elaborate} scheduling policies. A
 Pegasus workflow is expressed in a simple XML-based language called DAX (DAG in
 XML). DAX describes the logical workflow components, their inputs and outputs
 and their links and dependencies in a Pegasus workflow. These kind of workflows
 has been shown to enact optimally using Pegasus' smart memory and disk
 management techniques. Pegasus manager buffers and maintains a fix-sized window
-of executable tasks before accepting new tasks.
+of executable tasks before accepting new tasks. Recent developments in Pegasus
+enables it to run workflows on cloud
+environments~\cite{peg-cloud}.\km{elaborate, does not seem to do GPU
+computing}.
 
-\paragraph{Wings/--} Wings is a Workflow system which does software choreography based on AI techniques~\cite{wings2013}
+\paragraph{Wings/--} Wings is a Workflow system which does software choreography based on AI techniques~\cite{wings2013}. \km{elaborate}.
+
 %
-\paragraph{Swift/Swift Script} Swift \cite{swift} is a script-based scientific
-workflow environment developed at the University of Chicago. A Swift workflow
-specified in the SwiftScript scripting language is translated to an
-intermediate XML-based representation and enacted by the Karajan workflow
-enactment engine. The SwiftScript language is proposed as a workflow language
-founded on a scripting approach programmers are familiar with. To make the
-language adapted to grids, the inventors of SwiftScript generalized the use of
-futures \cite{Halstead85multilisp:a} for every variables defined in the script.
-Futures are non-blocking assignment variables, using a proxy to ensure
+\paragraph{Swift/Script, Tcl} Swift \cite{swift} is a script-based scientific
+workflow environment developed at the University of Chicago and Argonne
+National Laboratory. A Swift workflow specified in the Swift scripting language
+and is translated to an intermediate XML-based representation and enacted by
+the Karajan workflow enactment engine. The SwiftScript language is proposed as
+a workflow language founded on a scripting approach that programmers are
+familiar with. To make the language data parallel, Swift script generalizes the
+use of futures \cite{Halstead85multilisp:a} for every variables defined in the
+script.  Futures are non-blocking assignment variables, using a proxy to ensure
 immediate execution of assignment and performing lazy blocking on variable
 value accesses only. The systematic use of futures for every variables in the
 language makes it completely data-driven: the execution progresses
 asynchronously as long as a data access is not blocking. The availability of
-data enables blocked thread to restart execution. The beauty of futures is to
-make this process completely hidden from the programmer who can use a scripting
-language he is familiar with without ever manipulating explicit parallel
-programming constructs. Swift facilitates a highly asynchronous workflow
-execution. Swift supports advanced workflow constructs such as parallel loops
-and conditionals. Furthermore Swift supports processing of explicitly defined
-arrays of data. Swift workflows take advantage of POSIX-style shared file
-system to reuse the data produced by other processors.
-
+data enables blocked thread to restart execution. Swift facilitates a highly
+asynchronous workflow execution. Swift supports advanced workflow constructs
+such as parallel loops and conditionals. Furthermore Swift supports processing
+of explicitly defined arrays of data. Swift workflows take advantage of
+POSIX-style shared file system to reuse the data produced by other processors.
+Recent advances in Swift:
 %Recent advances in Swift: 
-1. Swift has been shown to run on multiple clouds~\cite{ccgrid2013} via its
-coasters mechanism~\cite{ucc2011}.
-
-2. Swift/T~\cite{turbine2013}, runs scientific workflows over
-HPC resources. Have been shown to work on petascale supercomputers such as the
-IBM BlueGene and Cray series of machines.
-
-3. GeMTC project investigating running many-task applications over GPUs via Swift/T.
+\begin{enumerate}
+    \item Swift has been shown to run on multiple
+        clouds~\cite{ccgrid2013} via its coasters mechanism~\cite{ucc2011}.
+    
+    \item Swift/T~\cite{turbine2013}, runs scientific workflows over HPC
+        resources. Have been shown to work on petascale supercomputers such as
+        the IBM BlueGene and Cray series of machines. 
+    
+    \item GeMTC project investigating running many-task applications over GPUs via Swift/T.
+\end{enumerate}
 
 % Put this somewhere else, either in the analysis or may be in the conclusions
 % and summary.
@@ -704,7 +704,7 @@ capable of expressing scientific application components chains at a high-level
 of abstraction. A concrete workflow consists of the abstract workflow combined
 with the resources and target execution environment binding the workflow. The
 graphical interface of AGWL is based upon the UML (Unified Modeling Language)
-diagrams.
+diagrams.\km{Todo: current developments and advances.}
 
 \paragraph{The P-GRADE Portal/--} The P-GRADE Portal \cite{kacsuk-sipos:2005}
 developed at the MTA SZTAKI Computation and Automation Institute, Budapest,
@@ -717,10 +717,7 @@ that it provides access to multiple grids and scientific communities in a
 single environment leading to a highly collaborative inter-community,
 inter-grid research environment. An older version of P-GRADE used the
 condor-Dagman as workflow engine while the recent version uses its own in-house
-developed workflow engine called Xen.
-
-%
-\paragraph{DaGue/--}
+developed workflow engine called Xen. \km{Investigate cloud and GPU capabilities} 
 
 %
 
@@ -729,10 +726,9 @@ bioinformatics domain SWE based framework developed at the Penn State
 University, Pennsilvania. It provides a webportal based environment to build
 complex pipelines from an available repository of tools
 (\textit{http://g2.bx.psu.edu}). Users can extend the tool repository provided
-by Galaxy using their own Galaxy server or a web-server exposing the webservice
-descriptions through public WSDLs. One of the major use of Galaxy is to achieve
-a mix and match of data analysis tools in order to analyze a vast repository of
-genome based database.
+by Galaxy using their own Galaxy server. One of the major use of Galaxy is to
+achieve a mix and match of data analysis tools in order to analyze a vast
+repository of genome based database.
 
 % == ENACTOR SCALABILITY AND OPTIMIZATION ==
 \section{Enactor Scalability and Optimization} \label{sec:scal}
@@ -740,43 +736,41 @@ genome based database.
 %For Pegasus: Scaling up workflow based applications.
 A simple definition of scalability in the context of SWE is that the
 performance of the workflow engine increases linearly with the increasing
-number of similar tasks.  Here, similar is an important term that means the
-nature of tasks should be the same in terms of processing and data handling.
-Depending upon the lag or increase in the linearity we say a workflow enactor
-scales up or down.  In the present section, we focus on the scalability aspects
-of the core workflow engine. We do not consider the specific scalability issues
-related to a distributed infrastructure such as network latencies and protocol
-offsets. However, there have been efforts to thwart such issues at the workflow
-level by combining workflow enactment techniques with those of distributed
-computing.  One such example is the map/reduce framework \cite{mapreduce}.
-Recently, the map/reduce framework, that aims at performing distributed
-processing on large datasets, has gained a significant popularity in workflow
-community. It is based on the master/worker metaphor of distributed processing.
-It employs the commonly used \textit{map} and \textit{reduce} functions from
-the functional programming languages. The map function chops a large chunk of
-data into smaller pieces and distributes it to \textit{workers} which in turn
-can also chop it to further smaller datasets forming a tree-like hierarchy. The
-worker process the data and return the results back to their parents. The
-reduce step collects the results from the workers and combines them to obtain
-the final result. One of the main reason for the popularity of the map/reduce
-framework for workflows is the recent attention to collections based datasets
-and processing. There exists implementations of the map/reduce framework
-written in different languages with enhancements and support services such as a
-sophisticated query service. Hadoop (\textit{http://hadoop.apache.org/}) is one
-such implementation which has already been interfaced by the Kepler
-SWE~\cite{wang-crawl-etal:2009}.
+number of similar tasks. Depending upon the lag or increase in the linearity we
+say a workflow enactor scales up or down.  In this section, we focus on
+the scalability aspects of the workflow runtime. We do not consider the
+specific scalability issues related to a distributed infrastructure such as
+network latencies and protocol related overheads. However, there have been efforts to
+thwart such issues at the workflow level by combining workflow enactment
+techniques with those of distributed computing.  One such example is the
+map/reduce framework \cite{mapreduce}.  Recently, the map/reduce framework,
+that aims at performing distributed processing on large datasets, has gained a
+significant popularity in workflow community. It is based on the master/worker
+metaphor of distributed processing.  It employs the commonly used \textit{map}
+and \textit{reduce} functions from the functional programming languages. The
+map function chops a large chunk of data into smaller pieces and distributes it
+to \textit{workers} which in turn can also chop it to further smaller datasets
+forming a tree-like hierarchy. The worker process the data and return the
+results back to their parents. The reduce step collects the results from the
+workers and combines them to obtain the final result. One of the main reason
+for the popularity of the map/reduce framework for workflows is the recent
+attention to collections based datasets and processing. There exists
+implementations of the map/reduce framework written in different languages with
+enhancements and support services such as a sophisticated query service. Hadoop
+(\textit{http://hadoop.apache.org/}) is one such implementation which has
+already been interfaced by the Kepler SWE~\cite{wang-crawl-etal:2009}.
 
-Large-scale workflows with thousands of tasks often pose memory and disk
+Large-scale applications with thousands of tasks often pose memory and disk
 management difficulties leading to scalability issues.  However, the
-performance of a workflow engine is dependent on several factors including the
+performance of a workflow system is dependent on several factors including the
 type of tasks and approach for submitting tasks for execution.  There is not
 much research done towards the enactor scalability baring a couple of studies
 carried out by C. Stratan et. al. \cite{stratan-iosup-etal:2008} and Deelman
 et. al. \cite{callaghan-deelman-etal:2010}.  One way to compare the scalability
-of different workflow environment is to experiment with a similar set of
+of different workflow environments is to experiment with a similar set of
 workflows on a given system. In addition, different SWEs interface to different
 DCIs. This is a time consuming process.  In the current study we do not
-directly compare the workflow engine scalability but we study the similarities
+directly compare the workflow system scalability but we study the similarities
 and differences in the techniques employed by workflow engines in order to
 achieve scalability.
 
@@ -786,10 +780,10 @@ An architecture that takes into account the properties of the underlying
 infrastructure could scale well in the face of growing number of workflow
 tasks.
 
-In the context of workflow enactors, scalability can be further classified in
-terms of the computational and data transfer scalability. Computational
-scalability could be expressed as the rate of increase in number of tasks
-executed with respect to the increase in the elapsed time.
+In the context of workflow runtime, scalability can be further classified in
+terms of data motion scalability. It can be expressed as the rate of increase
+in number of data movement quantity with respect to the increase in the elapsed
+time.
 
 While the computational scalability of a large scale experiment depends upon
 the underlying computing infrastructure, at the workflow enactor level, it
@@ -798,7 +792,7 @@ instances as possible without loss in performance. Failing to do so for a
 workflow engine can become a performance bottleneck and hamper the optimal
 utilization of an available computing infrastructure.
 
-Most workflow enactors exploit the parallelism at three-levels. First, at the
+Most workflow systems exploit the parallelism at three-levels. First, at the
 task-level wherein the independent branches of a workflow graph are enacted
 concurrently. Second, at the data-level, where a same processor is instantiated
 multiple times based upon the repeated operations on different datasets. Third,
@@ -809,10 +803,8 @@ workflow enactor may schedule the GPU-based processors on the resources that
 indicate as possessing such capabilities.
 
 In this section we analyze the scalability measures and techniques employed by
-contemporary SWEs. 
-
-Illustrated below are some of the techniques used to achieve scalability in
-various SWEs.
+contemporary SWEs. Illustrated below are some of the techniques used to achieve
+scalability in various SWEs.
 
 Taverna version 2.x introduced new measures in order to be able to submit a
 large number of jobs simultaneously. It is able to dispatch large number of
@@ -832,7 +824,7 @@ number of processor instances that can run concurrently through a builtin
 parameter. In Taverna, this can be configured at a workflow level while in
 Pegasus, this can be configured at the Condor \cite{thain-tannenbaum-etal:2005}
 scheduler level. In Swift-Karajan system this parameter is regulated
-automatically as part of a ``throttling parallelfor" construct. A similar
+automatically as part of a ``throttling parallel foreach" construct. A similar
 configurable parameter is provided by the Knime thread manager in order to
 limit the size of the thread-pool employed to run a workflow.
 
@@ -859,13 +851,12 @@ already exist, select sites for jobs, and cluster jobs based on various
 criteria. Pegasus performs graph transformation with the knowledge of the whole
 workflow graph.
 
-In Swift systems the structure of a workflow is constructed and expanded
-dynamically as opposed to that of Pegasus' static planning. A static workflow
-graph allows optimizations based on the global state of the workflow, whereas a
-dynamic workflow structure allows adaptations to changing environments.
-Depending upon the execution environment and access conditions to the available
-resources, each approach can result in the overall optimization of a given
-application.
+In some systems the structure of a workflow is constructed and expanded
+dynamically as opposed to static planning. A static workflow graph allows
+optimizations based on the global state of the workflow, whereas a dynamic
+workflow structure allows adaptations to changing environments.  Depending upon
+the execution environment and access conditions to the available resources,
+each approach can result in the overall optimization of a given application.
 
 Knime has a different execution strategies for shared memory Symmetric
 Multiprocessing Systems (SMP) and distributed memory systems. In the case of
