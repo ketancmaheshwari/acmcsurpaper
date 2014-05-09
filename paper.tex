@@ -730,8 +730,8 @@ by Galaxy using their own Galaxy server. One of the major use of Galaxy is to
 achieve a mix and match of data analysis tools in order to analyze a vast
 repository of genome based database.
 
-% == ENACTOR SCALABILITY AND OPTIMIZATION ==
-\section{Enactor Scalability and Optimization} \label{sec:scal}
+% == SYSTEM SCALABILITY AND OPTIMIZATION ==
+\section{Scalability and Optimization} \label{sec:scal}
 %We have results comparing \MOTEUR and Taverna performance!
 %For Pegasus: Scaling up workflow based applications.
 A simple definition of scalability in the context of SWE is that the
@@ -808,9 +808,9 @@ scalability in various SWEs.
 
 Taverna version 2.x introduced new measures in order to be able to submit a
 large number of jobs simultaneously. It is able to dispatch large number of
-concurrent instances of processors. An ability to implement superpipelined
-\cite{hwang:1992} execution of workflow tasks leads to a maximum expression of
-parallelism.
+concurrent instances of processors. An ability to implement
+superpipelined~\cite{hwang:1992} execution of workflow tasks leads to a maximum
+expression of parallelism~\cite{pipeline}.
 
 Within the Taverna engine, all the data involved in the execution is managed by
 a data manager through an external database, and is addressed by the engine
@@ -840,7 +840,7 @@ instance, Askalon does runtime branch prediction, parallel loop unrolling and
 loop sequentialization.
 
 The Pegasus workflow manager introduced subworkflows because of scalability
-issues at the local host for a large number of nodes in a DAG. A hierarchical
+issues at the localhost for a large number of nodes in a DAG. A hierarchical
 representation helps it scale at the local planning level as well as at the
 execution level on distributed resources.
 
@@ -849,7 +849,8 @@ DAGMan input file, adding stages for data staging, intersite transfer and data
 registration. These planners can reduce processing of tasks for files that
 already exist, select sites for jobs, and cluster jobs based on various
 criteria. Pegasus performs graph transformation with the knowledge of the whole
-workflow graph.
+workflow graph. A similar strategy is grouping tasks by application-level
+wrappers written in higher-level programming languages such as bash or Python.
 
 In some systems the structure of a workflow is constructed and expanded
 dynamically as opposed to static planning. A static workflow graph allows
@@ -875,27 +876,39 @@ the end of each execution, the master node collects the results from the worker
 nodes.
 
 \begin{table}[ht!]
+%TODO: Caption is not printing well, fix
+%\caption{A summary of SWEs Scalability and optimization Mechanisms}
 \begin{center}
 % use packages: array
-\begin{tabular}{|l|l|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|l|}
 \hline
-\textbf{SWE} / & \multicolumn{3}{c|}{\textbf{Parallelism}} & \multicolumn{3}{c|}{\textbf{Optimization}}\\
-\cline{2-7}
-\textbf{Language} & \textbf{data} & \textbf{workflow} & \textbf{pipeline} & \textbf{static} & \textbf{runtime} & \textbf{other}\\ \hline
-Taverna/Scufl2 & \checkmark & \checkmark & \checkmark & -- & \checkmark & -- \\\hline
-+/BPEL &foreach & \checkmark & -- &-- &\checkmark &-- \\\hline
-Triana/- & \checkmark & \checkmark & \checkmark & -- & \checkmark &--\\\hline
-MOTEUR/Scufl & \checkmark & \checkmark & \checkmark &-- &\checkmark &-- \\\hline
-Kepler/MoML & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &--\\\hline
-GridNexus/GXPL & -- & \checkmark & -- &-- &\checkmark &-- \\\hline
-Swift/SwiftScript & \checkmark & \checkmark & \checkmark & \checkmark &\checkmark &-- \\\hline
-Askalon/AGWL &--& \checkmark & -- & \checkmark & \checkmark & -- \\\hline
-P-GRADE/- &\checkmark &\checkmark &\checkmark &--&--&--\\\hline
-Pegasus/DAX &\checkmark &\checkmark &\checkmark &\checkmark &\checkmark &AI-based techniques \\\hline
-Galaxy/- &-- &-- &\checkmark &-- &-- &-- \\\hline
-MOTEUR2/Gwendia~ & \checkmark &\checkmark & \checkmark &-- &\checkmark &-- \\\hline
+\textbf{SWE} / & \multicolumn{3}{c|}{\textbf{Parallelism}} & \multicolumn{2}{c|}{\textbf{Optimization}}\\
+\cline{2-6}
+\textbf{Language} & \textbf{data} & \textbf{task} & \textbf{pipeline} & \textbf{static} & \textbf{runtime}\\
+\hline
+Taverna/Scufl2 & \checkmark & \checkmark & \checkmark & -- & \checkmark \\
+\hline
+Triana/- & \checkmark & \checkmark & \checkmark & -- & \checkmark \\
+\hline
+MOTEUR/Scufl & \checkmark & \checkmark & \checkmark &-- &\checkmark \\
+\hline
+Kepler/MoML & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\hline
+GridNexus/GXPL & -- & \checkmark & -- &-- &\checkmark \\
+\hline
+Swift/SwiftScript & \checkmark & \checkmark & \checkmark & \checkmark &\checkmark \\
+\hline
+Askalon/AGWL &--& \checkmark & -- & \checkmark & \checkmark \\
+\hline
+P-GRADE/- &\checkmark &\checkmark &\checkmark &--&--\\
+\hline
+Pegasus/DAX &\checkmark &\checkmark &\checkmark &\checkmark &\checkmark \\
+\hline
+Galaxy/- &-- &-- &\checkmark &-- &-- \\
+\hline
+MOTEUR2/Gwendia~ & \checkmark &\checkmark & \checkmark &-- &\checkmark \\
+\hline
 \end{tabular}
-%\caption{A summary of SWEs Scalability and optimization Mechanisms}
 \label{tbl:scalability}
 \end{center}
 \end{table}
