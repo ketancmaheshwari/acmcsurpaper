@@ -52,7 +52,7 @@
 \markboth{K. Maheshwari et al.}{A Survey of Scientific Workflow Management Systems}
 
 % Title portion
-\title{A Survey of Scientific Workflow Management Systems}
+\title{State of the Art in Scientific Workflow Systems}
 \author{KETAN MAHESHWARI
 \affil{University of Nice, Sophia Antipolis}
 JOHAN MONTAGNAT
@@ -592,7 +592,13 @@ language, developed at the same laboratory.
 Makeflow addresses the often-encountered problem of software and library
 dependencies on workflow tasks execution for heterogeneous environments.
 Makeflow offers techniques to ``link" and package the application execution
-elements such as executables, libraries and configuration parameters.
+elements such as executables, libraries and configuration parameters. This
+improves the durability of a workflow and decreases the efforts required to
+maintain a working version of an application encoded as a workflow.
+
+%Internal representation of a Makeflow workflow is in...
+%Its expressivity features include...
+%Makeflow's runtime features include...
 
 %
 \paragraph{Triana/xml} Triana \cite{taylor-shields-etal:2003} is a java-based
@@ -621,11 +627,8 @@ Design (COMAD) \cite{keplercomad} for a collection oriented workflow. Kepler
 uses the Modeling Markup Language (MoML) for its
 workflow representation. MoML is an extended XML syntax providing a rich
 vocabulary to compose Kepler workflows. A workflow processor is called an
-`actor' in Kepler.
-
-Recent advances in Kepler include: MapReduce style computation, bioinformatics
+`actor' in Kepler. Recent advances in Kepler include MapReduce style computation, bioinformatics
 computation, cloud computing~\cite{kepler2013}.
-\km{Todo: describe Kepler MapReduce in more detail, add Kepler's cloud abilities description}
 
 %
 \paragraph{Pegasus/DAX} Pegasus \cite{deelman-peg} is a low-level distributed
