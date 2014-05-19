@@ -442,7 +442,6 @@ continue to pose workflow challenges. Some of the current challenges facing SWEs
         However, a truly interoperable set of standards for workflows are yet
         to emerge.
 \end{enumerate}
-
 \section{Objectives and Organization}
 % What are the goals of this work?
 % How is this paper supposed to help:
@@ -479,9 +478,9 @@ address the following objectives:
 
  \item \textbf{Catalog.} We study a number of important features as offered by
      contemporary SWEs. This will help catalog and collect the SWEs by their
-     offerings and identify mechanisms and needs for new and existing features.
-     This will also help identify current trends in scientific computing
-     community.
+     offerings and identify mechanisms and needs for new and existing features
+     in one place.  This will also help identify current trends and approaches
+     to computation in scientific communities.
  
  \item \textbf{Application.} We identify the applications and application
      classes well adapted to the workflow systems and are benefitting by them.
@@ -538,44 +537,37 @@ workflow enactment runtime. Taverna can enact workflows expressed in the scufl
 language. Scufl is a near Turing complete dataflow language with well-defined
 semantics \cite{turi-missier-etal:2007,glatard-montagnat:2008}. 
 
-A Taverna workflow consists of a collection of processors connected by data
-links, which establish a dependency between the output(s) of a processor and
-the input(s) of another. Apart from data links, the processors may also be
-connected through coordination links that make a processor invoke when a
-previous processor ends its execution.  The processors are of different kinds
+A Taverna workflow consists of a collection of processors connected by data and
+coordination links, which establish a dependency between the output(s) of a
+processor and the input(s) of another. The processors are of different kinds
 depending on the application code to be invoked: typically being services, with
 input and output \textit{ports} that correspond to the operation's invocations
-and response sequences defined in the service`s interface expressed as WSDL.
+and response sequences defined in the service`s interface expressed as REST or WSDL.
 Java classes and local scripts can be used as workflow processors, as long as
 they expose their signature as input and output ports as required by the model.
 The engine orchestrates the execution of the processors in a way that is
 consistent with the dependencies, and manages the flow of data through the
-processors' ports. The overall workflow execution is data-driven, with a \emph{push}
-model: a processor's execution is started as soon as all of its inputs are
-available.
+processors' ports. The overall workflow execution is data-driven, with a
+\emph{push} model: a processor's execution is started as soon as all of its
+inputs are available.
 
 Taverna is a flexible and extendible workflow environment
 \cite{missier-soiland-reyes-etal:2010,sroka2009a} in that extending the
 engine's functionality is facilitated through a Service Provider Interface
-(SPI). A third party developer intending to extend a functionality must write
-its logic as an SPI and publish it as an extension SPI. This may manifest
-itself in different ways depending upon the intended requirements of the
-developer, examples being as a task in the service panel or internally within
-the enactor as additional functionality.
-
-The Taverna engine implements a sophisticated mechanism for enactment of
-parallel workflows. These mechanisms manifest in the form of pipelines and an
-advanced superpipelined enactment of workflows. In the case of pipelined
-execution, a simple pipeline of tasks are overlapped into a back to back
-execution for a single data set. Such a mechanism induces multiple downstream
-workflow processors running in parallel for a dataset. In the case of
-superpipelines, multiple such pipelines instances run for multi-datasets
+(SPI). The Taverna engine implements a sophisticated mechanism for enactment of
+parallel workflows. These mechanisms manifest in the form of complex pipelines
+and an advanced superpipelined enactment of workflows. Such a mechanism induces
+multiple downstream workflow processors running in parallel for a dataset. In
+the case of superpipelines, multiple pipeline instances run for multi-datasets
 providing a high degree of parallelism limited only by the availability of
-underlying hardware resources.
-
-Taverna is not natively interfaced with external computational infrastructure but the same can
-be achieved with the help of extending the engine through one of its SPIs~\cite{maheshwari-missier-etal:2009}. 
-\km{ToDo: Taverna current activity, applications support, GPU, Cloud support}
+underlying resources. Taverna is not natively interfaced with external
+computational infrastructure but the same can be achieved with the help of
+extending the engine through one of its
+SPIs~\cite{maheshwari-missier-etal:2009}. Recent implementations of Taverna
+offers a client-server based environment in which a Taverna server can remotely
+serve the workflow composition and execution services. This mode is useful in
+the cloud computing environments where the server decides where to run the
+Taverna services in the cloud.
 
 \paragraph{MOTEUR/scufl} MOTEUR \cite{glatard-montagnat-etal:2008} is a SWE
 developed at the I3S laboratory, University of Nice at Sophia Antipolis (UNS).
