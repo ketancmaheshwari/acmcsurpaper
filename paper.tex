@@ -563,11 +563,11 @@ providing a high degree of parallelism limited only by the availability of
 underlying resources. Taverna is not natively interfaced with external
 computational infrastructure but the same can be achieved with the help of
 extending the engine through one of its
-SPIs~\cite{maheshwari-missier-etal:2009}. Recent implementations of Taverna
-offers a client-server based environment in which a Taverna server can remotely
-serve the workflow composition and execution services. This mode is useful in
-the cloud computing environments where the server decides where to run the
-Taverna services in the cloud.
+SPIs~\cite{maheshwari-missier-etal:2009}. In a crucial development, recent
+implementations of Taverna offers a client-server based environment in which a
+Taverna \emph{server} can remotely serve the workflow composition and execution
+services. This mode is useful in the cloud computing environments where the
+server decides where to run the Taverna services in the cloud.
 
 \paragraph{MOTEUR/scufl} MOTEUR \cite{glatard-montagnat-etal:2008} is a SWE
 developed at the I3S laboratory, University of Nice at Sophia Antipolis (UNS).
@@ -588,7 +588,11 @@ language and are compatible with those written for the Taverna SWE. It also
 supports an extension of scufl language called the Gwendia~\cite{gwendia}
 language, developed at the same laboratory. 
 %
-\paragraph{Makeflow} A make-like workflow platform~\cite{makeflow}.
+\paragraph{Makeflow} Makeflow~\cite{makeflow} is a make-like workflow platform.
+Makeflow addresses the often-encountered problem of software and library
+dependencies on workflow tasks execution for heterogeneous environments.
+Makeflow offers techniques to ``link" and package the application execution
+elements such as executables, libraries and configuration parameters.
 
 %
 \paragraph{Triana/xml} Triana \cite{taylor-shields-etal:2003} is a java-based
