@@ -646,23 +646,29 @@ in Kepler include MapReduce style computation, bioinformatics computation,
 cloud computing~\cite{kepler2013}.
 
 %
-\paragraph{Pegasus/DAX} Pegasus \cite{deelman-peg} is an SWE that is well-suited
-to generate and execute large abstract DAGs made up of tasks with dataflow.
-Abstract description is in the form of a DAG via a language called DAX. The
-concrete expression takes into account the properties of application task
-requirements and underlying compute resources. A Pegasus workflow is expressed
-in a simple XML-based language called DAX (DAG in XML). DAX describes the
-logical workflow components, their inputs and outputs and their links and
-dependencies in a Pegasus workflow. These kind of workflows has been shown to
-enact optimally using Pegasus' smart memory and disk management techniques.
+\paragraph{Pegasus/DAX} Pegasus \cite{deelman-peg} is an SWE that is
+well-suited to generate and execute large workflows from abstract DAGs
+describing dataflow.  Abstract description of a DAG is done via an XML-based
+language called DAX. The concrete expression takes into account the properties
+of application task requirements and underlying distributed compute resources.
+The main advantage of such approach is that a single abstract workflow
+description can be mapped to multiple execution environments based on
+requirements. DAX describes the logical workflow components, their inputs and
+outputs and their links and dependencies in a Pegasus workflow. These kind of
+workflows have been shown to enact optimally using Pegasus' dynamic task,
+memory and disk management techniques. For instance, for massively parallel
+task scheduling, Pegasus provides a task clustering technique that groups
+parallel jobs based on fixed parameters such as number of groups. Additionally,
+a manager buffers and maintains a fix-sized window of executable tasks before
+accepting new tasks.
+
 Large scale workflows from astronomy, biology, and high-energy physics have
 been shown to run via Pegasus on distributed computing resources such as
-clusters, Grids and supercomputers. Pegasus manager buffers and maintains a
-fix-sized window of executable tasks before accepting new tasks.  Regarding
-massively parallel task scheduling, Pegasus provides a task
-clustering technique that groups parallel jobs based on fixed parameters such
-as number of groups. Recent developments in Pegasus enables it to run workflows
-on cloud environments~\cite{peg-cloud}.
+clusters, Grids and supercomputers.  Recent developments in Pegasus enables it
+to run workflows on cloud environments~\cite{peg-cloud}. Pegasus system is
+known to be extendible as illustrated by a recent integration
+effort~\cite{peg-hubzero} between Pegasus and the Hubzero
+portal~\cite{hubzero}.
 
 \paragraph{Wings/--} The Workflow instance generation and specialization
 (Wings) provides automatic workflow validation and generation based on
