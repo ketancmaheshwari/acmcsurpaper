@@ -646,21 +646,21 @@ in Kepler include MapReduce style computation, bioinformatics computation,
 cloud computing~\cite{kepler2013}.
 
 %
-\paragraph{Pegasus/DAX} Pegasus \cite{deelman-peg} is an SWE that is
+\paragraph{Pegasus/DAX} Pegasus \cite{deelman-peg} is an SWE
 well-suited to generate and execute large workflows from abstract DAGs
-describing dataflow.  Abstract description of a DAG is done via an XML-based
-language called DAX. The concrete expression takes into account the properties
-of application task requirements and underlying distributed compute resources.
-The main advantage of such approach is that a single abstract workflow
-description can be mapped to multiple execution environments based on
-requirements. DAX describes the logical workflow components, their inputs and
-outputs and their links and dependencies in a Pegasus workflow. These kind of
-workflows have been shown to enact optimally using Pegasus' dynamic task,
-memory and disk management techniques. For instance, for massively parallel
-task scheduling, Pegasus provides a task clustering technique that groups
-parallel jobs based on fixed parameters such as number of groups. Additionally,
-a manager buffers and maintains a fix-sized window of executable tasks before
-accepting new tasks.
+describing dataflow among interdependent tasks. Abstract description of a DAG
+is done via an XML-based language called DAX. The concrete expression takes
+into account the properties of application task requirements and underlying
+distributed compute resources.  The main advantage of such approach is that a
+single abstract workflow description can be mapped to multiple execution
+environments based on requirements. DAX describes the logical workflow
+components, their inputs and outputs and their links and dependencies in a
+Pegasus workflow. These kind of workflows have been shown to enact optimally
+using Pegasus' dynamic task, memory and disk management techniques. For
+instance, for massively parallel task scheduling, Pegasus provides a task
+clustering technique that groups parallel jobs based on fixed parameters such
+as number of groups. Additionally, a manager buffers and maintains a fix-sized
+window of executable tasks before accepting new tasks.
 
 Large scale workflows from astronomy, biology, and high-energy physics have
 been shown to run via Pegasus on distributed computing resources such as
@@ -673,10 +673,12 @@ portal~\cite{hubzero}.
 \paragraph{Wings/--} The Workflow instance generation and specialization
 (Wings) provides automatic workflow validation and generation based on
 high-level workflow templates~\cite{wings2013}. The system receives high-level
-workflow specification in the form of Pegasus/DAX workflows and generates
-concrete executable workflows. It generates workflows by selecting components,
-data sets, and parameters in three stages while eliminating candidates that are
-not viable.
+workflow specification in the form of Pegasus/DAX workflows and validates them
+for correct coordination based on data and resource constraints. It generates
+workflows by selecting components, data sets, and parameters in three stages
+while eliminating candidates that are not viable. This approach is useful in
+the context of desiging complex computational experiments by domain scientists
+in that it eases the process of workflow level debugging.
 
 % How does Wings achieve the translation between abstract and concrete workflows?
 % What are the internal representations of workflows?
