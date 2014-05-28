@@ -678,15 +678,16 @@ for correct coordination based on data and resource constraints. It generates
 workflows by selecting components, data sets, and parameters in three stages
 while eliminating candidates that are not viable. This approach is useful in
 the context of desiging complex computational experiments by domain scientists
-in that it eases the process of workflow level debugging.
+in that it eases the process of workflow level debugging. Wings uses W3C's OWL,
+Resource Description Framework (RDF), and Semantic Web Rule Language (SWRL) to
+represent workflows and their associated constraints.
 
 % How does Wings achieve the translation between abstract and concrete workflows?
-% What are the internal representations of workflows?
 % What are the constraints under which Wings works?
 % How is Wings implemented?
 
 %
-\paragraph{Swift/Script, Tcl} Swift \cite{swift} is a script-based scientific
+\paragraph{Swift/Script, Tcl} Swift~\cite{swift} is a script-based scientific
 workflow environment developed at the University of Chicago and Argonne
 National Laboratory. A Swift workflow specified in the Swift scripting language
 and is translated to an intermediate XML-based representation and enacted by
