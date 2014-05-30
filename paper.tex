@@ -751,17 +751,22 @@ single environment leading to a highly collaborative inter-community,
 inter-grid research environment. An older version of P-GRADE used the
 condor-Dagman as workflow engine while the recent version uses its own in-house
 developed workflow engine called Xen. \km{Investigate cloud and GPU capabilities} 
-
 %
 
 \paragraph{Galaxy Portal/JSON} Galaxy~\cite{blankenberg-vonkuster-etal:2010} is a
-bioinformatics domain SWE based framework developed at the Penn State
-University, Pennsilvania. It provides a webportal based environment to build
-complex pipelines from an available repository of tools
-(\textit{http://g2.bx.psu.edu}). Users can extend the tool repository provided
-by Galaxy using their own Galaxy server. One of the major use of Galaxy is to
-achieve a mix and match of data analysis tools in order to analyze a vast
-repository of genome based database.
+SWE developed at the Penn State University, Pennsilvania. It provides a
+webportal based environment to build complex pipelines from an available
+repository of tools (\textit{http://g2.bx.psu.edu}).  Galaxy is currently used
+mainly by bioinformatics community. Users can extend the tool repository
+provided by Galaxy using their own Galaxy server. One of the major use of
+Galaxy is to achieve a mix and match of data analysis tools in order to analyze
+a vast repository of genome based database. Galaxy offers a web-based,
+interactive platform for data analysis via reusable and reproducible workflows.
+While excelling in the usability aspects, the Galaxy environment has a limited
+parallelism capabilities and a small number of existing implementations for
+interfacing with diverse, scalable computing infrastructures. The user can draw
+workflows in which multiple copies of a task are created to operate on multiple
+inputs at once, but this is not a scalable approach.
 
 % == SYSTEM SCALABILITY AND OPTIMIZATION ==
 \section{Scalability and Optimization} \label{sec:scal}
