@@ -705,22 +705,16 @@ asynchronous workflow execution. Swift supports advanced workflow constructs
 such as parallel loops and conditionals. Furthermore Swift supports processing
 of explicitly defined arrays of data. Swift workflows take advantage of
 POSIX-style shared file system to reuse the data produced by other processors.
-Recent advances in Swift:
-%Recent advances in Swift: 
-\begin{enumerate}
-    \item Swift has been shown to run on multiple
-        clouds~\cite{ccgrid2013} via its coasters mechanism~\cite{ucc2011}.
-    
-    \item Swift/T~\cite{turbine2013}, runs scientific workflows over HPC
-        resources. Have been shown to work on petascale supercomputers such as
-        the IBM BlueGene and Cray series of machines. 
-    
-    \item GeMTC project investigating running many-task applications over GPUs via Swift/T.
-\end{enumerate}
+Recently, Swift has been shown to run on multiple clouds~\cite{ccgrid2013} via
+its coasters mechanism~\cite{ucc2011}. Swift/T~\cite{turbine2013}, a new HPC
+implementation of Swift system, runs scientific workflows over large-scale
+supercomputing resources. It has been shown to work on petascale supercomputers
+such as the IBM BlueGene and Cray series of machines. GeMTC project
+investigating running many-task applications over GPUs via Swift/T.
 
 % Put this somewhere else, either in the analysis or may be in the conclusions
 % and summary.
-%The \textit{gscript} \cite{maheshwari-montagnat:2010} workflow language
+%The \textit{gscript}~\cite{maheshwari-montagnat:2010} workflow language
 %is similar in spirit to the
 %SwiftScript. Similar to SwiftScript, gscript adopts futures to express
 %asynchronous execution in a script-based language. A Swift script 
