@@ -548,172 +548,17 @@ cases where an intermediate language is not specifically defined or conversely
 where there are multiple systems supporting a generic representation are
 denoted by an asterisk (*) or a hyphen (-) at the respective places.
 
-\paragraph{Taverna/scufl} The Taverna Workflow Management System
-\cite{taverna2013} is an open source scientific dataflow manager
-developed by the mygrid~consortium in the UK.
-%
-Taverna includes a GUI-based rich-client workbench for workflow design and a
-workflow enactment runtime. Taverna can enact workflows expressed in the scufl
-language. Scufl is a near Turing complete dataflow language with well-defined
-semantics \cite{turi-missier-etal:2007,glatard-montagnat:2008}. 
-
-A Taverna workflow consists of a collection of processors connected by data and
-coordination links, which establish a dependency between the output(s) of a
-processor and the input(s) of another. The processors are of different kinds
-depending on the application code to be invoked: typically being services, with
-input and output \textit{ports} that correspond to the operation's invocations
-and response sequences defined in the service`s interface expressed as REST or WSDL.
-Java classes and local scripts can be used as workflow processors, as long as
-they expose their signature as input and output ports as required by the model.
-The engine orchestrates the execution of the processors in a way that is
-consistent with the dependencies, and manages the flow of data through the
-processors' ports. The overall workflow execution is data-driven, with a
-\emph{push} model: a processor's execution is started as soon as all of its
-inputs are available. Taverna is a flexible and extendible workflow environment
-\cite{missier-soiland-reyes-etal:2010,sroka2009a} in that extending the
-engine's functionality is facilitated through a Service Provider Interface
-(SPI). The Taverna engine implements a sophisticated mechanism for enactment of
-parallel workflows. These mechanisms manifest in the form of complex pipelines
-and an advanced superpipelined enactment of workflows. Such a mechanism induces
-multiple downstream workflow processors running in parallel for a dataset. In
-the case of superpipelines, multiple pipeline instances run for multi-datasets
-providing a high degree of parallelism limited only by the availability of
-underlying resources. Taverna is not natively interfaced with external
-computational infrastructure but the same can be achieved with the help of
-extending the engine through one of its
-SPIs~\cite{maheshwari-missier-etal:2009}. In a crucial development, recent
-implementations of Taverna offers a client-server based environment in which a
-Taverna \emph{server} can remotely serve the workflow composition and execution
-services. This mode is useful in the cloud computing environments where the
-server decides where to run the Taverna services in the cloud.
-
-\paragraph{MOTEUR/scufl, GWENDIA} MOTEUR \cite{glatard-montagnat-etal:2008} is a SWE
-developed at the I3S laboratory, University of Nice at Sophia Antipolis (UNS).
-MOTEUR facilitates executing workflows consisting of remote services. It
-exploits service parallelism at workflow level and data parallelism for
-multiple datasets. 
-
-MOTEUR has sophisticated language-level expressions for data management
-mechanisms within a workflow definition. It provides a diverse set of
-parallel iterators that are well adapted for different combinations of input datasets
-at the processor. An iteration strategy allows different combinations of the
-data arriving at a processor along its multiple inputs. Running legacy
-application code on distributed systems has been eased by MOTEUR by providing a
-generic grid-service wrapper for these applications
-\cite{glatard-montagnat-etal:2008a}. Services thus created can be readily
-deployed by the MOTEUR runtime. MOTEUR workflows are written in the scufl
-language and are compatible with those written for the Taverna SWE. It also
-supports an extension of scufl language called the Gwendia~\cite{gwendia}
-language, developed at the same laboratory. 
-%
-\paragraph{Makeflow/make-like spec} Makeflow~\cite{makeflow} is a make-like workflow platform.
-Makeflow addresses the often-encountered problem of software and library
-dependencies on workflow tasks execution for heterogeneous environments.
-Makeflow offers techniques to ``link" and package the application execution
-elements such as executables, libraries and configuration parameters. This
-improves the durability of a workflow and decreases the efforts required to
-maintain a working version of an application encoded as a workflow.
-
-%Internal representation of a Makeflow workflow is in...
-%Its expressivity features include...
-%Makeflow's runtime features include...
-%
-\paragraph{Triana/XML} Triana \cite{taylor-shields-etal:2003} is a java-based
-SWE developed at the Cardiff University. It consists of a workflow composition
-GUI, a framework to integrate workflow with the different execution
-environments and middlewares and a set of predefined services written as java
-components. A Triana workflow is expressed as an XML grammar similar to a WSDL
-description for webservices \cite{taylor-wand-etal:2005}. A highlight of
-Triana is that it provides ready-to-use interface for a wide variety of
-middleware and distributed infrastructures including P2P, grids and
-web-services frameworks. A Triana workflow provides dataflow as well as control
-flow support. Triana allows conditional branching and looping in its workflows.
-
-%
-\paragraph{Kepler/MoML} Kepler~\cite{kepler2013} is a SWE
-based upon the Ptollemy II framework~\cite{eker-janneck-etal:2003} developed at
-the University of California. Kepler workflows follow an actor-director
-metaphor where an actor represents a processor and the director
-represents the paradigm for executing the workflows consisting of the actors.
-Depending upon the types of directors, a Kepler workflow may exhibit a
-different type of execution behavior. A workflow designer can chose from among
-directors based upon the purpose of a workflow. Few of these include Process
-Network (PN) for a parallel execution at the workflow level, Synchronous Data
-Flow (SDF) for simple sequential data flow and Collection Oriented Modeling and
-Design (COMAD) \cite{keplercomad} for a collection oriented workflow. Kepler
-uses the Modeling Markup Language (MoML) for its workflow representation. MoML
-is an extended XML syntax providing a rich vocabulary to compose Kepler
-workflows. A workflow processor is called an `actor' in Kepler. Recent advances
-in Kepler include MapReduce style computation, bioinformatics computation,
-cloud computing~\cite{kepler2013}.
-
-%
-\paragraph{Pegasus/DAX} Pegasus \cite{deelman-peg} is an SWE
-well-suited to generate and execute large workflows from abstract DAGs
-describing dataflow among interdependent tasks. Abstract description of a DAG
-is done via an XML-based language called DAX. The concrete expression takes
-into account the properties of application task requirements and underlying
-distributed compute resources.  The main advantage of such approach is that a
-single abstract workflow description can be mapped to multiple execution
-environments based on requirements. DAX describes the logical workflow
-components, their inputs and outputs and their links and dependencies in a
-Pegasus workflow. These kind of workflows have been shown to enact optimally
-using Pegasus' dynamic task, memory and disk management techniques. For
-instance, for massively parallel task scheduling, Pegasus provides a task
-clustering technique that groups parallel jobs based on fixed parameters such
-as number of groups. Additionally, a manager buffers and maintains a fix-sized
-window of executable tasks before accepting new tasks.
-
-Large scale workflows from astronomy, biology, and high-energy physics have
-been shown to run via Pegasus on distributed computing resources such as
-Clusters, Grids and Supercomputers.  Recent developments in Pegasus enables it
-to run workflows on cloud environments~\cite{peg-cloud}. Pegasus system is
-known to be extendible as illustrated by a recent integration
-effort~\cite{peg-hubzero} between Pegasus and the Hubzero
-portal~\cite{hubzero}.
-
-\paragraph{Wings/--} The Workflow instance generation and specialization
-(Wings) provides automatic workflow validation and generation based on
-high-level workflow templates~\cite{wings2013}. The system receives high-level
-workflow specification in the form of Pegasus/DAX workflows and validates them
-for correct coordination based on data and resource constraints. It generates
-workflows by selecting components, data sets, and parameters in three stages
-while eliminating candidates that are not viable. This approach is useful in
-the context of desiging complex computational experiments by domain scientists
-in that it eases the process of workflow level debugging. Wings uses W3C's OWL,
-Resource Description Framework (RDF), and Semantic Web Rule Language (SWRL) to
-represent workflows and their associated constraints.
-
-% How does Wings achieve the translation between abstract and concrete workflows?
-% What are the constraints under which Wings works?
-% How is Wings implemented?
-
-%
-\paragraph{Swift/Script, Tcl} Swift~\cite{swift} is a script-based scientific
-workflow environment developed at the University of Chicago and Argonne
-National Laboratory. A Swift workflow specified in the Swift scripting language
-and is translated to an intermediate XML-based representation and enacted by
-the Karajan workflow enactment engine. The SwiftScript language is proposed as
-a workflow language founded on a scripting approach that programmers are
-familiar with. To make the language data parallel, Swift script generalizes the
-use of futures~\cite{futures} for every variables defined in the
-script.  Futures are non-blocking assignment variables, using a proxy to ensure
-immediate execution of assignment and performing lazy blocking on variable
-value accesses only. The systematic use of futures for every variables in the
-language makes it completely data-driven: the execution progresses
-asynchronously as long as a data access is not blocking. The availability of
-data enables blocked thread to restart execution. Swift facilitates a highly
-asynchronous workflow execution. Swift supports advanced workflow constructs
-such as parallel loops and conditionals. Furthermore Swift supports processing
-of explicitly defined arrays of data. Swift workflows take advantage of
-POSIX-style shared file system to reuse the data produced by other processors.
-Recently, Swift has been shown to run on multiple clouds~\cite{ccgrid2013} via
-its coasters mechanism~\cite{ucc2011}. Swift/T~\cite{turbine2013}, a new HPC
-implementation of Swift system, runs scientific workflows over large-scale
-supercomputing resources. It has been shown to work on petascale supercomputers
-such as the IBM BlueGene and Cray series of machines. GeMTC project
-investigating running many-task applications over GPUs via Swift/T. Efforts to develop metadata and provenance modules have been undertaken recently~\cite{swiftprov}.
-
+\input{text/taverna}
+\input{text/moteur}
+\input{text/makeflow}
+\input{text/triana}
+\input{text/kepler}
+\input{text/peg}
+\input{text/wings}
+\input{text/swift}
+\input{text/askalon}
+\input{text/pgrade}
+\input{text/galaxy}
 % Put this somewhere else, either in the analysis or may be in the conclusions
 % and summary.
 %The \textit{gscript}~\cite{maheshwari-montagnat:2010} workflow language
@@ -729,46 +574,7 @@ investigating running many-task applications over GPUs via Swift/T. Efforts to d
 %workflow representation. Conditional and Loop execution is supported
 %using the if and foreach statements in both languages.
 %
-
-\paragraph{ASKALON/AGWL.} The ASKALON Problem Solving Environment (PSE)
-\cite{fahringer2014} is developed at the University of Innsbruck.
-ASKALON is described as a Scientific PSE capable of composing, hosting,
-executing, sharing and reusing scientific workflows written in the Abstract
-Grid Workflow Language (AGWL). AGWL is an XML-based workflow language that is
-capable of expressing scientific application components chains at a high-level
-of abstraction. A concrete workflow consists of the abstract workflow combined
-with the resources and target execution environment binding the workflow. The
-graphical interface of AGWL is based upon the UML (Unified Modeling Language)
-diagrams.\km{Todo: current developments and advances.}
-
-\paragraph{The P-GRADE Portal/--} The P-GRADE Portal~\cite{pgrade2011}
-developed at the MTA SZTAKI Computation and Automation Institute, Budapest,
-provides an access to grid computational and storage resources from a web
-browser through a specialized workflow oriented grid portal. A workflow
-development environment interfaces the users through this web based portal. The
-portal interfaces the multiple grid computing middleware and storage resources
-as a backend component of the environment. A highlight of P-GRADE portal is
-that it provides access to multiple grids and scientific communities in a
-single environment leading to a highly collaborative inter-community,
-inter-grid research environment. An older version of P-GRADE used the
-condor-Dagman as workflow engine while the recent version uses its own in-house
-developed workflow engine called Xen. \km{Investigate cloud and GPU capabilities} 
 %
-
-\paragraph{Galaxy Portal/JSON} Galaxy~\cite{blankenberg-vonkuster-etal:2010} is a
-SWE developed at the Penn State University, Pennsilvania. It provides a
-webportal based environment to build complex pipelines from an available
-repository of tools (\textit{http://g2.bx.psu.edu}).  Galaxy is currently used
-mainly by bioinformatics community. Users can extend the tool repository
-provided by Galaxy using their own Galaxy server. One of the major use of
-Galaxy is to achieve a mix and match of data analysis tools in order to analyze
-a vast repository of genome based database. Galaxy offers a web-based,
-interactive platform for data analysis via reusable and reproducible workflows.
-While excelling in the usability aspects, the Galaxy environment has a limited
-parallelism capabilities and a small number of existing implementations for
-interfacing with diverse, scalable computing infrastructures. The user can draw
-workflows in which multiple copies of a task are created to operate on multiple
-inputs at once, but this is not a scalable approach.
 
 % == SYSTEM SCALABILITY AND OPTIMIZATION ==
 \section{Scalability and Optimization} \label{sec:scal}

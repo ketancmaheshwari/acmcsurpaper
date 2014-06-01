@@ -1,0 +1,24 @@
+%
+\paragraph{Pegasus/DAX} Pegasus \cite{deelman-peg} is an SWE
+well-suited to generate and execute large workflows from abstract DAGs
+describing dataflow among interdependent tasks. Abstract description of a DAG
+is done via an XML-based language called DAX. The concrete expression takes
+into account the properties of application task requirements and underlying
+distributed compute resources.  The main advantage of such approach is that a
+single abstract workflow description can be mapped to multiple execution
+environments based on requirements. DAX describes the logical workflow
+components, their inputs and outputs and their links and dependencies in a
+Pegasus workflow. These kind of workflows have been shown to enact optimally
+using Pegasus' dynamic task, memory and disk management techniques. For
+instance, for massively parallel task scheduling, Pegasus provides a task
+clustering technique that groups parallel jobs based on fixed parameters such
+as number of groups. Additionally, a manager buffers and maintains a fix-sized
+window of executable tasks before accepting new tasks.
+
+Large scale workflows from astronomy, biology, and high-energy physics have
+been shown to run via Pegasus on distributed computing resources such as
+Clusters, Grids and Supercomputers.  Recent developments in Pegasus enables it
+to run workflows on cloud environments~\cite{peg-cloud}. Pegasus system is
+known to be extendible as illustrated by a recent integration
+effort~\cite{peg-hubzero} between Pegasus and the Hubzero
+portal~\cite{hubzero}.

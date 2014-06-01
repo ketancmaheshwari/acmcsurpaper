@@ -1,0 +1,38 @@
+\paragraph{Taverna/scufl} The Taverna Workflow Management System
+\cite{taverna2013} is an open source scientific dataflow manager
+developed by the mygrid~consortium in the UK.
+%
+Taverna includes a GUI-based rich-client workbench for workflow design and a
+workflow enactment runtime. Taverna can enact workflows expressed in the scufl
+language. Scufl is a near Turing complete dataflow language with well-defined
+semantics \cite{turi-missier-etal:2007,glatard-montagnat:2008}. 
+
+A Taverna workflow consists of a collection of processors connected by data and
+coordination links, which establish a dependency between the output(s) of a
+processor and the input(s) of another. The processors are of different kinds
+depending on the application code to be invoked: typically being services, with
+input and output \textit{ports} that correspond to the operation's invocations
+and response sequences defined in the service`s interface expressed as REST or WSDL.
+Java classes and local scripts can be used as workflow processors, as long as
+they expose their signature as input and output ports as required by the model.
+The engine orchestrates the execution of the processors in a way that is
+consistent with the dependencies, and manages the flow of data through the
+processors' ports. The overall workflow execution is data-driven, with a
+\emph{push} model: a processor's execution is started as soon as all of its
+inputs are available. Taverna is a flexible and extendible workflow environment
+\cite{missier-soiland-reyes-etal:2010,sroka2009a} in that extending the
+engine's functionality is facilitated through a Service Provider Interface
+(SPI). The Taverna engine implements a sophisticated mechanism for enactment of
+parallel workflows. These mechanisms manifest in the form of complex pipelines
+and an advanced superpipelined enactment of workflows. Such a mechanism induces
+multiple downstream workflow processors running in parallel for a dataset. In
+the case of superpipelines, multiple pipeline instances run for multi-datasets
+providing a high degree of parallelism limited only by the availability of
+underlying resources. Taverna is not natively interfaced with external
+computational infrastructure but the same can be achieved with the help of
+extending the engine through one of its
+SPIs~\cite{maheshwari-missier-etal:2009}. In a crucial development, recent
+implementations of Taverna offers a client-server based environment in which a
+Taverna \emph{server} can remotely serve the workflow composition and execution
+services. This mode is useful in the cloud computing environments where the
+server decides where to run the Taverna services in the cloud.
