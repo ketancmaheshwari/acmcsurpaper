@@ -1,0 +1,96 @@
+\section{Summary and Conclusions} \label{sec:sum}
+% \begin{sidewaysfigure}
+% \begin{center}
+% \includegraphics[width=\linewidth]{2/figures/pdf/Taxonomy}
+% \caption{A Taxonomy of the Features of Scientific Workflow Environments}
+% \label{fig:taxonomy}
+% \end{center}
+% \end{sidewaysfigure}
+
+%\begin{sidewaysfigure}
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[]
+ \path[mindmap,concept color=darkgray,text=white,font=\sf]
+ node[concept] {Scientific Workflows}
+ [clockwise from=0]
+ child[concept color=darkgray,font=\sf] {
+ node[concept] {scalability}
+ [clockwise from=90]
+ child [concept color=gray,font=\sf] {
+ node[concept] {\small{parallelism}}
+ [clockwise from=120]
+ child[concept color=lightgray,text=darkgray,font=\sf] {node[concept]{data}}
+ child[concept color=lightgray,text=darkgray,font=\sf] {node[concept]{\scriptsize{pipeline}}}
+	 child[concept color=lightgray,text=darkgray,font=\sf] {node[concept]{\scriptsize{task}}}
+% 	 child[concept color=lightgray,text=darkgray,font=\sf] {node[concept]{\small{activity}}}
+ }
+ child[concept color=gray,font=\sf] { node[concept] {\scriptsize{optimization}} }
+ }
+ child[concept color=darkgray,font=\sf] { node[concept] {\small{data management}}}
+ child[concept color=darkgray,font=\sf] {
+ node[concept] {\small{expressiveness}}
+ [clockwise from=-45]
+ child[concept color=gray,font=\sf] { node[concept] {iterators} }
+ child[concept color=gray,font=\sf] { node[concept] {\small{array programming}} }
+ child[concept color=gray,font=\sf] { node[concept] {\small{control structures}} }
+ }
+ child[concept color=darkgray,font=\sf] {
+ node[concept] {usability}
+ [clockwise from=-120]
+ child[concept color=gray,font=\sf] { node[concept] {\scriptsize{composition}} }
+ child[concept color=gray,font=\sf] { node[concept] {extendible} }
+ child[concept color=gray,font=\sf] { node[concept] {reusable} }
+ }
+ child[concept color=darkgray,font=\sf] { node[concept] {interface to DCIs} };
+\end{tikzpicture}
+\caption{A Taxonomy of the Features of Scientific Workflow Environments}
+\label{fig:taxonomy}
+\end{center}
+\end{figure}
+
+Figure \ref{fig:taxonomy} shows a taxonomy of SWE features studied in this
+paper. We studied twenty SWEs from different scientific fields developed
+worldwide. Some trends as observed in the approaches of the SWEs development
+are noted below:
+
+\begin{itemize}
+ \item A recent surge in distributed computing approach of Cloud Computing has
+     given rise to adoption of new enactment technologies. 
+
+ \item SWEs tend to offer complementary properties which has led to several
+     collaborations among the developing groups. Notable among these are the
+     recent ones between Taverna and Galaxy \cite{mohamed-alaa-etal:2010} and
+     Kepler and Pegasus \cite{mandal-deelman-etal:2007}.
+ 
+ \item Collection oriented SWEs wherein arrays of data are treated as
+     first-class entities has been seen a significant trend among the
+     contemporary SWEs.
+ 
+ \item A trend of increasing number of SWEs providing a script-based workflow
+     composition interface solely or in combination with a visual interface in
+     the form of GUI has been observed.
+ 
+ \item Workflow systems originally developed for business domains have been
+     introduced to scientific domains, such as BPEL and Trident.
+\end{itemize}
+
+In the present work we explore different dimensions of SWE paradigm. We study a
+number of SWE implementations. While we see a number of implementations
+dominant in areas suitable to their targeted applications, there is no single
+SWE that could sufficiently fulfill the objectives of this work. There is a
+lack of an SWE addressing the workflow expressibility and parallelism
+requirements while at the same time targeting enactment within the Grid
+Environment. Key features such as effective application data combinations or
+array-based execution coupled with Grid centric execution are either missing or
+partially available in the studied workflows. 
+
+However, so far, from our study, we find Taverna as being the closest SWE that
+can be a suitable candidate for our enactments. With this motivation, we get
+into studying the details of the workings of the Taverna Workflow Environment. 
+
+While many contemporary SWEs are studied in this survey, we are aware that this
+is not an exhaustive list. Some other SWEs have been missed or omitted, notable
+among them being: ICENI~\cite{furmento-mayer-etal:2002},
+Calcium~\cite{caromel-henrio-etal:2008} and YML~\cite{delannoy-emad-etal:2006}.
+
