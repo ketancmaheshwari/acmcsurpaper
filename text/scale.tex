@@ -1,0 +1,186 @@
+\section{Scalability and Optimization} \label{sec:scal}
+A simple definition of scalability in the context of SWE is that the
+performance of the workflow engine increases linearly with the increasing
+number of similar tasks. Depending upon the lag or increase in the linearity we
+say a workflow enactor scales up or down.  In this section, we focus on
+the scalability aspects of the workflow runtime. We do not consider the
+specific scalability issues related to a distributed infrastructure such as
+network latencies and protocol related overheads. However, there have been efforts to
+thwart such issues at the workflow level by combining workflow enactment
+techniques with those of distributed computing.  One such example is the
+map/reduce framework \cite{mapreduce}.  Recently, the map/reduce framework,
+that aims at performing distributed processing on large datasets, has gained a
+significant popularity in workflow community. It is based on the master/worker
+metaphor of distributed processing.  It employs the commonly used \textit{map}
+and \textit{reduce} functions from the functional programming languages. The
+map function chops a large chunk of data into smaller pieces and distributes it
+to \textit{workers} which in turn can also chop it to further smaller datasets
+forming a tree-like hierarchy. The worker process the data and return the
+results back to their parents. The reduce step collects the results from the
+workers and combines them to obtain the final result. One of the main reason
+for the popularity of the map/reduce framework for workflows is the recent
+attention to collections based datasets and processing. There exists
+implementations of the map/reduce framework written in different languages with
+enhancements and support services such as a sophisticated query service. Hadoop
+(\textit{http://hadoop.apache.org/}) is one such implementation which has
+already been interfaced by the Kepler SWE~\cite{wang-crawl-etal:2009}.
+
+Large-scale applications with thousands of tasks often pose memory and disk
+management difficulties leading to scalability issues.  However, the
+performance of a workflow system is dependent on several factors including the
+type of tasks and approach for submitting tasks for execution.  There is not
+much research done towards the enactor scalability baring a couple of studies
+carried out by C. Stratan et. al. \cite{stratan-iosup-etal:2008} and Deelman
+et. al. \cite{callaghan-deelman-etal:2010}.  One way to compare the scalability
+of different workflow environments is to experiment with a similar set of
+workflows on a given system. In addition, different SWEs interface to different
+DCIs. This is a time consuming process.  In the current study we do not
+directly compare the workflow system scalability but we study the similarities
+and differences in the techniques employed by workflow engines in order to
+achieve scalability.
+
+The software architecture of the system plays a key role in determining the
+scalability for the workflow applications exhibiting a large number of tasks.
+An architecture that takes into account the properties of the underlying
+infrastructure could scale well in the face of growing number of workflow
+tasks.
+
+In the context of workflow runtime, scalability can be further classified in
+terms of data motion scalability. It can be expressed as the rate of increase
+in number of data movement quantity with respect to the increase in the elapsed
+time.
+
+While the computational scalability of a large scale experiment depends upon
+the underlying computing infrastructure, at the workflow enactor level, it
+becomes important to be able to prepare and dispatch as many processor
+instances as possible without loss in performance. Failing to do so for a
+workflow engine can become a performance bottleneck and hamper the optimal
+utilization of an available computing infrastructure.
+
+Most workflow systems exploit the parallelism at three-levels. First, at the
+task-level wherein the independent branches of a workflow graph are enacted
+concurrently. Second, at the data-level, where a same processor is instantiated
+multiple times based upon the repeated operations on different datasets. Third,
+the low-level parallelism that is encoded within the application components
+independent of the workflow. At this level, the workflow enactor may
+need to make a matching based upon the application type. For instance, a
+workflow enactor may schedule the GPU-based processors on the resources that
+indicate as possessing such capabilities.
+
+In this section we analyze the scalability and runtime optimization measures
+and techniques employed by SWEs. Illustrated below are some of the techniques
+used to achieve scalability in various SWEs.
+
+Taverna version 2.x introduced new measures in order to be able to submit a
+large number of jobs simultaneously. It is able to dispatch large number of
+concurrent instances of processors. An ability to implement
+superpipelined~\cite{hwang:1992} execution of workflow tasks leads to a maximum
+expression of parallelism~\cite{pipeline}.
+
+Within the Taverna engine, all the data involved in the execution is managed by
+a data manager through an external database, and is addressed by the engine
+only by \textit{reference}. This facilitates the management of data-intensive
+workflows in a scalable way, as high volume data is only transferred into the
+engine space when needed by processors that are unable to resolve external data
+references on their own.
+
+Taverna, Swift-Karajan and Pegasus all provide a means to limit the maximum
+number of processor instances that can run concurrently through a builtin
+parameter. In Taverna, this can be configured at a workflow level while in
+Pegasus, this can be configured at the Condor \cite{thain-tannenbaum-etal:2005}
+scheduler level. In Swift-Karajan system this parameter is regulated
+automatically as part of a ``throttling parallel foreach" construct. A similar
+configurable parameter is provided by the Knime thread manager in order to
+limit the size of the thread-pool employed to run a workflow.
+
+Kepler optimizes the workflow execution through parallel and pipelined
+execution. In addition to these, Kepler also provides dataflow analysis
+optimization that involves data bypassing the processors in a workflow that
+does not make use of that data. This is detected using a builtin Kepler
+mechanism called ``static type propagation".
+
+Another alternative is to optimize the enactment at runtime. This approach has
+advantages including a better information about the actual data available. For
+instance, Askalon does runtime branch prediction, parallel loop unrolling and
+loop sequentialization.
+
+The Pegasus workflow manager introduced subworkflows because of scalability
+issues at the localhost for a large number of nodes in a DAG. A hierarchical
+representation helps it scale at the local planning level as well as at the
+execution level on distributed resources.
+
+Static planners in Pegasus translate a workflow graph into a location specific
+DAGMan input file, adding stages for data staging, intersite transfer and data
+registration. These planners can reduce processing of tasks for files that
+already exist, select sites for jobs, and cluster jobs based on various
+criteria. Pegasus performs graph transformation with the knowledge of the whole
+workflow graph. A similar strategy is grouping tasks by application-level
+wrappers written in higher-level programming languages such as bash or Python.
+
+In some systems the structure of a workflow is constructed and expanded
+dynamically as opposed to static planning. A static workflow graph allows
+optimizations based on the global state of the workflow, whereas a dynamic
+workflow structure allows adaptations to changing environments.  Depending upon
+the execution environment and access conditions to the available resources,
+each approach can result in the overall optimization of a given application.
+
+Knime has a different execution strategies for shared memory Symmetric
+Multiprocessing Systems (SMP) and distributed memory systems. In the case of
+SMP, it uses the message passing library or MPI to distribute the independent
+parts of a workflow to available processors. This approach results in efficient
+use of available processors. However, for a large scale, the global memory
+becomes a bottleneck hindering the scalability. 
+
+In the case of distributed memory and independent computational nodes connected
+with highspeed network or the internet, Knime employs a Master/Worker metaphor
+of computing. A Knime installation with GUI acts as a master node that
+coordinates the bare Knime installations on the worker nodes. These worker
+nodes are then sent the portions of a workflow by the master node. The master
+node keeps track of the participating nodes by their unique IP addresses. At
+the end of each execution, the master node collects the results from the worker
+nodes.
+
+\begin{table}[ht!]
+%TODO: Caption is not printing well, fix
+%\caption{A summary of SWEs Scalability and optimization Mechanisms}
+\begin{center}
+% use packages: array
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\textbf{SWE} / & \multicolumn{3}{c|}{\textbf{Parallelism}} & \multicolumn{2}{c|}{\textbf{Optimization}}\\
+\cline{2-6}
+\textbf{Language} & \textbf{data} & \textbf{task} & \textbf{pipeline} & \textbf{static} & \textbf{runtime}\\
+\hline
+Taverna/Scufl2 & \checkmark & \checkmark & \checkmark & -- & \checkmark \\
+\hline
+Triana/- & \checkmark & \checkmark & \checkmark & -- & \checkmark \\
+\hline
+MOTEUR/Scufl & \checkmark & \checkmark & \checkmark &-- &\checkmark \\
+\hline
+Kepler/MoML & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\hline
+GridNexus/GXPL & -- & \checkmark & -- &-- &\checkmark \\
+\hline
+Swift/SwiftScript & \checkmark & \checkmark & \checkmark & \checkmark &\checkmark \\
+\hline
+Askalon/AGWL &--& \checkmark & -- & \checkmark & \checkmark \\
+\hline
+P-GRADE/- &\checkmark &\checkmark &\checkmark &--&--\\
+\hline
+Pegasus/DAX &\checkmark &\checkmark &\checkmark &\checkmark &\checkmark \\
+\hline
+Galaxy/- &-- &-- &\checkmark &-- &-- \\
+\hline
+MOTEUR2/Gwendia~ & \checkmark &\checkmark & \checkmark &-- &\checkmark \\
+\hline
+\end{tabular}
+\label{tbl:scalability}
+\end{center}
+\end{table}
+
+Shown in Table \ref{tbl:scalability} is a summary of the Scalability and
+optimization mechanisms of the studied SWEs. The scalability features
+considered are through three levels of parallelism in the form of data,
+task and pipeline. The optimization features considered are the presence of
+mechanisms by which static and runtime optimizations are achieved.
+

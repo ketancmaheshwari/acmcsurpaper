@@ -1,0 +1,112 @@
+\section{Usability} \label{sec:usable}
+A workflow environment influences the end-user comfort and convenience towards
+the goal of efficiently organizing and deploying a scientific experiment
+involving heavy usage of computational resources. However, there is no single
+factor that determines the usability of a SWE. A combination of several
+qualitative and quantitative factors play a role in determining how usable a
+given SWE is.
+
+\begin{table}[ht!]
+\begin{center}
+% use packages: array
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{SWE/Language} & \textbf{Workflow Composition} & \textbf{Reusable} & \textbf{Extendable}\\
+\hline
+Taverna/Scufl2 & GUI & \checkmark & \checkmark\\\hline
++/BPEL & GUI & \checkmark & \checkmark \\\hline
+Triana/- & GUI & \checkmark & \checkmark \\\hline
+MOTEUR/Scufl & GUI & \checkmark & -- \\\hline
+Kepler/MoML & GUI & \checkmark & \checkmark \\\hline
+GridNexus/GXPL & GUI/Text & -- & -- \\\hline
+Swift/SwiftScript & Text & -- & -- \\\hline
+Askalon/AGWL & GUI & \checkmark & \checkmark \\\hline
+P-GRADE/- & Web Portal & \checkmark & -- \\\hline
+Pegasus/DAX & GUI & \checkmark & \checkmark \\\hline
+Galaxy/- & Web Portal & -- & -- \\\hline
+\multirow{2}{*}{MOTEUR2/} & GUI/Text & \checkmark & --\\
+Gwendia~/gscript & & & \\\hline
+\end{tabular}
+%\caption{A summary of SWEs Usability Analysis}
+\label{tbl:usability}
+\end{center}
+\end{table}
+
+In this section, the following aspects of grid workflow usability are mainly
+considered: a) Ease and convenience for workflow composition. This largely
+rests on the available composition interfaces such as a GUI. b) Workflow
+reusability. c) Extensibility by being able to be linked to external
+applications or the ease of customizing the existing codebase of the SWE. Since
+legacy applications are not developed keeping workflow enactment in mind, it
+largely depends upon the extendability of the workflow environment to adapt to
+the application's requirements. We discuss these features in more details in
+the rest of this section and summarize them in table \ref{tbl:usability} for
+the SWEs studied.
+
+A visual workflow development environment is most prominent among the workflow
+community. The visual paradigm of workflow development is convenient as it
+provides an intuitive ability to the user to design workflows by visualizing
+the flow of data and the processors involved in the data processing at each
+stage. It also facilitates users to visualize the opportunities to exploit
+parallelism in the graph.
+
+Another dimension of usability is from the point of view of the computational
+infrastructure and its middleware. A SWE must optimally expose and make
+available all the features of the underlying middleware components.
+
+On the other side of the workflow development paradigm are the script-based
+workflow development capability. A script-based workflow development has its
+own advantages and can lead to the development of highly expressive, compact
+and portable workflows rapidly in the hands of expert or well-experienced
+end-users. An ideal situation is a workflow manager allowing both visual as
+well as scripting development of scientific workflows.
+
+There are two key aspects to highly usable SWE, expressibility and simplicity.
+From the end-user point of view, these are often contradictory and a trade-off
+is required to attain a balance between the degree to which each aspect is
+contained and come in the way of user comfort. User comfort, time to design and
+construct a workflow are of particular importance in the case of SWEs as the
+users are not necessarily technical experts.
+
+This section explores the above mentioned aspects and features seen in the
+SWEs.
+
+The above mentioned aspects also play a role in workflow reusability.
+Scientific procedures are recurring in nature and offer opportunities to reuse
+fully or partially , the existing workflows~\cite{xiaorong-madey:2007}. In
+order to be able to reuse an existing workflow, it must be easily available and
+clearly described as to what are its functions.
+
+Furthermore, other operational factors contribute significantly to a SWE's
+overall usability. An example is as reported by Ramakrishnan et. al. in
+\cite{ramakrishnan-nurmi-etal:2009} wherein factors such as virtual
+reservations, coordinated use of resources and fault tolerance combined
+together considerably enhance workflow usability. Among these, the fault
+tolerance mechanisms are the most challenging to implement and realize at the
+workflow level. This is owing to the fact that workflows interacting with many
+diverse entities have a large number of, and unforeseen fault conditions. A
+small number of SWEs provide some kind of fault tolerance mechanisms. For
+instance MOTEUR provides a `retry' mechanism on job fault while SwiftScript and
+BPEL provide an exception handling mechanism in order to notify users of
+occurrence of known fault conditions.
+
+Some interesting efforts have been made in the past to increase usability of
+grid environments for a particular domain users such as medical imaging
+\cite{olabarriaga-deboer-etal:2006,olabarriaga-glatard-etal:2008}. In the case
+of SWEs, specific usability issues have been addressed relatively late.
+Distributed workflow repositories \cite{stoyanovich-taskar-etal:2010} have been
+especially popular recently. These repositories play an important role in
+making a large number of scientific workflows available and hence reusable. The
+\textit{myexperiment.org} \cite{deroure-goble-etal:2008} is one such popular
+repository of Taverna workflows available publicly. Other examples of such
+repositories are the workflow libraries maintained as a part of the Kepler
+project (library.kepler-project.org/kepler/) and another one with the Vistrails
+project \cite{callahan-freire-etal:2006}. Kepler also integrates with DataStaR
+\footnote{https://wiki.duraspace.org/display/FEDORACREATE/DataStaR+Use+Case} to
+support data sharing among researchers during the research process, and to
+promote publishing or archiving data and metadata to discipline-specific data
+centers. The workflows hosted in these repositories are tagged and categorized
+based upon their features and functionalities. The ``myexperiment" repository
+is especially notable for its adoption of social web paradigm where users not
+only find and reuse the workflows but can actively collaborate on scientific
+experiments over the web.

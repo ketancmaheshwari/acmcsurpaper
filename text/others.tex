@@ -1,0 +1,104 @@
+
+% -------------------- Fit here as not main content ------------------------
+\subsection{Other Systems}
+In this section we briefly discuss various other systems which are either too
+niche or obsoleted.
+
+Business Process Execution Language (BPEL)~\cite{bpel} is a commercil workflow
+platform pioneered by IBM Corporation and used predominantly to define business
+workflows. It is now a broad standard for business workflow applications. BPEL
+is an open language and commercial enactors are available that provide
+enactment functionality for the BPEL workflows. There has been attempts to use
+BPEL or its extended version in the scientific applications. However, the
+language does not suit well to the data-intensive, grid workflows and has a
+limited adoption in the scientific
+community~\cite{tan-missier-etal:2010,barga-gannon:2007,scherp-hoing-etal:2009}.
+Apart from that, a lack of an open-source workflow engine with graphical
+interface also contributes to its limited acceptance in academic research.
+However, BPEL has been famously unsuitable for data intensive scientific
+applications  BPEL lacks different user-defined strategies to effect multiple
+invocations of each processor according to the application semantics. BPEL also
+lacks data streams and implicit parallelism forcing a user to explicitly define
+parallelism using one of its parallel processing constructs such as
+\texttt{foreach}.
+
+%
+The Grid Workflow Execution Service (GWES)~\cite{Hoheisel2007} is a SWE
+developed by the Fraunhofer-First institute. It implements a dynamic workflow
+composition and enactment model based on the Grid Workflow Description Language
+(GWorkflowDL)~\cite{Alt2006}.  GWES enables key workflow development and
+deployment lifecycle phases including visual composition, data-staging, Grid
+middleware interfacing and execution monitoring. Currently, GWES is intensively
+being used in the field of Medical Image Processing especially at the
+Charit\'{e} Hospital at Berlin in Germany.  It has been successfully interfaced
+with the German D-Grid infrastructure.
+
+%
+The GridNexus \cite{GridNexus} SWE, developed at the University of North
+Carolina, Wilmington, facilitates a graphical composition and execution of
+DAG-based workflows. Like Kepler, GridNexus is also based on Ptolemy II
+framework. GridNexus workflows are expressed in an XML-based scripting language
+called JXPL \cite{hunt-ferner-etal:2005}. JXPL is a customizable and extensible
+scripting language allowing users to write their own workflow processor types.
+GridNexus workflows are grid oriented and can be deployed on grid resources
+accessed through a persistent WS-RF (Web Services Resource Framework)
+interface.
+
+%
+Bioflow~\cite{bioflow} is a query based workflow language.
+It is motivated by the fact that bioinformatics applications are query based
+applications that benefit from the complex database queries or saved database
+`views'. A typical Bioflow workflow pipelines a sequence of filter queries in
+order to get the desired results. Bioflow is mainly utilized in the area of
+bioinformatics and querying genome databases. Additionally, a Bioflow workflow
+provides mechanisms for data manipulation and updation in the existing
+databases. It also includes advanced features such as parallel processing of a
+set of mutually independent database queries. The execution model is based on
+the popular database query language SQL (Structured Query Language). Processes
+can be defined in Bioflow which are processor counterparts in workflow paradigm
+and similar to stored-procedures in SQL jargon.
+
+%
+Vizbuilder~\cite{vizbuilder} is a graphical toolkit to generate the graphical
+representation of bioflow workflows. A Vizbuilder workflow links to an
+underlying bioflow engine and provides an interface to submit the bioflow
+workflows for execution.
+
+%
+Martlet~\cite{martlet} is a text-based, declarative
+workflow language that is inspired by the functional programming paradigm. A
+Martlet workflow conveniently enables distributed parameter sweep applications
+wherein the language intuitively defines the computation and a matching with
+the distributed resources can be carried out at workflow execution time. List
+processing applications where a sequence of application components work over an
+array of data in a Multi-data multi-instruction style setup is well-suited to
+the Martlet's model of computation.
+
+%
+Knime~\cite{knime} is a distributed, parallel pipelining
+system for data intensive applications developed at the University of Konstanz.
+It is a java-based platform with a Graphical Interface that is based on eclipse
+(\textit{http://www.eclipse.org}) plug-in framework. A Knime workflow consists
+of processors belonging to categories such as readers, manipulators, learners,
+predictors, etc. Each processor has a configuration dialog associated with it
+that allows user to set its parameters. Processors are connected through data
+and/or control connections. A highlight of knime is support for shared- and
+distributed-memory workflow enactment and support for parallel workflow loops
+and subworkflows. The loops in Knime manifest themselves in the form of
+subworkflows (called metanodes in Knime) by a repeated enactment of the same
+subworkflow.
+
+%
+StarFlow~\cite{angelino-yamins-etal:2010} is a Python-based
+script oriented workflow language used to encode parallel pipelines. StarFlow
+handles data as well as control flow using a combination of static, dynamic and
+user annotations analysis. A parallelization engine uses data and control
+dependencies in a workflow in order to build a parallel profile of the
+workflow. StarFlow has been shown to be successfully interface with the SunGrid
+\cite{gentzsch:2001} Schedular and Amazon EC2 cloud infrastructure \cite{ec2}.
+The key feature of StarFlow is its capability to execute workflows to maximum
+possible parallelism. While StarFlow provides a script-based compact and
+semiautomatic workflow composition environment, currently it lacks a
+sophisticated GUI for workflow composition. 
+
+% ---------------------------------------------------------------------------

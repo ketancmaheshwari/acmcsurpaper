@@ -1,0 +1,130 @@
+% == DATA MANAGEMENT ==
+\section{Data Management and Description} \label{sec:data}
+Many aspects of data handling present significant diversity among the workflow
+managers. Data management approaches for scientific workflows can be classified
+as resource and language level. Resource level strategies include data
+management at the application level of abstraction where the data is required
+to be distributed, available and securely remote-accessible. It also determines
+how the data will be delivered to a resource that handles the processing and
+returning the processed data or results to the next processors in the workflow.
+Provenance, staging, and managing heterogeneous data structures (files, arrays
+etc.) are functional requirements at this level.
+
+Whereas the language level data management involves how the actual data items
+are described and handled across a workflow execution. Decisions such as how
+complex data structures are supported, transferred and delivered from workflow
+input source or from one processor to another are determined at language level.
+In most workflow systems, the transfer of data is achieved through `data-ports'
+attached to the processors. These ports act as channels to collect and transfer
+data across a workflow. The association of data description with the workflow
+determines whether the data is loosely or strongly coupled with a workflow. A
+loosely coupled workflow with data has advantage over the strongly coupled ones
+in the sense that the workflow is independent of its data and can be invoked
+with a different set of data.
+
+A source of complexity for the workflow manager is the existence of different
+formats of data for a single scientific experiment. These include the different
+legacy formats of storage as well as the different ways the data is organized
+including database, filesystems and remote links. Further, most remote data is
+stored at locations secured behind different types of secure communication
+protocols involving special access mechanisms.
+
+In the rest of this section, we study the data handling mechanisms of SWEs.
+Taverna's reference scheme makes sure the data produced and consumed is in the
+form of references. This approach of data management is efficient because: 1)
+It takes less time to transport references, and 2) Locality of references
+ensures that the data is processed at a location that is local to multiple
+processors operating on the same dataset.
+
+In MOTEUR and Kepler workflow environments, data is described as an XML grammar
+allowing for nested collections or multi-dimensional arrays of data. Kepler's
+COMAD \cite{keplercomad} workflow enactment model is well suited to collection
+oriented data like arrays and streams. Similar efforts exist elsewhere to model
+the streams for workflow programming
+\cite{blower-haines-etal:2005,herath-plale:2010}.
+
+MOTEUR only uses references to data files while Pegasus groups small files into
+a single compressed file for transfer thus saving transfer time. It optimizes
+the workflow by annotating and reusing the data already available, if
+appropriate. Pegasus is able to generate a workflow from a metadata description
+of the desired data product with the aid of Artificial Intelligence planning
+techniques. Grouping of tasks by Pegasus increases the data usage efficiency
+since a group of tasks that require the same set of files for execution are
+localized. Pegasus also manages the temporary storage space needed for data
+processing at a particular processor location and commands the local Operating
+System to allocate the space. A data provider abstraction allows data to be
+referenced in the Trident SWE from any external entities in the form of typed
+referenced data objects.
+
+A majority of SWE support primitive, MIME based or XSD data types similar to
+traditional programming datatypes. Specific support for complex and structured
+data types are provided by the SWEs based upon their domain and application
+requirements. For instance, Kepler supports a specialized byte data streams and
+Bioflow supports a natively developed life-science database engine. Others such
+as the SwiftScript support extensible structures such as filesystem mappers and
+customized C language style structures.
+
+Remote and secure data access is supported by SWEs by providing secured
+protocols based accession to remote data repositories. Third party protocols
+such as GridFTP, HTTP over TLS (HTTPS) and gLite LFC (LCG File Catalog) access
+are commonly supported.
+
+\begin{table}[ht!]
+\begin{center}
+\hspace*{-2.2cm}
+% use packages: array
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{SWE /} & \multicolumn{3}{c|}{\textbf{Language Level}} & \multicolumn{2}{c|}{\textbf{Resource Level}}\\
+\cline{2-6}
+\multirow{2}{*}{\textbf{Language}} & \textbf{Data Coupling} & \textbf{Data Types} & \textbf{Data Structures} & \textbf{Type} & \textbf{Access}\\
+& \textbf{with Workflow} & \textbf{Supported} & \textbf{Supported} & & \\
+\hline
+Taverna/Scufl2&Loose&MIME-types&multi-dim Arrays&Local+Remote&By Reference\\\hline
++/BPEL&Strong&XSD-Based&--&Grids, Clouds& Adhoc\\\hline
+%
+\multirow{2}{*}{Triana/-}&Strong&XML Schema-&Streams,&Local+&Through \\
+&&Types&Java Objects&Remote&Adaptors\\\hline
+%
+\multirow{2}{*}{MOTEUR/Scufl}&Loose&MIME-&Lists&Local+&Services+\\
+&&Types&&Remote&Middleware\\\hline
+% 
+\multirow{2}{*}{Kepler/}&Strong&Primitive&Collections,&Filesystem&Customized\\
+MoML&&Types&User defined&&Actors\\\hline
+% 
+GridNexus/GXPL&Loose&XSD-Based&--&Grid Data&OGSA-DAI \\\hline
+% 
+\multirow{2}{*}{Swift/SwiftScript} &Strong&--&1-Dim Arrays,&Shared& POSIX-style\\
+&&&Customised&FileSystem&\\\hline
+% 
+Askalon/AGWL&Loose&MIME-types&Arrays&Data Repository&SQL-based\\\hline
+%
+\multirow{2}{*}{P-GRADE/-}&Loose&--&--&Grid&Secure\\
+&&&&File Catalogs&Protocols\\\hline
+%
+\multirow{2}{*}{}Pegasus/&Loose&--&--&Distributed&Secure\\
+DAX&&&&Filesystems&Protocols\\\hline
+% 
+Galaxy/-&Loose&--&File Streams&File Systems&--\\\hline
+% 
+\multirow{2}{*}{MOTEUR2/} &Loose&Integer,String,&multi-dim Arrays&Grid&By\\
+Gwendia~ &&Double,URI&&Data&Reference\\\hline
+\end{tabular}
+%\caption{A summary of SWEs Data Management Mechanisms}
+\label{tbl:datadesc}
+\end{center}
+\end{table}
+
+Table \ref{tbl:datadesc} presents a summary of the data management mechanisms
+of the studied SWEs. Language and resource level data management mechanisms are
+highlighted. At the language level, data description as coupled with that of
+the workflow, data types and structures are considered for the SWE studied. At
+the resource level, the major resource types supported and their access
+mechanisms are highlighted. We distinguish the remote form of Grid resource
+types by the specific Grid protocols (\textit{eg.} GridFTP) supported for those
+resource access. Other resource types such as data repositories or file
+catalogues are the resource types specific to a given SWE. For instance,
+Askalon uses a specifically configured data repository to access data and
+application binaries.
+
+%Replication is one of the solution.

@@ -1,0 +1,126 @@
+
+% == INTERFACE TO COMPUTING AND DATA INFRASTRUCTURES ==
+\section{Interface to Distributed Computing Infrastructures (DCIs)} \label{sec:inter}
+Workflow environments are external systems to large scale computing
+infrastructures. They require an interface to connect to and use the
+infrastructures. Provided the complex and distributed nature of grids, it is
+not easy and practical to interact with such an infrastructure directly. Most
+distributed systems have a software service layer through which it interacts
+with the outside world. These interactions include accepting queries for
+information and accepting requests and data for job executions. Such a layer is
+typically called the \textit{middleware}. A workflow engine intending to
+interact with a grid environment must provide interface to link to such
+middleware layer. 
+
+Most grid computing systems today are batch oriented execution systems (with a
+notable exception of GridRPC \cite{seymour-nakada-etal:2002} based systems). A
+batch of ``jobs" are submitted to the system which in turn passes through some
+execution queues before actually being scheduled for execution. Such systems
+are prone to high execution latencies and unreliability issues. A workflow
+manager must take these issues into account while interacting with such
+systems.
+
+At the resource management level, most grid computing environments today are
+utilizing one or more components of the Globus Toolkit
+\cite{foster-kesselman:1997} or the Condor distributed computing software
+system~\cite{dagman}.
+
+The Globus Toolkit is a software stack that provides useful functionalities for
+grid computing operations. These functionalities are provided in the form of a
+software stack that ranges from low-level data management tasks to the higher
+level functionalities like authentication and metadata services. Any external
+entity accessing the grid computing system must possess proper authentication
+and sufficient authority to operate upon the infrastructure. The most popular
+secure access system in place for today's grids is the public key
+infrastructure (PKI) system through which a secure access to the grid is
+guaranteed for a finite time period. A workflow manager must be capable of
+handling the security protocols with the underlying execution infrastructure.
+The duration of access to the system is also of critical importance as a
+typical scientific workflow is bound to run for a considerably long time
+period. The Condor software system provides scheduling mechanisms to access the
+low-layer grid resources. A grid workflow enactor must provide interface to
+access the services of these external scheduling and middleware systems. 
+
+\begin{table}
+\begin{center}
+%\hspace*{-1cm}
+% use packages: array
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{SWE/Language} & \textbf{DCI Interfacing Mechanisms} & \textbf{Currently Interfaced DCIs}\\
+\hline
+Taverna/Scufl2 & By Extension & None Inherently \\\hline
++/BPEL & Ad-hoc & None Inherently \\\hline
+Triana/- & Provides Adapters & P2P Networks, NGS (ngs.org.uk)  \\\hline
+MOTEUR/Scufl & Inherent & EGI (www.eu-egi.eu), g5k (www.grid5000.fr)\\\hline
+Kepler/MoML & Using Directors & EarthGrid (http://seek.ecoinformatics.org) \\\hline
+GridNexus/GXPL & Inherent & Generic Grids \\\hline
+Swift/SwiftScript & Inherent & IBM/bluegene/P HPC Clusters \\\hline
+Askalon/AGWL & Inherent & Austrian Grid (http://www.austriangrid.at/)\\\hline
+P-GRADE/- & Inherent & NGS \\\hline
+Pegasus/DAX & Using Condor & OSG (www.opensciencegrid.org) \\\hline
+Galaxy/- & Extensions & None Inherently \\\hline
+MOTEUR2/Gwendia~ & Inherent & EGI, g5k, HIPernet Cloud \\\hline
+\end{tabular}
+%\vspace*{1cm}
+%\caption{A summary of SWEs DCI Interfacing Mechanisms}
+\label{tbl:interfacedci}
+\end{center}
+\end{table}
+
+Remotely located grid resources are accessed normally over the Internet links.
+In such situations, long network latency or outright link failures are common.
+Workflow managers are likely to face issues such as no response from the job
+submitter or long delays. There must be some mechanism in place to handle such
+scenarios. Depending upon the sophistication of the underlying infrastructure a
+failover mechanism or logging information could be obtained for failures. Often
+times workflow managers have their own failover mechanisms in place.
+
+In the rest of this section, we study the approaches and techniques of SWEs to
+interact with the Computing and Data Infrastructures. We also discuss briefly
+the mechanisms for the mandatory security requirements.
+
+MOTEUR provides seamless access to local and remote grid data resources by
+closely coupling itself with the vBrowser~\cite{olabarriaga-deboer-etal:2006}
+virtual resource browser environment. It has a built-in job management
+mechanism that includes building job-specification, job submission data staging
+and collection of results from the jobmanager. Additionally, MOTEUR2 is
+interfaced with the HiPerNet cloud, a virtual platform manager that takes into
+account, both computing and network resources
+\cite{vicat-blancprimet-roca-etal:2009}.
+
+In Taverna, a processor's invocation sequence can be customized
+programmatically to enhance the processor's performance selectively. This
+feature can be exploited by effectively interfacing a Taverna processor to Grid
+middleware and create jobs and inputs/outputs definitions for that middleware.
+
+In Taverna, a processor's invocation sequence can be customized
+programmatically to enhance the processor's performance selectively. This
+feature can be exploited by effectively interfacing a Taverna processor to Grid
+middleware and create jobs and inputs/outputs definitions for that middleware.
+
+Pegasus interfaces explicitly and transparently with the infrastructure in that
+it maps the simplified workflow DAGs to the grid resources through the Condor
+resource management service. Pegasus interacts with the available replica
+management services in order to optimize the data access cost for the workflow
+executions at runtime. It does cluster--group similar jobs together, in order
+to ease the load on the scheduler and the dispatching of those jobs to the
+worker nodes.
+
+Swift/Karajan and Pegasus interface to a POSIX-style shared file system which
+is one crucial aspect to their performance. %== may be shifted to data desc ==
+
+Askalon does provide advanced resources mapping and reservations. These
+features however are limited to the fact that not all underlying
+infrastructures allow for a resource reservation scheme as offered by ASKALON.
+GridNexus uses the OGSA-DAI (Open Grid Services Architecture Data Access and
+Integration) services to access Globus grid data resources. It uses
+web/grid-service clients in order to interact with the computations wrapped by
+those services.
+
+The data management services of Trident supports local storage as well as the
+remote data storage services such as the Amazon S3
+(\textit{http://aws.amazon.com/s3}) and SQL Server Data Services (SSDS)
+(\textit{http://microsoft.com/sql/dataservices}) clouds.
+
+Table \ref{tbl:interfacedci} presents a summary of the studied SWEs mechanisms for interfacing DCIs.

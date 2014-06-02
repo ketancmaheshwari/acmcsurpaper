@@ -1,0 +1,150 @@
+
+% == WORKFLOW LANGUAGE EXPRESSIVENESS ==
+\section{On Workflow Languages} \label{sec:lang}
+A workflow language is the medium of expression of the task a workflow is
+supposed to accomplish. A workflow language acts as an interface between the
+workflow enactor and an end-user. Apart from correctly expressing the flow of
+execution and data, a workflow language must be able to link with the
+application code in a transparent way.
+
+Historically, low-level, general-purpose scripting languages have been used for
+workflow descriptions. For example, batch files, UNIX shell scripts and
+script-based languages like perl, python \cite{begeman-belikov-etal:2010} etc.
+There also exist some domain specific scripting languages such as bioperl
+(\textit{www.bioperl.org}). However, these languages are less suitable for
+expression of high-level, sophisticated workflow constructs such as iterations,
+while at the same time dealing with parallelism and array processing. They also
+fall short of providing implicit parallelism which must be defined explicitly by
+the user designing workflows. Description of remote data is another important
+aspect that these languages are limited in expressing. Thus, in modern SWEs, it
+is required to have a higher-level, specialized and dedicated workflow
+language.
+
+Applications and in-silico scientific experiments exhibit diverse patterns of
+data and/or control flow. Apart from this, operations and combinations of data
+are required to correctly and efficiently express a scientific workflow. This
+has led to a requirement of highly expressive workflow languages. Most tasks
+could be accomplished by simplified and minimal constructs in a language,
+however, they lead to unintuitive and inefficient workflow design. A
+sophisticated language not only increases the readability and maintainability
+of a workflow, it also increases the chances of its efficient deployment and
+execution in the target computational environment.
+
+Description of data and dataflow in a workflow such that the application code
+is invoked correctly and in accordance with the experiment has been a
+challenging task for large experiments. This is partly because of the large
+amount and different type of parallelization opportunities and partly because
+of the way the components of an application deal with the data.
+
+A workflow language must be able to express the invocation that is required for
+tools to deploy the application components. For example, an experiment may be a
+combination of remotely executable services and deployable legacy application
+binaries. Along with the application binaries, a workflow language must be
+capable of handling the different expressions for different kinds of data
+transfer methods and protocols. A common way of invoking legacy applications is
+through a traditional Command Line Interface. It is thus desirable to have a
+way to wrap such command lines in order to provide a suitable interface to such
+a legacy
+application~\cite{rojasbalderrama-montagnat-etal:2010,maheshwari:2007}.
+
+%
+\begin{table}
+\begin{center}
+% use packages: array
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{SWE/Language} &\textbf{Control Structures}& \textbf{Array Programming} & \textbf{Iterators}\\
+\hline
+Taverna/Scufl2 &Conditionals and Loops& \checkmark & \checkmark \\\hline
++/BPEL &Conditionals and Loops& -- & -- \\\hline
+Triana/- &Conditionals and Loops& \checkmark & -- \\\hline
+MOTEUR/Scufl &Conditionals& -- & \checkmark \\\hline
+Kepler/MoML &Conditionals and Loops & \checkmark & limited \\\hline
+GridNexus/GXPL &Conditionals and Loops& -- & -- \\\hline
+Swift/SwiftScript & Conditionals and Loops & 1-dim & limited \\\hline
+Askalon/AGWL & Conditionals and Loops & -- & -- \\\hline
+P-GRADE/- & Conditionals & -- & \checkmark \\\hline
+Pegasus/DAX & -- & \checkmark & -- \\\hline
+Galaxy/- & -- & -- & -- \\\hline
+MOTEUR2/Gwendia~ & Conditionals and Loops & \checkmark & \checkmark \\\hline
+\end{tabular}
+%\caption{A summary of SWEs Expressiveness Capabilities}
+\label{tbl:expressive}
+\end{center}
+\end{table}
+
+\paragraph{Dataflow and Functional Languages} Functional and Dataflow languages
+and their derivatives have been a viable choice for workflow languages
+paradigm. In the dataflow paradigm, a workflow processor will `fire' when the
+data sufficient for its firing is available. Dataflow programming paradigm
+particularly suites the workflow approach of programming. There are many
+research works advocating a dataflow oriented approach to solve problems
+involving a flow of data among computing components, predominantly in a
+Directed Acyclic Graph form \cite{dataflow,lee-messerschmitt:1987}. Early
+research on dataflow languages as visual language~\cite{sutherland:1966}
+reinforce the notion of the suitability of dataflow paradigm for workflows.
+
+Functional programming complement the dataflow paradigm by providing
+appropriate expression and semantics to a dataflow. Several features of
+functional programming are shared by the dataflow programming approach. One of
+the key hinderance of functional programming is the `side-effects' produced
+when the values of variables are mutated more than once during a single
+execution. Dataflow and functional programming approach converge when these
+`side-effects' are eliminated and a functional program can express pure
+dataflow under such conditions. 
+% Modify and write ==> Functional languages, such as SCALA and Haskell, offer
+% an implicit way of exposing parallelism, making it easier to identify data
+% dependencies so that the runtime system can implicitly schedule independent
+% work (work that respects the dependency graph).
+In this section we study the features of contemporary workflow languages that
+make them expressive of representing complex data and control flow situations
+and enable them to map these expression onto the underlying computing
+infrastructure.
+
+Pegasus uses DAX which is an XML-based language to describe DAGs. Applications
+using Pegasus use higher level languages such as Python or Java to describe
+workflows and then map them onto DAX specification. Such transformations face
+two issues: 1. DAGs are simple to transform but can get complicated if
+hierarchical DAGs are used. 2. DAGs representations need sophisticated
+translators. All features in low-level languages such as loops are not
+supported by DAGs. This must be taken care of by the translators.
+
+Kepler, GridNexus and Triana support loops, conditionals and sub-workflows as
+advanced constructs of their workflow language. These constructs are manifested
+in the GUI as configurable components that get their mapping in the underlying
+language by a mapper software component.
+
+ASKALON's AGWL (Abstract Grid Workflow Language) provides an abstract XML-based
+representation of dataflows. It does not directly support control flow, however
+control flow can be achieved indirectly using `pseudo datatokens'. It is
+modularized and supports sub-workflows. AGWL provides conditionals, iterators,
+and explicit parallelism. AGWL provides sophisticated workflow constructs
+including sub-workflows, parallel and sequential execution constructs, loops,
+conditionals and iteration strategies.
+
+The GWorkflowDL employed by GWES is an XML-based representation of Workflows
+which are based on the theory of high-level petri nets. This theoreticaly
+well-found language provides basis for high expressiveness to GWES workflows.
+It leads to the expressions of workflows at three different levels of
+abstractions from user-intentions at high-level to the executable services
+instances at the low-level.
+%Swift is dynamic
+%
+%A paragraph saying the most generic language approaches of contemporary
+%workflow environments
+Both Askalon and Pegasus enable users to define abstract workflows to be
+concretized at the later stage of workflow development. This feature
+facilitates users to have the flexibility to generate concrete workflows based
+upon the state and availability of resources at the time of enactment. 
+
+The graphical representation is the only workflow language in Knime. It
+provides an interesting feature of metanodes that acts as a self-contained
+subworkflow. A metanode is a processor that act as a container for other
+processors. Thus a branch of a workflow in Knime can be configured into a
+single processor in the form of metanode. A single such processor might be
+enacted multiple times giving a form of loop to a Knime workflow.
+
+Table \ref{tbl:expressive} shows a summary of language expressiveness
+capabilities of the SWEs studied. We consider the control structures:
+conditionals and loops, support for arrays and iterators
+\cite{montagnat-glatard-etal:2006} as the expressive features of SWEs.
