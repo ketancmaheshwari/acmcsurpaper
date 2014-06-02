@@ -1,0 +1,51 @@
+\section{Related Work}
+Surveys and studies on workflows similar to the present one have been done in
+the past. Yu and Buyya \cite{yu-buyya:2005} proposed a detailed taxonomy of
+SWEs in the previous decade, studying many existing systems for distributed
+computing. This taxonomy presented is based, to a large extent on the
+capabilities of the workflow engines. It does provide insights to many of the
+SWE aspects considered in the present paper, especially the workflow languages
+expressiveness and SWEs interactions with the distributed computing
+infrastructures in the early days of the compute Grids. A more recent work by
+Goderis \cite{goderis-brooks-etal:2009} studies a topic more closely related to
+the workflow language expressiveness: it compares the models of computations of
+various workflow directors implemented in Kepler
+\cite{ludascher-altintas-etal:2005a} with the perspective of enabling
+composition of different models in sub-workflows of a global orchestration.
+This work illustrates how different enactors designed for different application
+needs have different expressiveness power. Deelman et. al.
+\cite{deelman-overview} present a high-level overview of the scientific
+workflow features and capabilities including SWE composition, representation
+and resource mapping capabilities. A recent survey from
+Stratan~\cite{stratan-iosup-etal:2008} about the workflow engine performance
+takes into account the latencies involved during the enactment mechanisms. A
+small survey and analysis of file-access characteristics for data-intensive
+workflows has been done by Shibata~\cite{Shibata}. Early surveys on workflow
+languages and suitability of general purpose languages to workflows is
+conducted in~\cite{generalpurpose}. These surveys were conducted before a few
+years and in the meantime SWEs have come a long way in terms of capabilities
+and enactment approaches. New techniques such as the map/reduce framework
+\cite{mapreduce} have been introduced as a promising new approach to workflow
+enactment over distributed infrastructures. Several issues put forth by such
+surveys such as customized service wrapping and enactment have been adequately
+addressed over the
+years~\cite{glatard-montagnat-etal:2008a,rojasbalderrama-montagnat-etal:2010}.
+
+Another well-studied feature is the workflow languages. Many different
+languages have been considered within the SWE community, from raw Directed
+Acyclic Graphs (DAGs) of computational processes such as CONDOR
+DAGMan~\cite{dagman} to abstractions for parallel computations such as Petri
+nets~\cite{alt-hoheisel:2005}, data-driven languages such as
+Scufl~\cite{turi-missier-etal:2007} and scripting languages such as Swift
+script~ \cite{swift}. Glatard's PhD thesis~\cite{glatard:2007} presents a
+taxonomy of SWE languages classifying them into functional, graph,
+service-oriented and executable representations. A detailed classification and
+taxonomy of parallelism patterns in Grid Workflows has been presented by
+Pautasso and Alonso in~\cite{pautasso1}. This classification is more generic
+while the one presented in Glatard's thesis has emphasis on service based
+workflows.  Each of these approaches can be defended through some aspects well
+covered in their design: DAGs are convenient for scheduling
+\cite{Malewicz:2007,hall-rosenberg-etal:2007}, Petri nets can be used to detect
+properties such as potential deadlocks, data-driven languages ease the
+description of application logic for non-expert users and scripting is
+extensively used by programmers for prototyping, etc.

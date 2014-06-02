@@ -1,0 +1,78 @@
+\section{Objectives and Organization}
+% What are the goals of this work?
+% How is this paper supposed to help:
+% -- Existing scientific users who have not adopted workflows
+% -- Existing users who have adopted workflows
+% -- New users
+% -- Experts in the field
+
+% Say that different workflow systems have different design goals. It is hard
+% to chose one from the existing or build your own. It is almost equally
+% complex to build own just as it is complex to create own programming
+% platform. We hope to provide by the way of this paper a guide for new adopters on how to chose a workflow language appropriate for their needs. We ask and answer the following questions of the workflow systems that we study in this paper:
+%-- What were the original design goals?
+%-- What are the main application areas that the system is currently being used?
+%-- What are the characteristics and capabilities of the language? expressivity features?
+%-- What are the characteristics and capabilities of the run-time? parallelism? concurrency? task and data grouping?
+%-- What kinds of computing and computational infrastructure does the workflow system cater to? Grids, Clouds, Clusters, Supercomputers, fast IB networks? Accelerators?
+%-- How have they evolved? What are the possible future directions?
+
+In the present work we survey and study the various contemporary SWEs in order
+to find the capabilities and key features in terms of the characteristics
+described in section~\ref{sec:intro}. We believe this study will serve to
+address the following objectives:
+
+\begin{enumerate}
+\item \textbf{Educate.} With more science being done with the help of
+computational methods, SWEs can add significant value to the process.  They can
+accelerate the process, enable community driven science, drive the development
+at a manageable level of abstraction for users.  However, scientific users are
+often not experienced programmers or computation savvy. This work will serve as
+a useful starting guide to educate science users and students of the available
+tools and techniques with features suitable for their methods.
+
+\item \textbf{Catalog.} We study a number of important features as offered by
+the contemporary SWEs. This will help catalog and collect the SWEs by their
+offerings and identify mechanisms and needs for new and existing features
+in one place. This will also help identify current trends and approaches
+to computation in scientific communities.
+
+\item \textbf{Application.} We identify the applications and application
+classes well adapted to the workflow systems and are benefitting by them.
+This will help readers relate to the application they are associated to.
+We hope that readers can make a choice of which SWE to use if there is an
+adaptation similar in scope to the ones describe in this paper.
+
+\item \textbf{Evolution.} We comment on the evolution of the existing workflow
+systems and the possible current and future development directions which
+will help readers be aware of the general development direction of the
+SWEs.
+\end{enumerate}
+
+The rest of this paper is organized as follows: Section
+\ref{sec:overview} presents an overview of the key SWEs studied in this work.
+Section \ref{sec:scal} discusses the optimization features and resulting
+scalable performance as observed in the SWEs studied. Section \ref{sec:data}
+studies the data management and description aspects of the SWEs. Section
+\ref{sec:inter} presents a study of SWEs approaches to interface the
+large-scale computing infrastructures. Section \ref{sec:lang} details the
+language features and expressiveness of the SWEs studied. Section
+\ref{sec:usable} discusses the usability aspects of the SWEs.  Section
+\ref{sec:sum} presents a summary and a classification of all the aspects of
+SWEs studied in this work. 
+
+Throughout the paper, we also present tables
+summarizing the aspects of SWEs considered in respective sections. It was not
+possible to obtain an exhaustive information about all the SWEs considered in
+this work. We rely on the following sources for our information: 
+\begin{enumerate}
+    \item \textbf{Publications.} Peer reviewed publications in journals, conferences and workshops.
+    \item \textbf{Technical Reports.} Technical reports and theses.
+    \item \textbf{Web Presence.} Documentation and other information from the web pages hosting the SWE.
+    \item \textbf{Experience.} Where possible, we tried features of the SWEs by installing them on the available systems. 
+\end{enumerate}
+
+Some features, such as extendability of an SWE strongly depend on the extension
+points designed in the code; consequently, we consider it present in only those
+SWEs that have an explicit documented description or demonstration of the given
+feature. 

@@ -333,7 +333,8 @@ For the rest of this paper, we will use the above definition of a workflow.
 \end{center}
 \end{figure}
 %
-\subsection{Architecture of a Generic SWE}
+
+\subsection{Architecture}
 Figure~\ref{fig:wfms} shows a high-level architecture of a generic SWE. It shows key
 components and their interaction in an SWE. These components are the focus of
 interest for the present work. A \textit{user interface} interacts with the
@@ -409,136 +410,8 @@ However, a truly interoperable set of standards for workflows are yet
 to emerge.
 \end{enumerate}
 
-\section{Related Work}
-Surveys and studies on workflows similar to the present one have been done in
-the past. Yu and Buyya \cite{yu-buyya:2005} proposed a detailed taxonomy of
-SWEs in the previous decade, studying many existing systems for distributed
-computing. This taxonomy presented is based, to a large extent on the
-capabilities of the workflow engines. It does provide insights to many of the
-SWE aspects considered in the present paper, especially the workflow languages
-expressiveness and SWEs interactions with the distributed computing
-infrastructures in the early days of the compute Grids. A more recent work by
-Goderis \cite{goderis-brooks-etal:2009} studies a topic more closely related to
-the workflow language expressiveness: it compares the models of computations of
-various workflow directors implemented in Kepler
-\cite{ludascher-altintas-etal:2005a} with the perspective of enabling
-composition of different models in sub-workflows of a global orchestration.
-This work illustrates how different enactors designed for different application
-needs have different expressiveness power. Deelman et. al.
-\cite{deelman-overview} present a high-level overview of the scientific
-workflow features and capabilities including SWE composition, representation
-and resource mapping capabilities. A recent survey from
-Stratan~\cite{stratan-iosup-etal:2008} about the workflow engine performance
-takes into account the latencies involved during the enactment mechanisms. A
-small survey and analysis of file-access characteristics for data-intensive
-workflows has been done by Shibata~\cite{Shibata}. Early surveys on workflow
-languages and suitability of general purpose languages to workflows is
-conducted in~\cite{generalpurpose}. These surveys were conducted before a few
-years and in the meantime SWEs have come a long way in terms of capabilities
-and enactment approaches. New techniques such as the map/reduce framework
-\cite{mapreduce} have been introduced as a promising new approach to workflow
-enactment over distributed infrastructures. Several issues put forth by such
-surveys such as customized service wrapping and enactment have been adequately
-addressed over the
-years~\cite{glatard-montagnat-etal:2008a,rojasbalderrama-montagnat-etal:2010}.
-
-Another well-studied feature is the workflow languages. Many different
-languages have been considered within the SWE community, from raw Directed
-Acyclic Graphs (DAGs) of computational processes such as CONDOR
-DAGMan~\cite{dagman} to abstractions for parallel computations such as Petri
-nets~\cite{alt-hoheisel:2005}, data-driven languages such as
-Scufl~\cite{turi-missier-etal:2007} and scripting languages such as Swift
-script~ \cite{swift}. Glatard's PhD thesis~\cite{glatard:2007} presents a
-taxonomy of SWE languages classifying them into functional, graph,
-service-oriented and executable representations. A detailed classification and
-taxonomy of parallelism patterns in Grid Workflows has been presented by
-Pautasso and Alonso in~\cite{pautasso1}. This classification is more generic
-while the one presented in Glatard's thesis has emphasis on service based
-workflows.  Each of these approaches can be defended through some aspects well
-covered in their design: DAGs are convenient for scheduling
-\cite{Malewicz:2007,hall-rosenberg-etal:2007}, Petri nets can be used to detect
-properties such as potential deadlocks, data-driven languages ease the
-description of application logic for non-expert users and scripting is
-extensively used by programmers for prototyping, etc.
-
-\section{Objectives and Organization}
-% What are the goals of this work?
-% How is this paper supposed to help:
-% -- Existing scientific users who have not adopted workflows
-% -- Existing users who have adopted workflows
-% -- New users
-% -- Experts in the field
-
-% Say that different workflow systems have different design goals. It is hard
-% to chose one from the existing or build your own. It is almost equally
-% complex to build own just as it is complex to create own programming
-% platform. We hope to provide by the way of this paper a guide for new adopters on how to chose a workflow language appropriate for their needs. We ask and answer the following questions of the workflow systems that we study in this paper:
-%-- What were the original design goals?
-%-- What are the main application areas that the system is currently being used?
-%-- What are the characteristics and capabilities of the language? expressivity features?
-%-- What are the characteristics and capabilities of the run-time? parallelism? concurrency? task and data grouping?
-%-- What kinds of computing and computational infrastructure does the workflow system cater to? Grids, Clouds, Clusters, Supercomputers, fast IB networks? Accelerators?
-%-- How have they evolved? What are the possible future directions?
-
-In the present work we survey and study the various contemporary SWEs in order
-to find the capabilities and key features in terms of the characteristics
-described in section~\ref{sec:intro}. We believe this study will serve to
-address the following objectives:
-
-\begin{enumerate}
-\item \textbf{Educate.} With more science being done with the help of
-computational methods, SWEs can add significant value to the process.  They can
-accelerate the process, enable community driven science, drive the development
-at a manageable level of abstraction for users.  However, scientific users are
-often not experienced programmers or computation savvy. This work will serve as
-a useful starting guide to educate science users and students of the available
-tools and techniques with features suitable for their methods.
-
-\item \textbf{Catalog.} We study a number of important features as offered by
-the contemporary SWEs. This will help catalog and collect the SWEs by their
-offerings and identify mechanisms and needs for new and existing features
-in one place. This will also help identify current trends and approaches
-to computation in scientific communities.
-
-\item \textbf{Application.} We identify the applications and application
-classes well adapted to the workflow systems and are benefitting by them.
-This will help readers relate to the application they are associated to.
-We hope that readers can make a choice of which SWE to use if there is an
-adaptation similar in scope to the ones describe in this paper.
-
-\item \textbf{Evolution.} We comment on the evolution of the existing workflow
-systems and the possible current and future development directions which
-will help readers be aware of the general development direction of the
-SWEs.
-\end{enumerate}
-
-The rest of this paper is organized as follows: Section
-\ref{sec:overview} presents an overview of the key SWEs studied in this work.
-Section \ref{sec:scal} discusses the optimization features and resulting
-scalable performance as observed in the SWEs studied. Section \ref{sec:data}
-studies the data management and description aspects of the SWEs. Section
-\ref{sec:inter} presents a study of SWEs approaches to interface the
-large-scale computing infrastructures. Section \ref{sec:lang} details the
-language features and expressiveness of the SWEs studied. Section
-\ref{sec:usable} discusses the usability aspects of the SWEs.  Section
-\ref{sec:sum} presents a summary and a classification of all the aspects of
-SWEs studied in this work. 
-
-Throughout the paper, we also present tables
-summarizing the aspects of SWEs considered in respective sections. It was not
-possible to obtain an exhaustive information about all the SWEs considered in
-this work. We rely on the following sources for our information: 
-\begin{enumerate}
-    \item \textbf{Publications.} Peer reviewed publications in journals, conferences and workshops.
-    \item \textbf{Technical Reports.} Technical reports and theses.
-    \item \textbf{Web Presence.} Documentation and other information from the web pages hosting the SWE.
-    \item \textbf{Experience.} Where possible, we tried features of the SWEs by installing them on the available systems. 
-\end{enumerate}
-
-Some features, such as extendability of an SWE strongly depend on the extension
-points designed in the code; consequently, we consider it present in only those
-SWEs that have an explicit documented description or demonstration of the given
-feature. 
+\input{text/related}
+\input{text/objectives}
 
 \section{Overview of the Workflow Environments} \label{sec:overview}
 In this section we present an overview of the SWEs studied. The paragraph
@@ -559,11 +432,9 @@ denoted by an asterisk (*) or a hyphen (-) at the respective places.
 \input{text/askalon}
 \input{text/pgrade}
 \input{text/galaxy}
-% Put this somewhere else, either in the analysis or may be in the conclusions
-% and summary.
+% Put this in analysis section. 
 %The \textit{gscript}~\cite{maheshwari-montagnat:2010} workflow language
-%is similar in spirit to the
-%SwiftScript. Similar to SwiftScript, gscript adopts futures to express
+%is similar in spirit to the SwiftScript. Similar to SwiftScript, gscript adopts futures to express
 %asynchronous execution in a script-based language. A Swift script 
 %contains statically typed datasets that can be declared
 %in the script. Unlike Swift script, gscript does provide user-defined
@@ -620,7 +491,7 @@ directly compare the workflow system scalability but we study the similarities
 and differences in the techniques employed by workflow engines in order to
 achieve scalability.
 
-The software architecture of an enactor plays a key role in determining the
+The software architecture of the system plays a key role in determining the
 scalability for the workflow applications exhibiting a large number of tasks.
 An architecture that takes into account the properties of the underlying
 infrastructure could scale well in the face of growing number of workflow
@@ -648,9 +519,9 @@ need to make a matching based upon the application type. For instance, a
 workflow enactor may schedule the GPU-based processors on the resources that
 indicate as possessing such capabilities.
 
-In this section we analyze the scalability measures and techniques employed by
-contemporary SWEs. Illustrated below are some of the techniques used to achieve
-scalability in various SWEs.
+In this section we analyze the scalability and runtime optimization measures
+and techniques employed by SWEs. Illustrated below are some of the techniques
+used to achieve scalability in various SWEs.
 
 Taverna version 2.x introduced new measures in order to be able to submit a
 large number of jobs simultaneously. It is able to dispatch large number of
