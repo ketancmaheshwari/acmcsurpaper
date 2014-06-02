@@ -2,6 +2,102 @@
 In this section we present a conceptual overview of the subjects of this
 study--Workflows and Scientific Workflow Environments.
 
+\subsection{Distinction with Traditional Programming Environments}
+SWEs differ in many respects among themselves as well as with respect to traditional
+programming environments. Consequently, a choice of the suitable SWE must be
+made. The following list identifies the major differences
+between traditional and the SWE programming paradigm:
+
+\begin{enumerate}
+%
+\item \textbf{Scalability and Optimization.} SWEs are more likely to involve
+extensive usage of distributed resources than conventional programs. Owing
+to the large-scale experiments, for which scientific users turn to automation,
+their demands for computational power often exceeds that of a single personal
+computer. These properties make them ideal candidates for a large-scale
+distributed computing environment. The case for suitability of SWEs on
+large-scale distributed infrastructures has been well-argued upon
+in~\cite{jha-katz-etal:2009}. In such a scenario, taking explicit steps to
+ensure scalable and optimized performance is vital. Additionally, most SWEs are
+capable of executing workflows at small scale with minimal tuning. This
+multi-scalability enables quick and easy conceptualization and prototyping of
+new workflows.
+%
+
+\item \textbf{Performance and Throughput.} While programming platforms for
+large-scale computing exist mostly as HPC (high-performance computing)
+domain systems such as MPI, OpenMP, CUDA, etc. the dominant area for SWEs in
+this field is HTC (high-throughput computing). The main underlying difference
+here is the granularity of a task. HPC platforms run tasks at a finer
+granularity such as a CUDA thread or an MPI process where as SWEs run a task at
+a coarser granularity such as an invocation of a legacy executable.
+
+\item \textbf{Data Management.} The scale of data transfer is much higher in
+SWEs from one execution site to others as well as among storage resources while
+it is lower (ranging from variables to small data structures) in programs.
+Owing to such scales, applications often need access to special data movement
+and access and movement protocols such as GridFTP, Amazon S3, NAS, etc. SWEs are often
+shipped with capabilities to handle such protocols.
+%
+
+\item \textbf{Interface to Distributed Computing Infrastructures (DCIs).}
+Supporting an interface to a distributed system is a complex task from the
+point of view of an SWE. The distributed nature of resource utilization and
+asynchronous execution of workflow requires a set of interdependent parameters
+to be configured correctly. Modern computing infrastructures such as Clouds,
+GPUs and supercomputers with hybrid nodes (CPU + GPGPU) pose new challenges of
+interface development.  As SWEs involve running many tasks over an
+infrastructure it becomes crucial to interface with these systems such that the
+tasks are scheduled in an optimal manner. Many SWEs implement
+\emph{pilot-jobs}~\cite{montagnat-glatard-etal:2010,ucc2011} in order to
+reserve resources via pseudo-tasks that act as placeholders for real tasks.
+Additionally, decision to manage working data storage on disc, memory and cache
+are some of the distinctions between a traditional programming and workflow
+platforms in the context of distributed and scalable computation.
+
+\item \textbf{Expressiveness.} Programming languages are inherently control
+flow oriented where data flow is a secondary aspect. Often, the
+programmer must explicitly make sure that correct inputs are available
+to instructions and are in the right format. A program proceeds as the
+execution of its statements from beginning to end and completes its
+execution in a predefined sequence. However, in SWEs, the flow is often
+determined by the data availability for execution. This model of computation is
+known as dataflow computing. A workflow thus does not follow a fixed order of
+execution. Different execution sequences are possible which are dominated by
+dataflow. The unit of work in SWEs is at a higher level of granularity. A unit
+of execution is coarse-grained, and often termed as ``processor'', ``task'',
+``service'' or ``actor'' in the SWE community. This notion of high-level
+granularity drives the depth to which a workflow can be expressed in a given
+language form. In the rest of the paper, we refer to this unit of execution of a
+workflow system as \emph{processor}. On the other hand, a unit of execution in
+most programming languages is a much simpler and finer executable statement
+that accomplishes a small task. This presents a whole new set of
+requirements for expressing the processors and how they should interact with
+computational resources and operate upon data.
+
+%
+\item \textbf{Usability.} SWEs predominantly serve as a tool for the domain
+experts to utilize the computational power. This makes it essential for
+them to have a friendly, and intuitive user-interface for novice and
+non-expert users. For this reason, SWE user interfaces are dominated by the
+visual paradigm of programming. On the other hand, as the sophistication of
+expression and user expertise increases, the visual environment temds to get
+limited in capabilities it can offer. Thus, most SWEs have a text-based
+composition environment albeit with visually assisting programming environments
+such as IDEs. However, these textual environments are seldom to the extent that
+a non-expert user can graphically compose programs. While a graphical interface
+enhances usability, a text-based workflow environment can arguably give better
+control to an experienced user. Consequently, many workflow systems offer a
+dual interface of graphical and text medium to compose workflows.
+    
+\end{enumerate}
+
+We concede that the above is not an exhaustive list of differences in features.
+However, it is reasonably inclusive and we believe it covers the breadth of the
+aspects we discuss in the current work. We do not include other interesting SWE
+features such as application predictability in this analysis as they are out of
+scope of the objectives of the current paper.
+
 \subsection{Workflow}
 Figure~\ref{fig:wf} shows a typical workflow in the form of a Directed Acyclic
 Graph (DAG). Execution typically begins with the input data being provided to

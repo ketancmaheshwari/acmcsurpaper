@@ -26,7 +26,7 @@
 \SetAlCapNameFnt{\small}
 \SetAlCapHSkip{0pt}
 \IncMargin{-\parindent}
-
+\setlength\parindent{0pt}
 \usepackage{setspace}
 %\doublespacing
 \linespread{2}
@@ -81,11 +81,8 @@ placing these features into respective places in a hierarchy.
 \jm{Test comment}
 
 \end{abstract}
-
 %\category{C.2.2}{Computer-Communication Networks}{Network Protocols}
-
 %\terms{Design, Algorithms, Performance}
-
 %\keywords{Wireless sensor networks, media access control, multi-channel, radio interference, time synchronization}
 
 \acmformat{Ketan Maheshwari, Johan Montagnat
@@ -105,7 +102,7 @@ placing these features into respective places in a hierarchy.
 This work is supported by the ANR-CNRS, under
 grant contract CNRS-0435060.
 
-Author's addresses: Ketan Maheshwari, Argonne National Laboratory; Johan Montagnat, I3S, Sophia Antipolis
+Author's addresses: Ketan Maheshwari, Argonne National Laboratory; Johan Montagnat, I3S, Sophia Antipolis.
 \end{bottomstuff}
 
 \maketitle
@@ -115,195 +112,17 @@ Author's addresses: Ketan Maheshwari, Argonne National Laboratory; Johan Montagn
 % Taverna
 % Swift
 % Pegasus
-% Triana
+% Triana % not sure
 % Galaxy
 % Makeflow
 % Kepler/Ptolemy
-% Dryad
-% Science pipes
 % Spark
 % Linda
 % DaGue
 % Wings
 % PGRADE Portal
 
-\section{Introduction}
-\label{sec:intro}
-\vspace*{0.5cm}\hspace{1cm} Scientific Workflow Environments (SWE)
-are, in principle similar to the traditional programming environments
-(programming language, interpreter or compiler, and runtime) albeit with a
-larger scale of data and a higher abstraction of computation. The similarity is
-such that scripting languages are sometimes advocated for programming at this
-level. However, traditional scripts do not deal with parallelism and dataflow
-aspects of workflow paradigm which makes them a strong contenders for the
-purpose of high-level application programming. Computation in science is
-dominated by computation for data analysis via one or more mathematical or
-scientific model execution. These models of computation are composed of
-multiple stages where each stage executes a program requiring input parameters
-and data while producing results in the form of data which in turn acts as
-input to the next stage. SWEs can ease these activities by supporting the
-expression, execution and automation.
-% Goals and benefits of a workflow management system
-The goals and benefits of an SWE are as follows:
-
-\begin{enumerate}
-\item \textbf{Bulk Work.}
-Workflows are important because they enable to perform computational work in
-bulk. This could be bulk data processing or running multiple distinct
-processing tasks on a single set of data. In addition to support such
-work, workflow environments provide oppurtunities for giving structure and
-order to a set of tasks and often with sufficient expressivity, choices and
-selections to carry out a bulk of work selectively. Some of the examples of
-this approach are \emph{parameter sweeps} where tasks are run over a series of
-parameter values, \emph{ensemble studies} where tasks are carried out over
-discrete groups of parameters over a space.
-    
-\item \textbf{User Interaction.} Adaptation to new methods of computing is not
-easy for domain science users. Such users often need special assistance in
-order to translate their computation requirements into concrete computing
-entities. SWEs are an ideal platform enabling users to perform many tasks
-conveniently. These tasks include visually formulating an analysis, composing
-and marshalling of processes, browsing and selecting resulting data,
-visualizing and sharing final results. 
-
-\item \textbf{Resource Access and Utilization.} Computational platforms and
-access modalities change rapidly with upgradation of existing technologies and
-adaptation of new techniques. Clouds are an example of new techniques
-of computational platform access while GPGPUs are example of upgradation of
-existing processing environments. Additionally, with the advent of fast and
-dedicated networks such as ESNet~\cite{esnet} and federated remote
-visualization resources are gaining prominence among scientific users. SWEs
-play important role as platforms to give transparent and hassle free access to
-such novel and multiple environments to users by hiding the technicalities of
-access methods and usage and configuration related nuances.
-
-\item \textbf{Repeatable Execution.} Scientific users often require a
-repeatable execution of same application(with same parameters and input data)
-for reproduction of results and demonstration of methods. SWEs can record and
-save workflows, associated parameters, input data and historical results to
-aid in such activities. Additionally, SWEs facilitate an incremental
-development of these methods leading to augmentation of past efforts to current
-and future developments.
-
-\item \textbf{Provenance and MetaData.} Historical data and metadata has been
-crucial entities in many research fields. They help connecting results from
-a multitude of research points of view. A provenance trace of a computation can
-help checkpoint methods and reproduce and modify computation fully or
-partially. Automated observations of deviations in scientific phenomena from
-provenance data is one of the key triggers for new scientific discoveries.
-Fields of studies involving genomic and protiens are examples of domains where
-provenance and metadata plays key roles. SWEs can be integrated or extended
-with metadata and provenance techniques rendering powerful computing and
-traceability features. In fact, most SWEs of today have separate modules or
-extensions for provenance and metadata management.
-
-\item \textbf{Sharing and Collaboration.} SWEs are often targetted
-towards a particular community of users. Dissemination of methods and results
-to communities and collaborators are some of the activities that SWEs make
-convenient for end-users. For instance, the
-Galaxy~\cite{blankenberg-vonkuster-etal:2010} workflow system is targetted
-specifically for the bioinformatics users encouraging them to collaborate over
-problems and share results. Another such example is Taverna~\cite{taverna2013}
-which is geared towards sharing and collaborative workflow oriented scientific
-computation enabling users to discover new services introduced to a community.
-Sharing and collaboration of applications and related data have become
-ubiquitious with the rise of social web. Initiatives such as
-\emph{myExperiment}~\cite{deroure-goble-etal:2008} and recently
-\emph{gitHub}~\cite{github-web} have enabled easy sharing and collaboration of
-reproducible workflows on the social web.
-
-\end{enumerate}
-
-The above described goals and benefits also form a basis for the need for a
-SWE. The need for the use of SWE can arise as a result of one or more of such
-requirements. Traditional programming platforms are not suitable to address
-these requirements as they operate at a different level of abstraction. SWEs
-differ in many respects among themselves as well as with respect to traditional
-programming environments. Consequently, a choice of the suitable SWE must be
-made by a researcher. The following list identifies the major differences
-between traditional and the SWE programming paradigm:
-
-\begin{enumerate}
-%
-\item \textbf{Scalability and Optimization.} SWEs are more likely to involve
-extensive usage of distributed resources than conventional programs. Owing
-to the large-scale experiments, for which scientific users turn to automation,
-their demands for computational power often exceeds that of a single personal
-computer. These properties make them ideal candidates for a large-scale
-distributed computing environment. The case for suitability of SWEs on
-large-scale distributed infrastructures has been well-argued upon
-in~\cite{jha-katz-etal:2009}. In such a scenario, taking explicit steps to
-ensure scalable and optimized performance is vital. Additionally, most SWEs are
-capable of executing workflows at small scale with minimal tuning. This
-multi-scalability enables quick and easy conceptualization and prototyping of
-new workflows.
-%
-\item \textbf{Data Management.} The scale of data transfer is much higher in
-SWEs from one execution site to others as well as among storage resources while
-it is lower (ranging from variables to small data structures) in programs.
-Owing to such scales, applications often need access to special data movement
-and access and movement protocols such as GridFTP, Amazon S3, NAS, etc. SWEs are often
-shipped with capabilities to handle such protocols.
-%
-
-\item \textbf{Interface to Distributed Computing Infrastructures (DCIs).}
-Supporting an interface to a distributed system is a complex task from the
-point of view of an SWE. The distributed nature of resource utilization and
-asynchronous execution of workflow requires a set of interdependent parameters
-to be configured correctly. Modern computing infrastructures such as Clouds,
-GPUs and supercomputers with hybrid nodes (CPU + GPGPU) pose new challenges of
-interface development.  As SWEs involve running many tasks over an
-infrastructure it becomes crucial to interface with these systems such that the
-tasks are scheduled in an optimal manner. Many SWEs implement
-\emph{pilot-jobs}~\cite{montagnat-glatard-etal:2010,ucc2011} in order to
-reserve resources via pseudo-tasks that act as placeholders for real tasks.
-Additionally, decision to manage working data storage on disc, memory and cache
-are some of the distinctions between a traditional programming and workflow
-platforms in the context of distributed and scalable computation.
-
-\item \textbf{Expressiveness.} Programming languages are inherently control
-flow oriented where data flow is a secondary aspect. In fact, the
-programmer must explicitly make sure that correct inputs are available
-to instructions and are in the right format. A program proceeds as the
-execution of its statements from beginning to end and completes its
-execution in a predefined sequence. However, in SWEs, the flow is often
-determined by the data availability for execution. This model of computation is
-known as dataflow computing. A workflow thus does not follow a fixed order of
-execution. Different execution sequences are possible which are dominated by
-dataflow. The unit of work in SWEs is at a higher level of granularity. A unit
-of execution is coarse-grained, and often termed as ``processor'', ``task'',
-``service'' or ``actor'' in the SWE community. This notion of high-level
-granularity drives the depth to which a workflow can be expressed in a given
-language form. In the rest of the paper, we refer to this unit of execution of a
-workflow system as \emph{processor}. On the other hand, a unit of execution in
-most programming languages is a much simpler and finer executable statement
-that accomplishes a small task. This presents a whole new set of
-requirements for expressing the processors and how they should interact with
-computational resources and operate upon data.
-
-%
-\item \textbf{Usability.} SWEs predominantly serve as a tool for the domain
-experts to utilize the computational power. This makes it essential for
-them to have a friendly, and intuitive user-interface for novice and
-non-expert users. For this reason, SWE user interfaces are dominated by the
-visual paradigm of programming. On the other hand, as the sophistication of
-expression and user expertise increases, the visual environment temds to get
-limited in capabilities it can offer. Thus, most SWEs have a text-based
-composition environment albeit with visually assisting programming environments
-such as IDEs. However, these textual environments are seldom to the extent that
-a non-expert user can graphically compose programs. While a graphical interface
-enhances usability, a text-based workflow environment can arguably give better
-control to an experienced user. Consequently, many workflow systems offer a
-dual interface of graphical and text medium to compose workflows.
-    
-\end{enumerate}
-
-We concede that the above is not an exhaustive list of differences in features.
-However, it is reasonably inclusive and we believe it covers the breadth of the
-aspects we discuss in the current work. We do not include other interesting SWE
-features such as application predictability in this analysis as they are out of
-scope of the objectives of the current paper.
-
+\input{text/intro}
 \input{text/concepts}
 \input{text/related}
 \input{text/objectives}
