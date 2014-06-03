@@ -128,12 +128,12 @@ For the rest of this paper, we will use the above definition of a workflow.
 Figure~\ref{fig:wfms} shows a high-level architecture of a generic SWE. It shows key
 components and their interaction in an SWE. These components are the focus of
 interest for the present work. A \textit{user interface} interacts with the
-\textit{workflow engine} using commands and messages on the inside while with
+\textit{workflow system} using commands and messages on the inside while with
 user on the outside. The \textit{workflow language} becomes an intermediate
 representation for communication between user interface and the
-\textit{workflow engine}. The workflow engine acts as a compiler/interpreter
+\textit{workflow system}. The workflow system acts as a compiler/interpreter
 and a high-level scheduler for the processors and interfaces with the
-underlying \textit{distributed resources}. It resolves data dependencies and
+underlying \textit{compute and storage resources}. It resolves data dependencies and
 optimizes the flow at runtime and monitors the workflow progress and collects
 the intermediate and final results.
 
@@ -161,7 +161,7 @@ computations.
 
 DAGs are by far, the most popular abstraction of the way workflows are
 perceived and visualized. The MA DAG~\cite{caron-desprez:2005}, engine is one
-example of a DAG generator engine. MA DAG has evolved from a regular DAG
+example of a DAG generator. MA DAG has evolved from a regular DAG
 generator to a more abstract DAG generator laced with control structures. MA
 DAG benefits from the workflow scheduling mechanisms included in the
 middleware. Due to the impossibility to produce complete DAGs owing to the
@@ -172,19 +172,17 @@ systems, new requirements continue to pose workflow challenges. Some of the
 current challenges facing SWEs are:
 
 \begin{enumerate}
-\item \textbf{Multisite execution.} Interfacing to existing computation and
-storate infrastructure is not trivial, not to mention the new and
-unforeseen access and compute modes. SWEs are yet to formulate a
-generalized interface towards the major platforms such that they will
-run on them out of the box.
+\item \textbf{Multisite and Manysite execution.} Interfacing to existing computation and
+storate infrastructure is not trivial, not to mention the new and unforeseen
+access and compute modes. SWEs are yet to formulate a generalized interface
+towards the major platforms such that they will run on them out of the box.
+Despite having interfaces built for more than one infrastructure, it is hard to
+optimally schedule large workflows to many remote sites simultaneously. The
+problem of limited control over remote sites and distributing interdependent
+data and tasks makes it non-trivial to efficiently load-balance work among
+them.
 
-\item \textbf{Manysite execution.} Even if a SWE has interfaces built for
-more than one infrastructure, it is hard to optimally schedule large
-workflows to many remote sites simultaneously. The problem of limited
-control over remote sites and distributing interdependent data and
-tasks makes it non-trivial to efficiently load-balance work among them.
-
-\item \textbf{Expressivity.} Workflow languages have evolved over the years
+\item \textbf{Language.} Workflow languages have evolved over the years
 with reasonable expressivity being supported. However, they are often
 compared with those of the traditional programming languages. As of
 current state of the art, the workflow languages expressivity still
